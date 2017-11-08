@@ -1,12 +1,11 @@
-service: ${file(./config.yml):service_name} # NOTE: update this with your service name
+service: ${file(./config.yml):service_name}
 
 provider:
   name: aws
-  runtime: nodejs4.3
-  stage: stage # NOTE: Override this option at package.json with CLI-command
+  runtime: nodejs6.10
+  stage: stage
   region: us-east-1
 
-# you can add packaging information here
 package:
   artifact: dist.zip
 
