@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "target": "es6",
+    "removeComments": true,
+    "experimentalDecorators": true
+  },
+  "include": [
+    "app/**/*",
+    "scripts/**/*"
+  ]
+}
