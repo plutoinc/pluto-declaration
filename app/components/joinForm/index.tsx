@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 const styles = require("./joinForm.scss");
 
 interface IJoinFormState {
@@ -21,7 +22,9 @@ class JoinForm extends React.PureComponent<{}, IJoinFormState> {
 
   private handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submit is fired!");
+    axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/sendSheet", {
+      name: this.state.name,
+    });
   };
 
   public render() {

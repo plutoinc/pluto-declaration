@@ -20,5 +20,13 @@ functions:
           method: any
           path: "${self:service}/{proxy+}"
 
+  sendSheet:
+    handler: handler.sendSheet
+    events:
+      - http:
+          method: post
+          path: "sendSheet"
+          cors: true
+          
 resources:
   Resources: ${file(cloudformation.json)}
