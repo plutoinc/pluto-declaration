@@ -4,8 +4,8 @@ interface IS3Options {
 }
 
 export interface IS3ClientOptions {
-  maxAsyncS3: number;     // this is the default
-  s3RetryCount: number;    // this is the default
+  maxAsyncS3: number; // this is the default
+  s3RetryCount: number; // this is the default
   s3RetryDelay: number; // this is the default
   multipartUploadThreshold: number; // this is the default (20 MB)
   multipartUploadSize: number; // this is the default (15 MB)
@@ -28,8 +28,8 @@ export interface IS3ClientUploaderOptions {
 }
 
 export const S3_CLIENT_OPTIONS: IS3ClientOptions = {
-  maxAsyncS3: 20,     // this is the default
-  s3RetryCount: 3,    // this is the default
+  maxAsyncS3: 20, // this is the default
+  s3RetryCount: 3, // this is the default
   s3RetryDelay: 1000, // this is the default
   multipartUploadThreshold: 20971520, // this is the default (20 MB)
   multipartUploadSize: 15728640, // this is the default (15 MB)
@@ -42,7 +42,7 @@ export const S3_CLIENT_OPTIONS: IS3ClientOptions = {
 // Local defined Constants
 export const DEPLOY_VERSION = process.env.DEPLOY_VERSION;
 export const PRODUCTION_GIT_TAG: string = "production";
-export const AWS_S3_BUCKET: string = "serverless-react-tylor-app";
+export const AWS_S3_BUCKET: string = "pluto-declaration";
 export const AWS_S3_FOLDER_PREFIX: string = "react-app";
 export const APP_DEST: string = "./dist/";
 export const VERSION_FILE_NAME: string = "production_version";

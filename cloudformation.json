@@ -1,33 +1,32 @@
 {
+  "SsrLogGroup": {
+    "Properties": {
+      "RetentionInDays": "30"
+    }
+  },
   "CloudFrontDistribution": {
     "Type": "AWS::CloudFront::Distribution",
     "Properties": {
       "DistributionConfig": {
+        "ViewerCertificate": {
+          "AcmCertificateArn": "arn:aws:acm:us-east-1:966390130392:certificate/db902af7-a1ee-40ab-8145-9bd8b786ba39",
+          "SslSupportMethod": "sni-only"
+        },
         "DefaultRootObject": "",
         "Enabled": true,
         "DefaultCacheBehavior": {
-          "AllowedMethods": [
-            "DELETE",
-            "GET",
-            "HEAD",
-            "OPTIONS",
-            "PATCH",
-            "POST",
-            "PUT"
-          ],
-          "CachedMethods": [
-            "HEAD",
-            "GET"
-          ],
+          "AllowedMethods": ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"],
+          "CachedMethods": ["HEAD", "GET"],
           "ForwardedValues": {
             "QueryString": true
           },
-          "MinTTL": "0",
+          "MinTTL": 300,
           "DefaultTTL": 300,
           "MaxTTL": 300,
           "TargetOriginId": "ssr-${opt:stage}-api-gateway",
-          "ViewerProtocolPolicy": "allow-all"
+          "ViewerProtocolPolicy": "redirect-to-https"
         },
+        "Aliases": ["join.pluto.network"],
         "Origins": [
           {
             "CustomOriginConfig": {
