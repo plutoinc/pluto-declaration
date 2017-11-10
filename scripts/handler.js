@@ -22,6 +22,7 @@ module.exports.sendSheet = (event, context, callback) => {
       return new Promise((resolve, reject) => {
         const GoogleSpreadsheet = require("google-spreadsheet");
         const doc = new GoogleSpreadsheet(TARGET_SPREAD_SHEET_ID);
+        const { name, affiliation, email, organization, comment } = user;
         var sheet;
 
         doc.useServiceAccountAuth(googleAuth, function(err) {
@@ -34,11 +35,17 @@ module.exports.sendSheet = (event, context, callback) => {
                 reject();
               } else {
                 sheet = info.worksheets[0];
-                sheet.setHeaderRow(["name"], err => {
+                sheet.setHeaderRow(["name", "affiliation", "email", "organization", "comment"], err => {
                   if (err) {
                     reject(err);
                   } else {
-                    const fields = { name: user.name };
+                    const fields = {
+                      name,
+                      affiliation,
+                      email,
+                      organization,
+                      comment,
+                    };
                     doc.addRow(1, fields, function(err) {
                       if (err) return reject(err);
                       resolve();
