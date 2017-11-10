@@ -35,7 +35,7 @@ module.exports.getUsers = (event, context, callback) => {
     } else {
       const mappedInfos = rows.map(row => {
         return {
-          email: row.email,
+          name: row.name,
           affiliation: row.affiliation,
         };
       });
