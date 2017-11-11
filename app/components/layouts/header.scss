@@ -1,0 +1,49 @@
+@import "../../variables";
+
+.navbar {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: #fff;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  background: black;
+
+  .isTop {
+    box-shadow: none;
+  }
+
+  .headerContainer {
+    max-width: $container-width;
+    height: $navbar-height;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    border-bottom: 1px solid #fff;
+  }
+}
+
+.title {
+  margin-top: 18px;
+  font-family: "PT Serif", "sans-serif";
+  font-size: 14px;
+  color: #fff;
+}
+
+.rightBox {
+  top: 16px;
+  position: absolute;
+  right: 2px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #fff;
+}
+
+.rightBoxItem {
+  margin-left: 11px;
+  margin-right: 11px;
+
+  &:first-of-type {
+    color: #929292;
+  }
+}

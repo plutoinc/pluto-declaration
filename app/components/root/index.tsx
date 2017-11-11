@@ -3,7 +3,7 @@ import * as React from "react";
 import { Header, Footer } from "../layouts";
 // styles
 import { withStyles } from "../../helpers/withStylesHelper";
-
+import "normalize.css";
 const styles = require("./root.scss");
 
 interface IRootComponentProps {}

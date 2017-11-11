@@ -1,32 +1,35 @@
-@import "./normalize";
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,500,700");
+@import url("https://fonts.googleapis.com/css?family=PT+Serif");
+
+* {
+  font-family: "Roboto", "sans-serif";
+  box-sizing: border-box;
+  min-height: 0;
+  min-width: 0;
+}
 
 body {
-  color: #333;
-  font-weight: 300;
-  font-family: "Roboto", sans-serif;
-  box-sizing: border-box;
+  overflow-anchor: none;
 }
 
 a {
-  color: #333;
-  font-weight: 700;
   text-decoration: none;
-
-  &:hover {
-    text-decoration: none;
-  }
-
-  &:active {
-    text-decoration: none;
-  }
+  color: inherit;
 }
 
-h1,
-h2 {
-  margin: 0;
+a:hover {
+  text-decoration: none;
 }
 
-.rootWrapper {
-  position: fixed;
+a:visited {
+  text-decoration: none;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+button {
+  border: 0;
 }

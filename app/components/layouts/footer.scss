@@ -1,0 +1,33 @@
+@import "../../variables";
+
+.footer {
+  position: relative;
+
+  .footerContainer {
+    max-width: $container-width;
+    height: 84px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    border-top: 1px solid #363535;
+  }
+}
+
+.title {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #363535;
+  margin-top: 22px;
+}
+
+.rightBox {
+  top: 22px;
+  position: absolute;
+  right: 2px;
+  font-size: 16px;
+  color: #363535;
+}
+
+.rightBoxItem {
+  margin-left: 23px;
+}

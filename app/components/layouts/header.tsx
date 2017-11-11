@@ -1,27 +1,40 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
+import { withStyles } from "../../helpers/withStylesHelper";
 const styles = require("./header.scss");
 
-const Header = () => {
-  return (
-    <nav className={styles.navbar}>
-      <div className={styles.headerContainer}>
-        <Link className={styles.headerLogo} to="/" />
-        <ul className={styles.menuList}>
-          <li>
-            <a
-              className={styles.menuItem}
-              href="https://medium.com/pluto-network/introducing-plutos-proof-of-concept-prototype-41c4b871861b"
-              target="_blank"
-            >
-              ABOUT
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  );
-};
+interface IHeaderComponentProps {}
 
-export default Header;
+@withStyles<typeof Header>(styles)
+export default class Header extends React.PureComponent<IHeaderComponentProps, {}> {
+  public render() {
+    return (
+      <nav className={styles.navbar}>
+        <div className={styles.headerContainer}>
+          <span className={styles.title}>The future of Scholarly Communication</span>
+          <div className={styles.rightBox}>
+            <Link className={styles.rightBoxItem} to="/">
+              About us
+            </Link>
+            <Link className={styles.rightBoxItem} to="/">
+              Home page
+            </Link>
+            |
+            <Link className={styles.rightBoxItem} to="/">
+              Facebook
+            </Link>
+            |
+            <Link className={styles.rightBoxItem} to="/">
+              Twitter
+            </Link>
+            |
+            <Link className={styles.rightBoxItem} to="/">
+              Blog
+            </Link>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+}
