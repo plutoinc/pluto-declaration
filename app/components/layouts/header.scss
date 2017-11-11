@@ -7,7 +7,7 @@
   width: 100%;
   background-color: #fff;
   transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  background: black;
+  background-color: transparent;
 
   .isTop {
     box-shadow: none;
@@ -44,6 +44,6 @@
   margin-right: 11px;
 
   &:first-of-type {
-    color: #929292;
+    color: $space_gray2;
   }
 }

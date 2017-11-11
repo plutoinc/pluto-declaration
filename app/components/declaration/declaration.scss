@@ -1,0 +1,116 @@
+@import "../../variables";
+
+.declarationContainer {
+  position: relative;
+
+  .background {
+    width: 100%;
+    background-image: radial-gradient(circle at 49% 102%, #5a5856, $black_navy4);
+    height: 609px;
+    position: absolute;
+    top: -102px;
+    z-index: -1;
+  }
+
+  .innerContainer {
+    max-width: $small-container-width;
+    margin: 0px auto;
+    position: relative;
+
+    .titleContainer {
+      display: flex;
+      margin-top: 102px;
+
+      .title {
+        width: 543.5px;
+        font-family: "PT Serif", "sans-serif";
+        font-size: 47px;
+        color: #fff;
+      }
+
+      .rightBox {
+        position: absolute;
+        right: 2px;
+        top: 10px;
+
+        .rightItem {
+          margin-left: 10px;
+          svg {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
+
+    .subTitle {
+      font-family: "PT Serif", "sans-serif";
+      font-size: 24px;
+      color: $space_gray1;
+    }
+
+    .declarationBox {
+      margin-top: 80px;
+      width: 780px;
+      height: 696.5px;
+      background-color: #fff;
+      box-shadow: 0 30px 47px 0 rgba(102, 109, 124, 0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .title {
+        margin-top: 56px;
+        font-family: "PT Serif", "sans-serif";
+        font-size: 20px;
+        letter-spacing: 6.5px;
+        color: $black_navy4;
+      }
+
+      .seperatorLine {
+        margin-top: 16px;
+        width: 58px;
+        border: solid 1px #000;
+      }
+
+      .upperContent {
+        margin-top: 36px;
+        display: flex;
+        width: 620px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: $black_navy2;
+
+        .upperCase {
+          font-size: 49px;
+          width: 75px;
+          margin-top: -8px;
+          font-family: "PT Serif", "sans-serif";
+          height: 0;
+        }
+      }
+
+      .lowerContent {
+        width: 620px;
+        height: 351px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: $black_navy2;
+      }
+
+      .buttons {
+        margin-top: 50px;
+        line-height: 1.69;
+
+        .readMore {
+          @include default-button($space_gray3);
+        }
+
+        .purpose {
+          margin-left: 10px;
+          @include default-button($black_navy3);
+        }
+      }
+    }
+  }
+}

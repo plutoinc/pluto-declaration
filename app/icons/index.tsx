@@ -19,7 +19,6 @@ class Icon extends React.PureComponent<IIconProps, {}> {
     }
 
     const imgSrc = ICONS[this.props.icon];
-
     if (!imgSrc) {
       return <i className={className}>{imgSrc}</i>;
     } else if (typeof imgSrc === "string") {
