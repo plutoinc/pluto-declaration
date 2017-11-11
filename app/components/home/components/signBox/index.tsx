@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { withStyles } from "../../../../helpers/withStylesHelper";
-import Icon from "../../../../icons/index";
+import Icon from "../../../../icons";
 const styles = require("./signBox.scss");
 
 interface ISignBoxComponentProps {
