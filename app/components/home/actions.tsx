@@ -32,3 +32,39 @@ export function leaveBoxMovingHeight() {
     type: ACTION_TYPES.SIGN_BOX_LEAVE_BOX_MOVING_HEIGHT,
   };
 }
+
+export function changeSignBoxNameInput(name: string) {
+  return {
+    type: ACTION_TYPES.SIGN_BOX_CHANGE_NAME_INPUT,
+    payload: {
+      name,
+    },
+  };
+}
+
+export function changeSignBoxAffiliation(affiliation: string) {
+  return {
+    type: ACTION_TYPES.SIGN_BOX_CHANGE_AFFILIATION,
+    payload: {
+      affiliation,
+    },
+  };
+}
+
+export function changeSignBoxAffiliationEmail(affiliationEmail: string) {
+  return {
+    type: ACTION_TYPES.SIGN_BOX_CHANGE_AFFILIATION_EMAIL,
+    payload: {
+      affiliationEmail,
+    },
+  };
+}
+
+export function changeSignBoxCommentInput(comment: string) {
+  return {
+    type: ACTION_TYPES.SIGN_BOX_CHANGE_COMMENT,
+    payload: {
+      comment,
+    },
+  };
+}

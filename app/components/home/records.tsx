@@ -7,6 +7,10 @@ export interface IHomeState {
   signListSearchQuery: string;
   isTop: boolean;
   isBoxMovingHeight: boolean;
+  nameInput: string;
+  affiliationInput: string;
+  affiliationEmailInput: string;
+  commentInput: string;
 }
 
 export interface IHomeStateRecord extends TypedRecord<IHomeStateRecord>, IHomeState {}
@@ -18,6 +22,10 @@ const initialHomeState: IHomeState = {
   signListSearchQuery: "",
   isTop: true,
   isBoxMovingHeight: false,
+  nameInput: "",
+  affiliationInput: "",
+  affiliationEmailInput: "",
+  commentInput: "",
 };
 
 export const HomeStateFactory = makeTypedFactory<IHomeState, IHomeStateRecord>(initialHomeState);

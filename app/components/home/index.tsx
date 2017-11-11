@@ -58,8 +58,39 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     dispatch(Actions.changeSignListSearchQuery(searchQuery));
   };
 
+  private changeSignBoxNameInput = (name: string) => {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.changeSignBoxNameInput(name));
+  };
+
+  private changeSignBoxAffiliation = (affiliation: string) => {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.changeSignBoxAffiliation(affiliation));
+  };
+
+  private changeSignBoxAffiliationEmail = (affiliationEmail: string) => {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.changeSignBoxAffiliationEmail(affiliationEmail));
+  };
+
+  private changeSignBoxCommentInput = (comment: string) => {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.changeSignBoxCommentInput(comment));
+  };
+
   public render() {
-    const { signListSearchQuery, isBoxMovingHeight } = this.props.homeState;
+    const {
+      signListSearchQuery,
+      isBoxMovingHeight,
+      nameInput,
+      affiliationInput,
+      affiliationEmailInput,
+      commentInput,
+    } = this.props.homeState;
     return (
       <div className={styles.homeContainer}>
         <Helmet title="Join Pluto Network!" />
@@ -69,7 +100,17 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             changeSignListSearchQuery={this.changeSignListSearchQuery}
             signListSearchQuery={signListSearchQuery}
           />
-          <SignBox isBoxMovingHeight={isBoxMovingHeight} />
+          <SignBox
+            isBoxMovingHeight={isBoxMovingHeight}
+            nameInput={nameInput}
+            changeSignBoxNameInput={this.changeSignBoxNameInput}
+            affiliationInput={affiliationInput}
+            changeSignBoxAffiliation={this.changeSignBoxAffiliation}
+            affiliationEmailInput={affiliationEmailInput}
+            changeSignBoxAffiliationEmail={this.changeSignBoxAffiliationEmail}
+            commentInput={commentInput}
+            changeSignBoxCommentInput={this.changeSignBoxCommentInput}
+          />
         </div>
         <JoinForm />
         <UserList />
