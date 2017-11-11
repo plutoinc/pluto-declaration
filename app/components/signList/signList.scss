@@ -1,0 +1,59 @@
+@import "../../variables";
+
+.signListContainer {
+  margin: 0px auto;
+  width: $container-width;
+  margin-top: 97.5px;
+
+  .innerContainer {
+    width: 613px;
+    position: relative;
+  }
+
+  .title {
+    margin-top: 32px;
+    font-size: 40px;
+    font-weight: 300;
+    color: #bdb9b9;
+
+    .number {
+      font-weight: normal;
+      color: #6096ff;
+    }
+  }
+
+  .searchBar {
+    margin-top: 60px;
+    width: 613px;
+    border-bottom: solid 2px #373737;
+    display: flex;
+
+    .placeHolder {
+      font-size: 24px;
+      color: #bdb9b9;
+      position: absolute;
+      font-weight: 300;
+      z-index: -1;
+
+      .bold {
+        font-weight: normal;
+      }
+    }
+
+    .inputBox {
+      border: 0;
+      height: 24px;
+      font-size: 24px;
+      color: $black_navy2;
+      flex: 1;
+      margin-bottom: 19px;
+      z-index: 2;
+      background: transparent;
+    }
+
+    .searchIconWrapper > svg {
+      width: 23px;
+      height: 23px;
+    }
+  }
+}
