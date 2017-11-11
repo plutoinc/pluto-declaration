@@ -27,22 +27,20 @@ export default class SignList extends React.PureComponent<ISignListComponentProp
 
     return (
       <div className={styles.signListContainer}>
-        <div className={styles.innerContainer}>
-          <div className={styles.title}>
-            <span className={styles.number}>828</span> People have signed
-          </div>
-          <div className={styles.searchBar}>
-            {this.getPlaceHolder()}
-            <input
-              onChange={e => {
-                changeSignListSearchQuery(e.currentTarget.value);
-              }}
-              className={`form-control ${styles.inputBox}`}
-              value={signListSearchQuery}
-            />
-            Search!!
-            <Icon className={styles.searchIconWrapper} icon="SEARCH" />
-          </div>
+        <div className={styles.title}>
+          <span className={styles.number}>828</span> People have signed
+        </div>
+        <div className={styles.searchBar}>
+          {this.getPlaceHolder()}
+          <input
+            onChange={e => {
+              changeSignListSearchQuery(e.currentTarget.value);
+            }}
+            className={`form-control ${styles.inputBox}`}
+            value={signListSearchQuery}
+          />
+          Search!!
+          <Icon className={styles.searchIconWrapper} icon="SEARCH" />
         </div>
       </div>
     );

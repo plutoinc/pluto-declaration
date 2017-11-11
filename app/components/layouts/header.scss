@@ -6,19 +6,18 @@
   z-index: 100;
   width: 100%;
   background-color: #fff;
-  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   background-color: transparent;
 
-  .isTop {
-    box-shadow: none;
-  }
-
   .headerContainer {
+    transition: border-bottom 250ms cubic-bezier(0.4, 0, 0.2, 1);
     max-width: $container-width;
     height: $navbar-height;
     position: relative;
     margin: 0 auto;
     display: flex;
+  }
+
+  .isTop {
     border-bottom: 1px solid #fff;
   }
 }

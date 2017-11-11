@@ -9,8 +9,11 @@ import SignList from "./components/signList";
 import { IHomeStateRecord } from "./records";
 import { IAppState } from "../../rootReducer";
 import * as Actions from "./actions";
+import SignBox from "./components/signBox";
+import { throttle } from "lodash";
 
 const styles = require("./home.scss");
+const BOX_MOVING_HEIGHT = 483;
 
 interface IHomeComponentProps extends DispatchProp<IHomeMappedState> {
   homeState: IHomeStateRecord;
@@ -28,6 +31,27 @@ function mapStateToProps(state: IAppState) {
 
 @withStyles<typeof HomeComponent>(styles)
 class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
+  public componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  public componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  private handleScrollEvent = () => {
+    const { dispatch } = this.props;
+    const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+
+    if (scrollTop < BOX_MOVING_HEIGHT) {
+      dispatch(Actions.reachBoxMovingHeight());
+    } else {
+      dispatch(Actions.leaveBoxMovingHeight());
+    }
+  };
+
+  private handleScroll = throttle(this.handleScrollEvent, 100);
+
   private changeSignListSearchQuery = (searchQuery: string) => {
     const { dispatch } = this.props;
 
@@ -35,15 +59,18 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
   };
 
   public render() {
-    const { signListSearchQuery } = this.props.homeState;
+    const { signListSearchQuery, isBoxMovingHeight } = this.props.homeState;
     return (
-      <div className={styles.homeWrapper}>
+      <div className={styles.homeContainer}>
         <Helmet title="Join Pluto Network!" />
         <Declaration />
-        <SignList
-          changeSignListSearchQuery={this.changeSignListSearchQuery}
-          signListSearchQuery={signListSearchQuery}
-        />
+        <div className={styles.signContainer}>
+          <SignList
+            changeSignListSearchQuery={this.changeSignListSearchQuery}
+            signListSearchQuery={signListSearchQuery}
+          />
+          <SignBox isBoxMovingHeight={isBoxMovingHeight} />
+        </div>
         <JoinForm />
         <UserList />
       </div>

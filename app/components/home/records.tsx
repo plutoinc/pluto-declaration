@@ -5,6 +5,8 @@ export interface IHomeState {
   isFailed: boolean;
   hasError: boolean;
   signListSearchQuery: string;
+  isTop: boolean;
+  isBoxMovingHeight: boolean;
 }
 
 export interface IHomeStateRecord extends TypedRecord<IHomeStateRecord>, IHomeState {}
@@ -14,6 +16,8 @@ const initialHomeState: IHomeState = {
   isFailed: false,
   hasError: false,
   signListSearchQuery: "",
+  isTop: true,
+  isBoxMovingHeight: false,
 };
 
 export const HomeStateFactory = makeTypedFactory<IHomeState, IHomeStateRecord>(initialHomeState);

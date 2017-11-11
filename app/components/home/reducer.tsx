@@ -8,6 +8,22 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
       return state.set("signListSearchQuery", action.payload.searchQuery);
     }
 
+    case ACTION_TYPES.HEADER_REACH_SCROLL_TOP: {
+      return state.set("isTop", true);
+    }
+
+    case ACTION_TYPES.HEADER_LEAVE_SCROLL_TOP: {
+      return state.set("isTop", false);
+    }
+
+    case ACTION_TYPES.SIGN_BOX_REACH_BOX_MOVING_HEIGHT: {
+      return state.set("isBoxMovingHeight", true);
+    }
+
+    case ACTION_TYPES.SIGN_BOX_LEAVE_BOX_MOVING_HEIGHT: {
+      return state.set("isBoxMovingHeight", false);
+    }
+
     default:
       return state;
   }
