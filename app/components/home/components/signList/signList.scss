@@ -7,23 +7,23 @@
     margin-top: 32px;
     font-size: 40px;
     font-weight: 300;
-    color: #bdb9b9;
+    color: $space_gray4;
 
     .number {
       font-weight: normal;
-      color: #6096ff;
+      color: $royal_blue1;
     }
   }
 
   .searchBar {
     margin-top: 60px;
     width: 613px;
-    border-bottom: solid 2px #373737;
+    border-bottom: solid 2px $black_navy2;
     display: flex;
 
     .placeHolder {
       font-size: 24px;
-      color: #bdb9b9;
+      color: $space_gray4;
       position: absolute;
       font-weight: 300;
       z-index: -1;
