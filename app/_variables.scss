@@ -1,4 +1,7 @@
 // Color Variables
+$royal_blue1: #6096ff; // Main color
+$royal_blue2: #81acff; // Main color when hover
+$royal_blue3: #4da1ff; // Main color when border
 $space_gray1: #ebe9e4; // Information text
 $space_gray2: #929292;
 $space_gray3: #eceaea;
@@ -38,6 +41,12 @@ $s3-url: "https://d103giazgvc1eu.cloudfront.net/";
     color: $black_navy2;
   } @else if $bgc == $black_navy3 {
     color: $space_gray3;
+  } @else if $bgc == $royal_blue1 {
+    color: #fff;
+
+    &:hover {
+      background-color: $royal_blue2;
+    }
   }
 
   &:hover {
