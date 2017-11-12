@@ -19,9 +19,10 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: "svg-inline-loader",
+        loader: "svg-sprite-loader",
         options: {
-          classPrefix: true,
+          classPrefix: false,
+          idPrefix: true,
         },
       },
       {
@@ -31,6 +32,10 @@ module.exports = {
       {
         test: /\.md?$/,
         use: [{ loader: "html-loader" }, { loader: "markdown-loader" }],
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.scss$/,

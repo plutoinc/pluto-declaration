@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
     "@types/axios": "^0.14.0",
+    "@types/lodash": "^4.14.85",
     "@types/enzyme": "^3.1.0",
     "@types/fs-extra": "4.0.2",
     "@types/immutable": "^3.8.7",
@@ -77,6 +78,8 @@
     "axios": "^0.17.0",
     "babel-polyfill": "^6.26.0",
     "immutable": "^3.8.2",
+    "lodash": "^4.17.4",
+    "normalize.css": "^7.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -88,6 +91,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
+    "svg-sprite-loader": "^3.4.1",
     "typed-immutable-record": "0.0.6"
   },
   "jest": {

@@ -1,9 +1,9 @@
 import * as React from "react";
 // components
-import NavbarComponent from "../navbar";
+import { Header, Footer } from "../layouts";
 // styles
 import { withStyles } from "../../helpers/withStylesHelper";
-
+import "normalize.css";
 const styles = require("./root.scss");
 
 interface IRootComponentProps {}
@@ -13,8 +13,9 @@ export default class RootComponent extends React.PureComponent<IRootComponentPro
   public render() {
     return (
       <div>
-        <NavbarComponent />
+        <Header />
         {this.props.children}
+        <Footer />
       </div>
     );
   }
