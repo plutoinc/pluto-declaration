@@ -7,6 +7,4 @@ echo "${TRAVIS_PULL_REQUEST}"
 
 if [ "${TRAVIS_BRANCH}" == "master" ] && [ "${TRAVIS_PULL_REQUEST}" == false ]; then
     npm run deploy:prod
-else
-    npm run deploy:stage
 fi
