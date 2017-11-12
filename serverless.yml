@@ -27,6 +27,14 @@ functions:
           method: post
           path: "sendSheet"
           cors: true
-          
+
+  getUsers:
+    handler: handler.getUsers
+    events:
+      - http:
+          method: get
+          path: "getUsers"
+          cors: true
+
 resources:
   Resources: ${file(cloudformation.json)}
