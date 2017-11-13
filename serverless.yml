@@ -36,5 +36,13 @@ functions:
           path: "getUsers"
           cors: true
 
+  getUserCount:
+    handler: handler.getUserCount
+    events:
+      - http:
+          method: get
+          path: "getUserCount"
+          cors: true
+
 resources:
   Resources: ${file(cloudformation.json)}

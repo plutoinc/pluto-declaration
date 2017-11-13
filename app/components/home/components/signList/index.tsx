@@ -14,7 +14,9 @@ interface ISignListComponentProps {
   isLoading: boolean;
   isEnd: boolean;
   sort: USER_LIST_SORT_TYPE;
+  usersCount: number;
   fetchData: () => void;
+  fetchUserCount: () => void;
 }
 
 @withStyles<typeof SignList>(styles)
@@ -31,6 +33,10 @@ export default class SignList extends React.PureComponent<ISignListComponentProp
     }
   };
 
+  public componentDidMount() {
+    this.props.fetchUserCount();
+  }
+
   public render() {
     const {
       signListSearchQuery,
@@ -41,12 +47,13 @@ export default class SignList extends React.PureComponent<ISignListComponentProp
       isEnd,
       sort,
       fetchData,
+      usersCount,
     } = this.props;
 
     return (
       <div className={styles.signListContainer}>
         <div className={styles.title}>
-          <span className={styles.number}>828</span> People have signed
+          <span className={styles.number}>{usersCount}</span> People have signed
         </div>
         <div className={styles.searchBar}>
           {this.getPlaceHolder()}

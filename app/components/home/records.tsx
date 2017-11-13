@@ -9,6 +9,7 @@ export enum USER_LIST_SORT_TYPE {
 export interface IHomeState {
   isLoading: boolean; // For post user
   hasError: boolean; // For post user
+  usersCount: number;
   signListSearchQuery: string;
   isTop: boolean;
   isBoxMovingHeight: boolean;
@@ -27,6 +28,7 @@ export interface IHomeStateRecord extends TypedRecord<IHomeStateRecord>, IHomeSt
 const initialHomeState: IHomeState = {
   isLoading: false,
   hasError: false,
+  usersCount: 0,
   signListSearchQuery: "",
   isTop: true,
   isBoxMovingHeight: false,

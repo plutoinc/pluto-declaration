@@ -1,6 +1,50 @@
 const bundle = require("./bundle");
 
+function handlingError(err) {
+  console.error(err);
+  callback(null, {
+    statusCode: 500,
+    headers: {
+      "Content-Type": "text/html",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
+    },
+    body: JSON.stringify(err),
+  });
+}
+
 module.exports.ssr = bundle.ssr.handler;
+
+module.exports.getUserCount = (event, context, callback) => {
+  const GoogleSpreadsheet = require("google-spreadsheet");
+  const moment = require("moment");
+
+  const googleAuth = JSON.parse(process.env.GOOGLE_AUTH);
+  const TARGET_SPREAD_SHEET_ID = "1iy2f4IClmv_k-S4BQze8b9Uk5nlLtOKm_89uxUmvYRs";
+  const doc = new GoogleSpreadsheet(TARGET_SPREAD_SHEET_ID);
+
+  doc.useServiceAccountAuth(googleAuth, function(err) {
+    if (err) {
+      handlingError(err);
+    } else {
+      doc.getRows(1, function(err, rows) {
+        if (err) {
+          handlingError(err);
+        } else {
+          context.succeed({
+            statusCode: 200,
+            headers: {
+              "Content-Type": "application/json;charset=UTF-8",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": true,
+            },
+            body: JSON.stringify(rows.length),
+          });
+        }
+      });
+    }
+  });
+};
 
 module.exports.getUsers = (event, context, callback) => {
   const ROWS_PER_PAGE = 100;
@@ -14,19 +58,6 @@ module.exports.getUsers = (event, context, callback) => {
   if (event.queryStringParameters) {
     page = event.queryStringParameters.page ? parseInt(event.queryStringParameters.page, 10) : 0;
     offset = page > 0 ? page * ROWS_PER_PAGE : 1;
-  }
-
-  function handlingError(err) {
-    console.error(err);
-    callback(null, {
-      statusCode: 500,
-      headers: {
-        "Content-Type": "text/html",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials": true,
-      },
-      body: JSON.stringify(err),
-    });
   }
 
   function rowCallback(err, rows) {
