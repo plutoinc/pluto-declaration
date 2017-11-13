@@ -7,6 +7,7 @@ export enum USER_LIST_SORT_TYPE {
 }
 
 export interface IHomeState {
+  alreadySigned: boolean;
   isLoading: boolean; // For post user
   hasError: boolean; // For post user
   usersCount: number;
@@ -26,6 +27,7 @@ export interface IHomeState {
 export interface IHomeStateRecord extends TypedRecord<IHomeStateRecord>, IHomeState {}
 
 const initialHomeState: IHomeState = {
+  alreadySigned: false,
   isLoading: false,
   hasError: false,
   usersCount: 0,

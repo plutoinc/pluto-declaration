@@ -107,3 +107,121 @@
     @include default-button($royal_blue1, 250px, 50px);
   }
 }
+
+.twitterBoxTitle {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.39;
+  letter-spacing: 1.1px;
+  margin-bottom: 11px;
+  text-align: center;
+  color: #333;
+}
+
+.twitterBoxSubTitle {
+  font-size: 17px;
+  line-height: 1.39;
+  text-align: center;
+  color: #929292;
+  margin-bottom: 20px;
+}
+
+.twitterBoxSubTitleHashtag {
+  color: #6096ff;
+}
+
+.twitButton {
+  display: flex;
+  width: 250px;
+  height: 50px;
+  border-radius: 50px;
+  margin: 0 auto;
+  background-color: #4db9ff;
+  font-size: 16px;
+  text-align: center;
+  color: #ffffff;
+  align-items: center;
+  justify-content: center;
+}
+
+.twitterIcon {
+  display: inline-block;
+  vertical-align: top;
+
+  svg {
+    fill: #fff;
+    width: 15px;
+  }
+}
+
+.fakeTwitterBox {
+  padding: 18px 20px 12.5px 20px;
+  background-color: #ffffff;
+  border: solid 1px #eceaea;
+  border-radius: 4px;
+  margin-bottom: 26.5px;
+}
+
+.userImg {
+  display: inline-block;
+  vertical-align: top;
+  width: 36px;
+  height: 36px;
+  margin-right: 7.5px;
+}
+
+.usernameBox {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.userInformation {
+  margin-bottom: 17.5px;
+}
+
+.username {
+  max-width: 160px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 16px;
+  font-family: Helvetica;
+  font-weight: bold;
+  text-align: left;
+  color: #000000;
+  margin-bottom: 1px;
+}
+
+.affiliation {
+  max-width: 160px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-family: Helvetica;
+  font-size: 14px;
+  text-align: left;
+  color: #6a7783;
+}
+
+.twitterContent {
+  font-family: Helvetica;
+  font-size: 16px;
+  line-height: 1.38;
+  text-align: left;
+  color: #000000;
+  margin-bottom: 23px;
+}
+
+.createdAt {
+  font-family: Helvetica;
+  font-size: 14px;
+  text-align: left;
+  color: #6a7783;
+  margin-bottom: 12.5px;
+}
+
+.fakeActionButton {
+  width: 106px;
+  height: 17px;
+  object-fit: contain;
+}

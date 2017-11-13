@@ -32,6 +32,25 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
   public componentDidMount() {
     if (!EnvChecker.isServer()) {
       window.addEventListener("scroll", this.handleScroll);
+      // START LOAD TWITTER API
+      (window as any).twttr = (function(d, s, id) {
+        var js: any,
+          fjs = d.getElementsByTagName(s)[0],
+          t = (window as any).twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f: any) {
+          t._e.push(f);
+        };
+
+        return t;
+      })(document, "script", "twitter-wjs");
+      // END LOAD TWITTER API
     }
   }
 
@@ -127,6 +146,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       userListSort,
       isLoading,
       usersCount,
+      alreadySigned,
     } = this.props.homeState;
     const { users } = this.props;
 
@@ -159,6 +179,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             changeSignBoxCommentInput={this.changeSignBoxCommentInput}
             handleSubmitSignForm={this.handleSubmitSignForm}
             isLoading={isLoading}
+            alreadySigned={alreadySigned}
           />
         </div>
       </div>

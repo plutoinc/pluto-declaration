@@ -60,11 +60,8 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
     case ACTION_TYPES.GLOBAL_ADD_USER: {
       return state.withMutations(currentState => {
         return currentState
-          .set("nameInput", "")
-          .set("affiliationInput", "")
-          .set("affiliationEmailInput", "")
-          .set("commentInput", "")
           .set("isLoading", false)
+          .set("alreadySigned", true)
           .set("usersCount", currentState.usersCount + 1);
       });
     }

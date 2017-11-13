@@ -1,9 +1,4 @@
-export function staticHTMLWrapper(
-  reactDom: string,
-  scriptPath: string,
-  initialState: string,
-  css: string,
-) {
+export function staticHTMLWrapper(reactDom: string, scriptPath: string, initialState: string, css: string) {
   return `
     <!doctype html>
     <html>
@@ -22,4 +17,4 @@ export function staticHTMLWrapper(
       </body>
     </html>
   `;
-};
+}
