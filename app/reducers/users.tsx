@@ -6,7 +6,7 @@ import { ACTION_TYPES } from "../actions/actionTypes";
 export interface IUserInformation {
   name: string;
   affiliation: string;
-  date: Date;
+  date: string;
 }
 
 export interface IUsers {

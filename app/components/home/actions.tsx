@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as moment from "moment";
 import { ACTION_TYPES } from "../../actions/actionTypes";
 import { Dispatch } from "react-redux";
 
@@ -94,13 +95,16 @@ export function postSignUser({ name, affiliation, email, organization, comment }
         comment,
       });
 
+      const date = new Date();
+      const createdAt = moment(date).format("x");
+
       dispatch({
         type: ACTION_TYPES.GLOBAL_ADD_USER,
         payload: {
           user: {
             name,
             affiliation,
-            date: new Date(),
+            date: createdAt,
           },
         },
       });

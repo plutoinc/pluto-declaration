@@ -58,7 +58,16 @@ module.exports.getUsers = (event, context, callback) => {
       handlingError(err);
     } else {
       const limit = page > 0 ? ROWS_PER_PAGE : 99;
-      doc.getRows(1, { offset: offset, limit: limit }, rowCallback);
+
+      // NOTE: The reverse option only works in conjunction with orderby. It will not work to reverse the default ordering. This is a known bug in Google's API.
+      const getOptions = {
+        offset: offset,
+        limit: limit,
+        orderby: "date",
+        reverse: true,
+      };
+
+      doc.getRows(1, getOptions, rowCallback);
     }
   });
 };
@@ -88,6 +97,7 @@ module.exports.sendSheet = (event, context, callback) => {
     const addUser = user => {
       return new Promise((resolve, reject) => {
         const GoogleSpreadsheet = require("google-spreadsheet");
+        const moment = require("moment");
         const doc = new GoogleSpreadsheet(TARGET_SPREAD_SHEET_ID);
         const { name, affiliation, email, organization, comment } = user;
         var sheet;
@@ -106,13 +116,16 @@ module.exports.sendSheet = (event, context, callback) => {
                   if (err) {
                     reject(err);
                   } else {
+                    const date = new Date();
+                    const createdAt = moment(date).format("x");
+
                     const fields = {
                       name,
                       affiliation,
                       email,
                       organization,
                       comment,
-                      date: new Date(),
+                      date: createdAt,
                     };
 
                     doc.addRow(1, fields, function(err) {

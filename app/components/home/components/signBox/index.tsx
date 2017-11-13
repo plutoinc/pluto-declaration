@@ -6,6 +6,7 @@ const styles = require("./signBox.scss");
 
 interface ISignBoxComponentProps {
   isBoxMovingHeight: boolean;
+  isLoading: boolean;
   nameInput: string;
   changeSignBoxNameInput: (name: string) => void;
   affiliationInput: string;
@@ -19,6 +20,20 @@ interface ISignBoxComponentProps {
 
 @withStyles<typeof SignBanner>(styles)
 export default class SignBanner extends React.PureComponent<ISignBoxComponentProps, {}> {
+  private getSubmitButton = () => {
+    const { isLoading } = this.props;
+
+    if (isLoading) {
+      return <div className={styles.submitButton}>Uploading ...</div>;
+    } else {
+      return (
+        <button type="submit" className={styles.submitButton}>
+          Sign
+        </button>
+      );
+    }
+  };
+
   public render() {
     const {
       nameInput,
@@ -94,9 +109,7 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
           <div className={styles.checkBox} />
           <span className={styles.checkBoxContent}>Send me email updates about the project (Option)</span>
         </div>
-        <button type="submit" className={styles.submitButton}>
-          Sign
-        </button>
+        {this.getSubmitButton()}
       </form>
     );
   }

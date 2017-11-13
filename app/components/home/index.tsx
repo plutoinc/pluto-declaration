@@ -84,12 +84,12 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     dispatch(Actions.changeSignBoxCommentInput(comment));
   };
 
-  private handleSubmitSignForm = (e: React.FormEvent<HTMLFormElement>) => {
+  private handleSubmitSignForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { dispatch } = this.props;
     const { nameInput, affiliationInput, affiliationEmailInput, commentInput } = this.props.homeState;
 
-    dispatch(
+    await dispatch(
       Actions.postSignUser({
         name: nameInput,
         affiliation: affiliationInput,
@@ -120,6 +120,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       userListIsEnd,
       userListPage,
       userListSort,
+      isLoading,
     } = this.props.homeState;
     const { users } = this.props;
 
@@ -149,6 +150,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             commentInput={commentInput}
             changeSignBoxCommentInput={this.changeSignBoxCommentInput}
             handleSubmitSignForm={this.handleSubmitSignForm}
+            isLoading={isLoading}
           />
         </div>
       </div>
