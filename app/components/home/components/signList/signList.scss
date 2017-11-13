@@ -50,3 +50,52 @@
     }
   }
 }
+
+.userList {
+  list-style: none;
+  padding: 0;
+}
+
+.userItem {
+  padding: 20px 10.5px;
+  border-top: solid 1px #e0e0e0;
+  display: flex;
+  height: 88px;
+  font-size: 18px;
+  font-weight: 300;
+  color: #3d3d3d;
+
+  &:last-of-type {
+    border-bottom: solid 1px #e0e0e0;
+  }
+}
+
+.userItemCategory {
+  display: flex;
+  height: 39px;
+  padding: 0 10.5px 15.5px 10.5px;
+  font-size: 20px;
+  font-weight: 300;
+  color: #3d3d3d;
+}
+
+.userItemName {
+  display: inline-block;
+  vertical-align: top;
+  width: 170px;
+  height: 100%;
+}
+
+.userItemAffiliation {
+  display: inline-block;
+  vertical-align: top;
+  flex: 1;
+  height: 100%;
+}
+
+.userItemDate {
+  display: inline-block;
+  vertical-align: top;
+  width: 186px;
+  height: 100%;
+}

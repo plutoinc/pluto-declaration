@@ -14,6 +14,7 @@ interface ISignBoxComponentProps {
   changeSignBoxAffiliationEmail: (affiliationEmail: string) => void;
   commentInput: string;
   changeSignBoxCommentInput: (comment: string) => void;
+  handleSubmitSignForm: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 @withStyles<typeof SignBanner>(styles)
@@ -28,11 +29,13 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
       changeSignBoxAffiliationEmail,
       commentInput,
       changeSignBoxCommentInput,
+      handleSubmitSignForm,
     } = this.props;
     // const { isBoxMovingHeight } = this.props;
 
     return (
-      <div
+      <form
+        onSubmit={handleSubmitSignForm}
         className={styles.signBoxContainer}
         style={{
           // position: isBoxMovingHeight ? "static" : "fixed",
@@ -42,6 +45,7 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
         <div className={styles.inputWrapper}>
           <Icon className={styles.iconWrapper} icon="TWITTER" />
           <input
+            type="text"
             onChange={e => {
               changeSignBoxNameInput(e.currentTarget.value);
             }}
@@ -53,6 +57,7 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
         <div className={styles.inputWrapper}>
           <Icon className={styles.iconWrapper} icon="TWITTER" />
           <input
+            type="text"
             onChange={e => {
               changeSignBoxAffiliation(e.currentTarget.value);
             }}
@@ -64,6 +69,7 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
         <div className={styles.inputWrapper}>
           <Icon className={styles.iconWrapper} icon="TWITTER" />
           <input
+            type="email"
             onChange={e => {
               changeSignBoxAffiliationEmail(e.currentTarget.value);
             }}
@@ -88,8 +94,10 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
           <div className={styles.checkBox} />
           <span className={styles.checkBoxContent}>Send me email updates about the project (Option)</span>
         </div>
-        <div className={styles.submitButton}>Sign</div>
-      </div>
+        <button type="submit" className={styles.submitButton}>
+          Sign
+        </button>
+      </form>
     );
   }
 }
