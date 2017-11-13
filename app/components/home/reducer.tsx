@@ -40,6 +40,40 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
       return state.set("commentInput", action.payload.comment);
     }
 
+    case ACTION_TYPES.SIGN_LIST_START_TO_FETCH_USERS: {
+      return state.withMutations(currentState => {
+        return currentState.set("userListIsLoading", true).set("userListIsEnd", false);
+      });
+    }
+
+    case ACTION_TYPES.SIGN_LIST_FAILED_TO_FETCH_USERS:
+    case ACTION_TYPES.SIGN_LIST_END_TO_FETCH_USERS: {
+      return state.withMutations(currentState => {
+        return currentState.set("userListIsLoading", false).set("userListIsEnd", true);
+      });
+    }
+
+    case ACTION_TYPES.SIGN_LIST_START_TO_POST_USERS: {
+      return state.set("isLoading", true).set("hasError", false);
+    }
+
+    case ACTION_TYPES.GLOBAL_ADD_USER: {
+      return state.set("isLoading", false);
+    }
+
+    case ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS: {
+      return state.set("isLoading", false).set("hasError", true);
+    }
+
+    case ACTION_TYPES.GLOBAL_GET_USERS: {
+      return state.withMutations(currentState => {
+        return currentState
+          .set("userListPage", currentState.userListPage + 1)
+          .set("userListIsLoading", false)
+          .set("userListIsEnd", false);
+      });
+    }
+
     default:
       return state;
   }

@@ -1,4 +1,14 @@
+import axios from "axios";
 import { ACTION_TYPES } from "../../actions/actionTypes";
+import { Dispatch } from "react-redux";
+
+interface IPostSignUserParams {
+  name: string;
+  affiliation: string;
+  email: string;
+  organization: string;
+  comment: string;
+}
 
 export function changeSignListSearchQuery(searchQuery: string) {
   return {
@@ -66,5 +76,68 @@ export function changeSignBoxCommentInput(comment: string) {
     payload: {
       comment,
     },
+  };
+}
+
+export function postSignUser({ name, affiliation, email, organization, comment }: IPostSignUserParams) {
+  return async (dispatch: Dispatch<any>) => {
+    dispatch({
+      type: ACTION_TYPES.SIGN_LIST_START_TO_POST_USERS,
+    });
+
+    try {
+      await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/sendSheet", {
+        name,
+        affiliation,
+        email,
+        organization,
+        comment,
+      });
+
+      dispatch({
+        type: ACTION_TYPES.GLOBAL_ADD_USER,
+        payload: {
+          user: {
+            name,
+            affiliation,
+            date: new Date(),
+          },
+        },
+      });
+    } catch (err) {
+      alert(err);
+      dispatch({
+        type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS,
+      });
+    }
+  };
+}
+
+export function fetchUsersData(page: number) {
+  return async (dispatch: Dispatch<any>) => {
+    try {
+      dispatch({
+        type: ACTION_TYPES.SIGN_LIST_START_TO_FETCH_USERS,
+      });
+
+      const result = await axios.get(
+        `https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/getUsers?page=${page}`,
+      );
+
+      const userList = result.data;
+      if (!result.data || result.data.length === 0) {
+        dispatch({ type: ACTION_TYPES.SIGN_LIST_END_TO_FETCH_USERS });
+      } else {
+        dispatch({
+          type: ACTION_TYPES.GLOBAL_GET_USERS,
+          payload: {
+            users: userList,
+            page: page + 1,
+          },
+        });
+      }
+    } catch (err) {
+      dispatch({ type: ACTION_TYPES.SIGN_LIST_FAILED_TO_FETCH_USERS });
+    }
   };
 }

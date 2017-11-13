@@ -37,6 +37,7 @@ module.exports.getUsers = (event, context, callback) => {
         return {
           name: row.name,
           affiliation: row.affiliation,
+          date: row.date,
         };
       });
 
@@ -71,6 +72,7 @@ module.exports.sendSheet = (event, context, callback) => {
       email: string;
       organization: string;
       comment: string;
+      date: string;
     */
     let targetUser;
     try {
@@ -100,7 +102,7 @@ module.exports.sendSheet = (event, context, callback) => {
                 reject();
               } else {
                 sheet = info.worksheets[0];
-                sheet.setHeaderRow(["name", "affiliation", "email", "organization", "comment"], err => {
+                sheet.setHeaderRow(["name", "affiliation", "email", "organization", "comment", "date"], err => {
                   if (err) {
                     reject(err);
                   } else {
@@ -110,7 +112,9 @@ module.exports.sendSheet = (event, context, callback) => {
                       email,
                       organization,
                       comment,
+                      date: new Date(),
                     };
+
                     doc.addRow(1, fields, function(err) {
                       if (err) return reject(err);
                       resolve();
