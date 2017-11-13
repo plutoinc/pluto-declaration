@@ -58,7 +58,14 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
     }
 
     case ACTION_TYPES.GLOBAL_ADD_USER: {
-      return state.set("isLoading", false);
+      return state.withMutations(currentState => {
+        return currentState
+          .set("nameInput", "")
+          .set("affiliationInput", "")
+          .set("affiliationEmailInput", "")
+          .set("commentInput", "")
+          .set("isLoading", false);
+      });
     }
 
     case ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS: {

@@ -19,17 +19,13 @@ class UserList extends React.PureComponent<IUserListProps, {}> {
   private mapUsers = () => {
     const { users } = this.props;
 
-    return users.map((user, index) => {
-      const date = new Date(user.date);
-
-      return (
-        <li className={styles.userItem} key={`userList_${index}`}>
-          <span className={styles.userItemName}>{user.name}</span>
-          <span className={styles.userItemAffiliation}>{user.affiliation}</span>
-          <span className={styles.userItemDate}>{moment(date).format("M/D/YYYY")}</span>
-        </li>
-      );
-    });
+    return users.map((user, index) => (
+      <li className={styles.userItem} key={`userList_${index}`}>
+        <span className={styles.userItemName}>{user.name}</span>
+        <span className={styles.userItemAffiliation}>{user.affiliation}</span>
+        <span className={styles.userItemDate}>{moment(parseInt(user.date, 10)).format("M/D/YYYY")}</span>
+      </li>
+    ));
   };
 
   public render() {
