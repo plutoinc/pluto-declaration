@@ -1,7 +1,6 @@
 import * as React from "react";
 import { withStyles } from "../../../../helpers/withStylesHelper";
 import UserList from "./userList";
-import Icon from "../../../../icons";
 import { IUsersRecord } from "../../../../reducers/users";
 import { USER_LIST_SORT_TYPE } from "../../records";
 const styles = require("./signList.scss");
@@ -21,17 +20,17 @@ interface ISignListComponentProps {
 
 @withStyles<typeof SignList>(styles)
 export default class SignList extends React.PureComponent<ISignListComponentProps, {}> {
-  private getPlaceHolder = () => {
-    const { signListSearchQuery } = this.props;
+  // private getPlaceHolder = () => {
+  //   const { signListSearchQuery } = this.props;
 
-    if (signListSearchQuery === "") {
-      return (
-        <div className={styles.placeHolder}>
-          Search by <span className={styles.bold}>Name</span> or <span className={styles.bold}>Affiliation</span>
-        </div>
-      );
-    }
-  };
+  //   if (signListSearchQuery === "") {
+  //     return (
+  //       <div className={styles.placeHolder}>
+  //         Search by <span className={styles.bold}>Name</span> or <span className={styles.bold}>Affiliation</span>
+  //       </div>
+  //     );
+  //   }
+  // };
 
   public componentDidMount() {
     this.props.fetchUserCount();
@@ -39,8 +38,8 @@ export default class SignList extends React.PureComponent<ISignListComponentProp
 
   public render() {
     const {
-      signListSearchQuery,
-      changeSignListSearchQuery,
+      // signListSearchQuery,
+      // changeSignListSearchQuery,
       users,
       page,
       isLoading,
@@ -55,7 +54,7 @@ export default class SignList extends React.PureComponent<ISignListComponentProp
         <div className={styles.title}>
           <span className={styles.number}>{usersCount}</span> People have signed
         </div>
-        <div className={styles.searchBar}>
+        {/* <div className={styles.searchBar}>
           {this.getPlaceHolder()}
           <input
             onChange={e => {
@@ -66,7 +65,7 @@ export default class SignList extends React.PureComponent<ISignListComponentProp
           />
           Search!!
           <Icon className={styles.searchIconWrapper} icon="SEARCH" />
-        </div>
+        </div> */}
         <UserList
           users={users.users}
           page={page}
