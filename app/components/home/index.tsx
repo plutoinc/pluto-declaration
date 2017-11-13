@@ -100,6 +100,11 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     );
   };
 
+  private fetchUserCount = () => {
+    const { dispatch } = this.props;
+    dispatch(Actions.getUserCount());
+  };
+
   private fetchData = () => {
     const { dispatch, homeState } = this.props;
 
@@ -121,6 +126,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       userListPage,
       userListSort,
       isLoading,
+      usersCount,
     } = this.props.homeState;
     const { users } = this.props;
 
@@ -138,6 +144,8 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             isEnd={userListIsEnd}
             sort={userListSort}
             fetchData={this.fetchData}
+            usersCount={usersCount}
+            fetchUserCount={this.fetchUserCount}
           />
           <SignBox
             isBoxMovingHeight={isBoxMovingHeight}

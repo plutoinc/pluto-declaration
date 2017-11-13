@@ -64,12 +64,17 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
           .set("affiliationInput", "")
           .set("affiliationEmailInput", "")
           .set("commentInput", "")
-          .set("isLoading", false);
+          .set("isLoading", false)
+          .set("usersCount", currentState.usersCount + 1);
       });
     }
 
     case ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS: {
       return state.set("isLoading", false).set("hasError", true);
+    }
+
+    case ACTION_TYPES.GLOBAL_SET_USER_COUNT: {
+      return state.set("usersCount", action.payload.count);
     }
 
     case ACTION_TYPES.GLOBAL_GET_USERS: {

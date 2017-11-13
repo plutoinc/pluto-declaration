@@ -80,6 +80,23 @@ export function changeSignBoxCommentInput(comment: string) {
   };
 }
 
+export function getUserCount() {
+  return async (dispatch: Dispatch<any>) => {
+    try {
+      const result = await axios.get("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/getUserCount");
+      const usersCount = result.data;
+      dispatch({
+        type: ACTION_TYPES.GLOBAL_SET_USER_COUNT,
+        payload: {
+          count: usersCount,
+        },
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
+}
+
 export function postSignUser({ name, affiliation, email, organization, comment }: IPostSignUserParams) {
   return async (dispatch: Dispatch<any>) => {
     dispatch({
