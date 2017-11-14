@@ -10,6 +10,7 @@ import * as Actions from "./actions";
 import SignBox from "./components/signBox";
 import EnvChecker from "../../helpers/envChecker";
 import { IUsersRecord } from "../../reducers/users";
+const MetaTags = require("react-meta-tags").default;
 
 const styles = require("./home.scss");
 
@@ -171,6 +172,16 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     return (
       <div className={styles.homeContainer}>
+        <MetaTags>
+          {/* <meta property="og:url" content="http://www.your-domain.com/your-page.html" /> */}
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="The Future of Scholarly Communication" />
+          <meta property="og:description" content="Decentralized Scholarly Communication Platform" />
+          <meta
+            property="og:image"
+            content="https://pbs.twimg.com/profile_images/879901726739808256/ry_UkEdB_400x400.jpg"
+          />
+        </MetaTags>
         <Helmet title="Join Pluto Network!" />
         <Declaration />
         <div className={styles.signContainer}>
