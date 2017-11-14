@@ -62,21 +62,21 @@ class Header extends React.PureComponent<IHeaderComponentProps, {}> {
             <Link className={styles.rightBoxItem} to="/">
               About us
             </Link>
-            <Link className={styles.rightBoxItem} to="/">
+            <a target="_blank" className={styles.rightBoxItem} href="https://pluto.network">
               Home page
-            </Link>
+            </a>
             |
-            <Link className={styles.rightBoxItem} to="/">
+            <a target="_blank" className={styles.rightBoxItem} href="https://www.facebook.com/PlutoNetwork">
               Facebook
-            </Link>
+            </a>
             |
-            <Link className={styles.rightBoxItem} to="/">
+            <a target="_blank" className={styles.rightBoxItem} href="https://twitter.com/pluto_network">
               Twitter
-            </Link>
+            </a>
             |
-            <Link className={styles.rightBoxItem} to="/">
+            <a target="_blank" className={styles.rightBoxItem} href="https://medium.com/pluto-network">
               Blog
-            </Link>
+            </a>
           </div>
         </div>
       </nav>
