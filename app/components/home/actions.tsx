@@ -228,6 +228,7 @@ export function postSignUser({ name, affiliation, email, organization, comment }
             name,
             affiliation,
             date: createdAt,
+            comment,
           },
         },
       });

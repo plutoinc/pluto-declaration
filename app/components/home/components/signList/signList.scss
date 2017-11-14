@@ -72,6 +72,29 @@
   }
 }
 
+.userItemWithComment {
+  padding: 20px 10.5px;
+  border-top: solid 1px #e0e0e0;
+  display: flex;
+  height: 88px;
+  font-size: 18px;
+  font-weight: 300;
+  color: #3d3d3d;
+}
+
+.userComment {
+  width: 605px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #6096ff;
+  padding-left: 13px;
+  border-left: solid 2px #81acff;
+  margin-top: 20px;
+  margin-bottom: 21px;
+  word-break: break-all;
+}
+
 .userItemCategory {
   display: flex;
   height: 39px;

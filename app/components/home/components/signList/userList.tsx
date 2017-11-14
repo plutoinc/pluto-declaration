@@ -19,13 +19,28 @@ class UserList extends React.PureComponent<IUserListProps, {}> {
   private mapUsers = () => {
     const { users } = this.props;
 
-    return users.map((user, index) => (
-      <li className={styles.userItem} key={`userList_${index}`}>
-        <span className={styles.userItemName}>{user.name}</span>
-        <span className={styles.userItemAffiliation}>{user.affiliation}</span>
-        <span className={styles.userItemDate}>{moment(parseInt(user.date, 10)).format("M/D/YYYY")}</span>
-      </li>
-    ));
+    return users.map((user, index) => {
+      if (user.comment !== undefined) {
+        return (
+          <div key={`userList_${index}`}>
+            <li className={styles.userItemWithComment}>
+              <span className={styles.userItemName}>{user.name}</span>
+              <span className={styles.userItemAffiliation}>{user.affiliation}</span>
+              <span className={styles.userItemDate}>{moment(parseInt(user.date, 10)).format("M/D/YYYY")}</span>
+            </li>
+            <div className={styles.userComment}>{user.comment}</div>
+          </div>
+        );
+      } else {
+        return (
+          <li className={styles.userItem} key={`userList_${index}`}>
+            <span className={styles.userItemName}>{user.name}</span>
+            <span className={styles.userItemAffiliation}>{user.affiliation}</span>
+            <span className={styles.userItemDate}>{moment(parseInt(user.date, 10)).format("M/D/YYYY")}</span>
+          </li>
+        );
+      }
+    });
   };
 
   public render() {

@@ -69,6 +69,7 @@ module.exports.getUsers = (event, context, callback) => {
           name: row.name,
           affiliation: row.affiliation,
           date: row.date,
+          comment: row.comment,
         };
       });
 
