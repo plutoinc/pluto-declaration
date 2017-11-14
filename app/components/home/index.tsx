@@ -173,7 +173,6 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     return (
       <div className={styles.homeContainer}>
         <MetaTags>
-          {/* <meta property="og:url" content="http://www.your-domain.com/your-page.html" /> */}
           <meta property="og:type" content="website" />
           <meta property="og:title" content="The Future of Scholarly Communication" />
           <meta property="og:description" content="Decentralized Scholarly Communication Platform" />
