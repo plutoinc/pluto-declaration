@@ -41,6 +41,22 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
       return state.set("isLoading", true).set("hasError", false);
     }
 
+    case ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS: {
+      return state.set("isLoading", false).set("hasError", true);
+    }
+
+    case ACTION_TYPES.SIGN_BOX_START_TO_SUBSCRIBE_EMAIL: {
+      return state.set("isLoading", true).set("hasError", false);
+    }
+
+    case ACTION_TYPES.SIGN_BOX_SUCCEEDED_TO_SUBSCRIBE_EMAIL: {
+      return state.set("isLoading", false).set("hasError", false);
+    }
+
+    case ACTION_TYPES.SIGN_BOX_FAILED_TO_SUBSCRIBE_EMAIL: {
+      return state.set("isLoading", false).set("hasError", true);
+    }
+
     case ACTION_TYPES.GLOBAL_ADD_USER: {
       return state.withMutations(currentState => {
         return currentState
@@ -48,10 +64,6 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
           .set("alreadySigned", true)
           .set("usersCount", currentState.usersCount + 1);
       });
-    }
-
-    case ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS: {
-      return state.set("isLoading", false).set("hasError", true);
     }
 
     case ACTION_TYPES.GLOBAL_SET_USER_COUNT: {

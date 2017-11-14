@@ -113,7 +113,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
   private handleSubmitSignForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { dispatch } = this.props;
-    const { nameInput, affiliationInput, affiliationEmailInput, commentInput } = this.props.homeState;
+    const { nameInput, affiliationInput, affiliationEmailInput, commentInput, sendEmailChecked } = this.props.homeState;
 
     await dispatch(
       Actions.postSignUser({
@@ -123,7 +123,11 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
         organization: affiliationInput,
         comment: commentInput,
       }),
-    );
+    ).then(async () => {
+      if (sendEmailChecked) {
+        await dispatch(Actions.subscribeEmail(affiliationEmailInput));
+      }
+    });
   };
 
   private fetchUserCount = () => {

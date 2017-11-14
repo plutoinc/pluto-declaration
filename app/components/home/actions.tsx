@@ -240,6 +240,38 @@ export function postSignUser({ name, affiliation, email, organization, comment }
   };
 }
 
+export function subscribeEmail(email: string) {
+  return async (dispatch: Dispatch<any>) => {
+    dispatch({
+      type: ACTION_TYPES.SIGN_BOX_START_TO_SUBSCRIBE_EMAIL,
+    });
+    // e-mail validation by regular expression
+    const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const isValidEmail = reg.test(email) && email !== "" && email.length > 0;
+
+    if (isValidEmail) {
+      try {
+        await axios.post(
+          `https://gesqspxc8i.execute-api.us-east-1.amazonaws.com/prod/subscribeMailingList?email=${email}`,
+        );
+        alert("You are on the subscribe list now");
+        dispatch({
+          type: ACTION_TYPES.SIGN_BOX_SUCCEEDED_TO_SUBSCRIBE_EMAIL,
+        });
+      } catch (err) {
+        alert(`Failed to subscribe Email! ${err}`);
+        dispatch({
+          type: ACTION_TYPES.SIGN_BOX_FAILED_TO_SUBSCRIBE_EMAIL,
+        });
+      }
+    } else {
+      dispatch({
+        type: ACTION_TYPES.SIGN_BOX_FAILED_TO_SUBSCRIBE_EMAIL,
+      });
+    }
+  };
+}
+
 export function fetchUsersData(page: number) {
   return async (dispatch: Dispatch<any>) => {
     try {
