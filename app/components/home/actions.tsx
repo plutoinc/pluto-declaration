@@ -20,18 +20,6 @@ export function changeSignListSearchQuery(searchQuery: string) {
   };
 }
 
-export function reachScrollTop() {
-  return {
-    type: ACTION_TYPES.HEADER_REACH_SCROLL_TOP,
-  };
-}
-
-export function leaveScrollTop() {
-  return {
-    type: ACTION_TYPES.HEADER_LEAVE_SCROLL_TOP,
-  };
-}
-
 export function reachBoxMovingHeight() {
   return {
     type: ACTION_TYPES.SIGN_BOX_REACH_BOX_MOVING_HEIGHT,
