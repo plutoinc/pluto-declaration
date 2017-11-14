@@ -35,7 +35,13 @@ class UserList extends React.PureComponent<IUserListProps, {}> {
           loadMore={this.props.fetchData}
           hasMore={!this.props.isEnd}
           threshold={400}
-          loader={<div className="loader">Loading ...</div>}
+          loader={
+            <div className={styles.spinner}>
+              <div className={styles.bounce1} />
+              <div className={styles.bounce2} />
+              <div className={styles.bounce3} />
+            </div>
+          }
         >
           <ul className={styles.userList}>
             <li className={styles.userItemCategory}>
