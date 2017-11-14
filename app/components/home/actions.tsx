@@ -20,30 +20,6 @@ export function changeSignListSearchQuery(searchQuery: string) {
   };
 }
 
-export function reachScrollTop() {
-  return {
-    type: ACTION_TYPES.HEADER_REACH_SCROLL_TOP,
-  };
-}
-
-export function leaveScrollTop() {
-  return {
-    type: ACTION_TYPES.HEADER_LEAVE_SCROLL_TOP,
-  };
-}
-
-export function reachBoxMovingHeight() {
-  return {
-    type: ACTION_TYPES.SIGN_BOX_REACH_BOX_MOVING_HEIGHT,
-  };
-}
-
-export function leaveBoxMovingHeight() {
-  return {
-    type: ACTION_TYPES.SIGN_BOX_LEAVE_BOX_MOVING_HEIGHT,
-  };
-}
-
 export function changeSignBoxNameInput(name: string) {
   return {
     type: ACTION_TYPES.SIGN_BOX_CHANGE_NAME_INPUT,
@@ -51,6 +27,26 @@ export function changeSignBoxNameInput(name: string) {
       name,
     },
   };
+}
+
+export function checkValidSignBoxNameInput(name: string) {
+  const isNameTooShort = name.length < 1;
+
+  if (isNameTooShort) {
+    return {
+      type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
+      payload: {
+        type: "nameInput",
+      },
+    };
+  } else {
+    return {
+      type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
+      payload: {
+        type: "nameInput",
+      },
+    };
+  }
 }
 
 export function changeSignBoxAffiliation(affiliation: string) {
@@ -62,6 +58,26 @@ export function changeSignBoxAffiliation(affiliation: string) {
   };
 }
 
+export function checkValidSignBoxAffiliation(affiliation: string) {
+  const isAffiliationTooShort = affiliation.length < 1;
+
+  if (isAffiliationTooShort) {
+    return {
+      type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
+      payload: {
+        type: "affiliationInput",
+      },
+    };
+  } else {
+    return {
+      type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
+      payload: {
+        type: "affiliationInput",
+      },
+    };
+  }
+}
+
 export function changeSignBoxAffiliationEmail(affiliationEmail: string) {
   return {
     type: ACTION_TYPES.SIGN_BOX_CHANGE_AFFILIATION_EMAIL,
@@ -69,6 +85,28 @@ export function changeSignBoxAffiliationEmail(affiliationEmail: string) {
       affiliationEmail,
     },
   };
+}
+
+export function checkValidSignBoxAffiliationEmail(affiliationEmail: string) {
+  // e-mail empty check && e-mail validation by regular expression
+  const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const isValidEmail = reg.test(affiliationEmail) && affiliationEmail !== "" && affiliationEmail.length > 0;
+
+  if (!isValidEmail) {
+    return {
+      type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
+      payload: {
+        type: "affiliationEmailInput",
+      },
+    };
+  } else {
+    return {
+      type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
+      payload: {
+        type: "affiliationEmailInput",
+      },
+    };
+  }
 }
 
 export function changeSignBoxCommentInput(comment: string) {
@@ -102,6 +140,74 @@ export function postSignUser({ name, affiliation, email, organization, comment }
     dispatch({
       type: ACTION_TYPES.SIGN_LIST_START_TO_POST_USERS,
     });
+
+    // Validating
+    let hasFormError: boolean = false;
+    // name check
+    const isNameTooShort = name.length < 1;
+
+    if (isNameTooShort) {
+      dispatch({
+        type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
+        payload: {
+          type: "nameInput",
+        },
+      });
+      hasFormError = true;
+    } else {
+      dispatch({
+        type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
+        payload: {
+          type: "nameInput",
+        },
+      });
+    }
+    // affiliation check
+    const isAffiliationTooShort = affiliation.length < 1;
+
+    if (isAffiliationTooShort) {
+      dispatch({
+        type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
+        payload: {
+          type: "affiliationInput",
+        },
+      });
+      hasFormError = true;
+    } else {
+      dispatch({
+        type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
+        payload: {
+          type: "affiliationInput",
+        },
+      });
+    }
+    // e-mail empty check && e-mail validation by regular expression
+    const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const isValidEmail = reg.test(email) && email !== "" && email.length > 0;
+
+    if (!isValidEmail) {
+      dispatch({
+        type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
+        payload: {
+          type: "affiliationEmailInput",
+        },
+      });
+      hasFormError = true;
+    } else {
+      dispatch({
+        type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
+        payload: {
+          type: "affiliationEmailInput",
+        },
+      });
+    }
+
+    if (hasFormError) {
+      dispatch({
+        type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS,
+      });
+      return;
+    }
 
     try {
       await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/sendSheet", {
@@ -160,5 +266,11 @@ export function fetchUsersData(page: number) {
     } catch (err) {
       dispatch({ type: ACTION_TYPES.SIGN_LIST_FAILED_TO_FETCH_USERS });
     }
+  };
+}
+
+export function toggleSendEmailCheckBox() {
+  return {
+    type: ACTION_TYPES.SIGN_BOX_TOGGLE_SEND_EMAIL_CHECK_BOX,
   };
 }

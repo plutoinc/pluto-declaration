@@ -8,12 +8,10 @@ import { IHomeStateRecord } from "./records";
 import { IAppState } from "../../rootReducer";
 import * as Actions from "./actions";
 import SignBox from "./components/signBox";
-import { throttle } from "lodash";
 import EnvChecker from "../../helpers/envChecker";
 import { IUsersRecord } from "../../reducers/users";
 
 const styles = require("./home.scss");
-const BOX_MOVING_HEIGHT = 483;
 
 interface IHomeComponentProps extends DispatchProp<any> {
   homeState: IHomeStateRecord;
@@ -31,7 +29,6 @@ function mapStateToProps(state: IAppState) {
 class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
   public componentDidMount() {
     if (!EnvChecker.isServer()) {
-      window.addEventListener("scroll", this.handleScroll);
       // START LOAD TWITTER API
       (window as any).twttr = (function(d, s, id) {
         var js: any,
@@ -51,27 +48,19 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
         return t;
       })(document, "script", "twitter-wjs");
       // END LOAD TWITTER API
+      // START LOAD FACEBOOK API
+      (window as any).facebook = (function(d, s, id) {
+        var js: any,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
+      // END LOAD FACEBOOK API
     }
   }
-
-  public componentWillUnmount() {
-    if (!EnvChecker.isServer()) {
-      window.removeEventListener("scroll", this.handleScroll);
-    }
-  }
-
-  private handleScrollEvent = () => {
-    const { dispatch } = this.props;
-    const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-
-    if (scrollTop < BOX_MOVING_HEIGHT) {
-      dispatch(Actions.reachBoxMovingHeight());
-    } else {
-      dispatch(Actions.leaveBoxMovingHeight());
-    }
-  };
-
-  private handleScroll = throttle(this.handleScrollEvent, 100);
 
   private changeSignListSearchQuery = (searchQuery: string) => {
     const { dispatch } = this.props;
@@ -85,16 +74,34 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     dispatch(Actions.changeSignBoxNameInput(name));
   };
 
+  private checkValidSignBoxNameInput = () => {
+    const { dispatch, homeState } = this.props;
+
+    dispatch(Actions.checkValidSignBoxNameInput(homeState.nameInput));
+  };
+
   private changeSignBoxAffiliation = (affiliation: string) => {
     const { dispatch } = this.props;
 
     dispatch(Actions.changeSignBoxAffiliation(affiliation));
   };
 
+  private checkValidSignBoxAffiliation = () => {
+    const { dispatch, homeState } = this.props;
+
+    dispatch(Actions.checkValidSignBoxAffiliation(homeState.affiliationInput));
+  };
+
   private changeSignBoxAffiliationEmail = (affiliationEmail: string) => {
     const { dispatch } = this.props;
 
     dispatch(Actions.changeSignBoxAffiliationEmail(affiliationEmail));
+  };
+
+  private checkValidSignBoxAffiliationEmail = () => {
+    const { dispatch, homeState } = this.props;
+
+    dispatch(Actions.checkValidSignBoxAffiliationEmail(homeState.affiliationEmailInput));
   };
 
   private changeSignBoxCommentInput = (comment: string) => {
@@ -121,6 +128,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
   private fetchUserCount = () => {
     const { dispatch } = this.props;
+
     dispatch(Actions.getUserCount());
   };
 
@@ -132,10 +140,15 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     }
   };
 
+  private toggleSendEmailCheckBox = () => {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.toggleSendEmailCheckBox());
+  };
+
   public render() {
     const {
       signListSearchQuery,
-      isBoxMovingHeight,
       nameInput,
       affiliationInput,
       affiliationEmailInput,
@@ -147,6 +160,8 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       isLoading,
       usersCount,
       alreadySigned,
+      sendEmailChecked,
+      formInputErrorCheck,
     } = this.props.homeState;
     const { users } = this.props;
 
@@ -168,18 +183,23 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             fetchUserCount={this.fetchUserCount}
           />
           <SignBox
-            isBoxMovingHeight={isBoxMovingHeight}
             nameInput={nameInput}
             changeSignBoxNameInput={this.changeSignBoxNameInput}
+            checkValidSignBoxNameInput={this.checkValidSignBoxNameInput}
             affiliationInput={affiliationInput}
             changeSignBoxAffiliation={this.changeSignBoxAffiliation}
+            checkValidSignBoxAffiliation={this.checkValidSignBoxAffiliation}
             affiliationEmailInput={affiliationEmailInput}
             changeSignBoxAffiliationEmail={this.changeSignBoxAffiliationEmail}
+            checkValidSignBoxAffiliationEmail={this.checkValidSignBoxAffiliationEmail}
             commentInput={commentInput}
             changeSignBoxCommentInput={this.changeSignBoxCommentInput}
             handleSubmitSignForm={this.handleSubmitSignForm}
             isLoading={isLoading}
             alreadySigned={alreadySigned}
+            sendEmailChecked={sendEmailChecked}
+            toggleSendEmailCheckBox={this.toggleSendEmailCheckBox}
+            formInputErrorCheck={formInputErrorCheck}
           />
         </div>
       </div>

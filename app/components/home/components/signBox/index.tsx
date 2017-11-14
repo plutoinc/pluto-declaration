@@ -2,21 +2,29 @@ import * as React from "react";
 import * as moment from "moment";
 import { withStyles } from "../../../../helpers/withStylesHelper";
 import Icon from "../../../../icons";
+import CircularProgress from "material-ui/CircularProgress";
+import { ISignBoxFormInputErrorCheckRecord } from "../../records";
+
 const styles = require("./signBox.scss");
 
 interface ISignBoxComponentProps {
-  isBoxMovingHeight: boolean;
   isLoading: boolean;
   alreadySigned: boolean;
   nameInput: string;
   changeSignBoxNameInput: (name: string) => void;
+  checkValidSignBoxNameInput: () => void;
   affiliationInput: string;
   changeSignBoxAffiliation: (affiliation: string) => void;
+  checkValidSignBoxAffiliation: () => void;
   affiliationEmailInput: string;
   changeSignBoxAffiliationEmail: (affiliationEmail: string) => void;
+  checkValidSignBoxAffiliationEmail: () => void;
   commentInput: string;
   changeSignBoxCommentInput: (comment: string) => void;
   handleSubmitSignForm: (e: React.FormEvent<HTMLFormElement>) => void;
+  sendEmailChecked: boolean;
+  toggleSendEmailCheckBox: () => void;
+  formInputErrorCheck: ISignBoxFormInputErrorCheckRecord;
 }
 
 @withStyles<typeof SignBanner>(styles)
@@ -25,7 +33,18 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
     const { isLoading } = this.props;
 
     if (isLoading) {
-      return <div className={styles.submitButton}>Uploading ...</div>;
+      return (
+        <div className={`${styles.submitButton} ${styles.loadingSubmitButton}`}>
+          <CircularProgress
+            style={{ display: "flex", position: "absolute", left: "21px", top: "17px" }}
+            innerStyle={{ display: "flex" }}
+            size={13.5}
+            thickness={2}
+            color="#656d7c"
+          />
+          Sign
+        </div>
+      );
     } else {
       return (
         <button type="submit" className={styles.submitButton}>
@@ -39,16 +58,21 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
     const {
       nameInput,
       changeSignBoxNameInput,
+      checkValidSignBoxNameInput,
       affiliationInput,
       changeSignBoxAffiliation,
+      checkValidSignBoxAffiliation,
       affiliationEmailInput,
       changeSignBoxAffiliationEmail,
+      checkValidSignBoxAffiliationEmail,
       commentInput,
       changeSignBoxCommentInput,
       handleSubmitSignForm,
       alreadySigned,
+      sendEmailChecked,
+      toggleSendEmailCheckBox,
+      formInputErrorCheck,
     } = this.props;
-    // const { isBoxMovingHeight } = this.props;
 
     if (alreadySigned) {
       const plutoUrl = encodeURIComponent("https://join.pluto.network");
@@ -87,45 +111,58 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
     }
 
     return (
-      <form
-        onSubmit={handleSubmitSignForm}
-        className={styles.signBoxContainer}
-        style={{
-          // position: isBoxMovingHeight ? "static" : "fixed",
-        }}
-      >
+      <form onSubmit={handleSubmitSignForm} className={styles.signBoxContainer}>
         <div className={styles.title}>Add your name to the list!</div>
-        <div className={styles.inputWrapper}>
-          <Icon className={styles.iconWrapper} icon="TWITTER" />
+        <div
+          className={
+            formInputErrorCheck.nameInput ? `${styles.inputWrapper} ${styles.errorInputWrapper}` : styles.inputWrapper
+          }
+        >
+          <Icon className={styles.iconWrapper} icon="NAME" />
           <input
             type="text"
             onChange={e => {
               changeSignBoxNameInput(e.currentTarget.value);
             }}
+            onBlur={checkValidSignBoxNameInput}
             className={`form-control ${styles.inputBox}`}
             placeholder="Name"
             value={nameInput}
           />
         </div>
-        <div className={styles.inputWrapper}>
-          <Icon className={styles.iconWrapper} icon="TWITTER" />
+        <div
+          className={
+            formInputErrorCheck.affiliationInput
+              ? `${styles.inputWrapper} ${styles.errorInputWrapper}`
+              : styles.inputWrapper
+          }
+        >
+          <Icon className={styles.iconWrapper} icon="AFFILIATION" />
           <input
             type="text"
             onChange={e => {
               changeSignBoxAffiliation(e.currentTarget.value);
             }}
+            onBlur={checkValidSignBoxAffiliation}
             className={`form-control ${styles.inputBox}`}
             placeholder="Affiliation"
             value={affiliationInput}
           />
         </div>
-        <div className={styles.inputWrapper}>
-          <Icon className={styles.iconWrapper} icon="TWITTER" />
+        <div
+          className={
+            formInputErrorCheck.affiliationEmailInput
+              ? `${styles.inputWrapper} ${styles.errorInputWrapper}`
+              : styles.inputWrapper
+          }
+        >
+          <Icon className={styles.iconWrapper} icon="EMAIL" />
           <input
             type="email"
             onChange={e => {
               changeSignBoxAffiliationEmail(e.currentTarget.value);
             }}
+            onBlur={checkValidSignBoxAffiliationEmail}
             className={`form-control ${styles.inputBox}`}
             placeholder="Affiliation E-mail"
             value={affiliationEmailInput}
@@ -144,7 +181,10 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
           />
         </div>
         <div className={styles.checkBoxContainer}>
-          <div className={styles.checkBox} />
+          <div
+            onClick={toggleSendEmailCheckBox}
+            className={sendEmailChecked ? styles.checkBox : `${styles.checkBox} ${styles.unChecked}`}
+          />
           <span className={styles.checkBoxContent}>Send me email updates about the project (Option)</span>
         </div>
         {this.getSubmitButton()}

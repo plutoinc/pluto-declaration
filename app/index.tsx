@@ -17,6 +17,7 @@ import CssInjector from "./helpers/cssInjector";
 import { rootReducer, initialState, IAppState } from "./rootReducer";
 // routes
 import { RootRoutes } from "./routes";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 let history: History;
 if (EnvChecker.isServer()) {
@@ -80,9 +81,11 @@ if (!EnvChecker.isServer()) {
   ReactDom.render(
     <CssInjector>
       <Provider store={store}>
-        <ReactRouterRedux.ConnectedRouter history={history}>
-          <RootRoutes />
-        </ReactRouterRedux.ConnectedRouter>
+        <MuiThemeProvider>
+          <ReactRouterRedux.ConnectedRouter history={history}>
+            <RootRoutes />
+          </ReactRouterRedux.ConnectedRouter>
+        </MuiThemeProvider>
       </Provider>
     </CssInjector>,
     document.getElementById("react-app"),
