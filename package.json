@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pack": "rm -f dist.zip && rm -f dist/bundleBrowser.js && cp scripts/package.json dist/package.json && cd dist && npm install --cache=./.npm --production && zip -q -r ../dist.zip . ** && cd ..",
+    "pack":
+      "rm -f dist.zip && rm -f dist/bundleBrowser.js && cp scripts/package.json dist/package.json && cd dist && npm install --cache=./.npm --production && zip -q -r ../dist.zip . ** && cd ..",
     "clean": "rm -rf dist && rm -rf temp && rm -f dist.zip",
     "build": "npm run clean && webpack --config webpack.prod.config.js -p && npm run build-browser",
     "build-browser": "webpack --config webpack.browser.config.js -p",
-    "deploy:stage": "npm run build && ts-node scripts/deployToStage.ts && cp temp/version dist && cp scripts/handler.js dist && npm run pack && serverless deploy --stage stage",
-    "deploy:prod": "npm run build && ts-node scripts/deployToStage.ts && cp temp/version dist && cp scripts/handler.js dist && npm run pack && serverless deploy --stage production",
+    "deploy:stage":
+      "npm run build && ts-node scripts/deployToStage.ts && cp temp/version dist && cp scripts/handler.js dist && npm run pack && serverless deploy --stage stage",
+    "deploy:prod":
+      "npm run build && ts-node scripts/deployToStage.ts && cp temp/version dist && cp scripts/handler.js dist && npm run pack && serverless deploy --stage production",
     "dev": "webpack-dev-server --content-base app/ --hot --progress --colors --host 0.0.0.0",
     "lint": "tslint 'app/**/*.ts' -e 'app/**/*.d.ts' && sass-lint -c .sass-lint.yml --verbose",
     "unit-test": "rm -r output | jest --coverage",
@@ -27,7 +30,7 @@
     "@types/fs-extra": "4.0.2",
     "@types/immutable": "^3.8.7",
     "@types/jest": "^21.1.4",
-    "@types/lodash": "^4.14.85",
+    "@types/material-ui": "^0.18.4",
     "@types/node": "^8.0.46",
     "@types/prop-types": "^15.5.2",
     "@types/react": "^16.0.16",
@@ -76,7 +79,7 @@
     "axios": "^0.17.0",
     "babel-polyfill": "^6.26.0",
     "immutable": "^3.8.2",
-    "lodash": "^4.17.4",
+    "material-ui": "^0.19.4",
     "moment": "^2.19.2",
     "normalize.css": "^7.0.0",
     "prop-types": "^15.6.0",
@@ -101,17 +104,9 @@
     "globals": {
       "__TS_CONFIG__": "tsconfig-test.json"
     },
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "testPathDirs": [
-      "<rootDir>/app"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "testPathDirs": ["<rootDir>/app"],
+    "coveragePathIgnorePatterns": ["/node_modules/"],
     "coverageDirectory": "output/coverage",
     "testRegex": "__tests__/.*_spec.tsx$",
     "unmockedModulePathPatterns": [
@@ -123,9 +118,7 @@
       "/.*\\.scss$",
       "<rootDir>/app/__tests__"
     ],
-    "setupFiles": [
-      "<rootDir>/app/__tests__/preload.tsx"
-    ],
+    "setupFiles": ["<rootDir>/app/__tests__/preload.tsx"],
     "automock": true
   }
 }

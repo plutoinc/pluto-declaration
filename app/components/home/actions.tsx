@@ -20,18 +20,6 @@ export function changeSignListSearchQuery(searchQuery: string) {
   };
 }
 
-export function reachBoxMovingHeight() {
-  return {
-    type: ACTION_TYPES.SIGN_BOX_REACH_BOX_MOVING_HEIGHT,
-  };
-}
-
-export function leaveBoxMovingHeight() {
-  return {
-    type: ACTION_TYPES.SIGN_BOX_LEAVE_BOX_MOVING_HEIGHT,
-  };
-}
-
 export function changeSignBoxNameInput(name: string) {
   return {
     type: ACTION_TYPES.SIGN_BOX_CHANGE_NAME_INPUT,
@@ -148,5 +136,11 @@ export function fetchUsersData(page: number) {
     } catch (err) {
       dispatch({ type: ACTION_TYPES.SIGN_LIST_FAILED_TO_FETCH_USERS });
     }
+  };
+}
+
+export function toggleSendEmailCheckBox() {
+  return {
+    type: ACTION_TYPES.SIGN_BOX_TOGGLE_SEND_EMAIL_CHECK_BOX,
   };
 }

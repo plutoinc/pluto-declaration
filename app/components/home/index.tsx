@@ -8,12 +8,10 @@ import { IHomeStateRecord } from "./records";
 import { IAppState } from "../../rootReducer";
 import * as Actions from "./actions";
 import SignBox from "./components/signBox";
-import { throttle } from "lodash";
 import EnvChecker from "../../helpers/envChecker";
 import { IUsersRecord } from "../../reducers/users";
 
 const styles = require("./home.scss");
-const BOX_MOVING_HEIGHT = 483;
 
 interface IHomeComponentProps extends DispatchProp<any> {
   homeState: IHomeStateRecord;
@@ -31,7 +29,6 @@ function mapStateToProps(state: IAppState) {
 class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
   public componentDidMount() {
     if (!EnvChecker.isServer()) {
-      window.addEventListener("scroll", this.handleScroll);
       // START LOAD TWITTER API
       (window as any).twttr = (function(d, s, id) {
         var js: any,
@@ -53,25 +50,6 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       // END LOAD TWITTER API
     }
   }
-
-  public componentWillUnmount() {
-    if (!EnvChecker.isServer()) {
-      window.removeEventListener("scroll", this.handleScroll);
-    }
-  }
-
-  private handleScrollEvent = () => {
-    const { dispatch } = this.props;
-    const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-
-    if (scrollTop < BOX_MOVING_HEIGHT) {
-      dispatch(Actions.reachBoxMovingHeight());
-    } else {
-      dispatch(Actions.leaveBoxMovingHeight());
-    }
-  };
-
-  private handleScroll = throttle(this.handleScrollEvent, 100);
 
   private changeSignListSearchQuery = (searchQuery: string) => {
     const { dispatch } = this.props;
@@ -121,6 +99,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
   private fetchUserCount = () => {
     const { dispatch } = this.props;
+
     dispatch(Actions.getUserCount());
   };
 
@@ -132,10 +111,15 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     }
   };
 
+  private toggleSendEmailCheckBox = () => {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.toggleSendEmailCheckBox());
+  };
+
   public render() {
     const {
       signListSearchQuery,
-      isBoxMovingHeight,
       nameInput,
       affiliationInput,
       affiliationEmailInput,
@@ -147,6 +131,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       isLoading,
       usersCount,
       alreadySigned,
+      sendEmailChecked,
     } = this.props.homeState;
     const { users } = this.props;
 
@@ -168,7 +153,6 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             fetchUserCount={this.fetchUserCount}
           />
           <SignBox
-            isBoxMovingHeight={isBoxMovingHeight}
             nameInput={nameInput}
             changeSignBoxNameInput={this.changeSignBoxNameInput}
             affiliationInput={affiliationInput}
@@ -180,6 +164,8 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             handleSubmitSignForm={this.handleSubmitSignForm}
             isLoading={isLoading}
             alreadySigned={alreadySigned}
+            sendEmailChecked={sendEmailChecked}
+            toggleSendEmailCheckBox={this.toggleSendEmailCheckBox}
           />
         </div>
       </div>

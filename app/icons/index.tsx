@@ -6,7 +6,10 @@ interface IIconProps extends React.SVGAttributes<SVGElement> {
 }
 
 const ICONS: { [key: string]: any } = {
+  AFFILIATION: require("./affiliation.svg").default,
+  EMAIL: require("./email.svg").default,
   FACEBOOK: require("./facebook.svg").default,
+  NAME: require("./name.svg").default,
   SHARE: require("./share.svg").default,
   TWITTER: require("./twitter.svg").default,
 };

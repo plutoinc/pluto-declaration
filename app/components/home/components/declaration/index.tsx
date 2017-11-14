@@ -16,14 +16,12 @@ export default class Declaration extends React.PureComponent<IDeclarationCompone
           <div className={styles.titleContainer}>
             <div className={styles.title}>The Future of Scholarly Communication</div>
             <div className={styles.rightBox}>
+              <Icon className={styles.shareIcon} icon="SHARE" />
               <a href="https://twitter.com/pluto_network">
                 <Icon className={styles.rightItem} icon="TWITTER" />
               </a>
               <a href="https://www.facebook.com/PlutoNetwork">
                 <Icon className={styles.rightItem} icon="FACEBOOK" />
-              </a>
-              <a href="">
-                <Icon className={styles.rightItem} icon="SHARE" />
               </a>
             </div>
           </div>

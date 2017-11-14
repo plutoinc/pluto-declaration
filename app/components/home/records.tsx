@@ -12,12 +12,11 @@ export interface IHomeState {
   hasError: boolean; // For post user
   usersCount: number;
   signListSearchQuery: string;
-  isTop: boolean;
-  isBoxMovingHeight: boolean;
   nameInput: string;
   affiliationInput: string;
   affiliationEmailInput: string;
   commentInput: string;
+  sendEmailChecked: boolean;
   userListIsLoading: boolean;
   userListIsEnd: boolean;
   userListPage: number;
@@ -32,12 +31,11 @@ const initialHomeState: IHomeState = {
   hasError: false,
   usersCount: 0,
   signListSearchQuery: "",
-  isTop: true,
-  isBoxMovingHeight: false,
   nameInput: "",
   affiliationInput: "",
   affiliationEmailInput: "",
   commentInput: "",
+  sendEmailChecked: false,
   userListIsLoading: false,
   userListIsEnd: false,
   userListPage: 0,

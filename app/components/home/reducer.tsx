@@ -8,14 +8,6 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
       return state.set("signListSearchQuery", action.payload.searchQuery);
     }
 
-    case ACTION_TYPES.SIGN_BOX_REACH_BOX_MOVING_HEIGHT: {
-      return state.set("isBoxMovingHeight", true);
-    }
-
-    case ACTION_TYPES.SIGN_BOX_LEAVE_BOX_MOVING_HEIGHT: {
-      return state.set("isBoxMovingHeight", false);
-    }
-
     case ACTION_TYPES.SIGN_BOX_CHANGE_NAME_INPUT: {
       return state.set("nameInput", action.payload.name);
     }
@@ -73,6 +65,10 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
           .set("userListIsLoading", false)
           .set("userListIsEnd", false);
       });
+    }
+
+    case ACTION_TYPES.SIGN_BOX_TOGGLE_SEND_EMAIL_CHECK_BOX: {
+      return state.set("sendEmailChecked", !state.sendEmailChecked);
     }
 
     default:
