@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import * as moment from "moment";
 import { withStyles } from "../../../../helpers/withStylesHelper";
 import Icon from "../../../../icons";
 const styles = require("./signBox.scss");
@@ -7,6 +7,7 @@ const styles = require("./signBox.scss");
 interface ISignBoxComponentProps {
   isBoxMovingHeight: boolean;
   isLoading: boolean;
+  alreadySigned: boolean;
   nameInput: string;
   changeSignBoxNameInput: (name: string) => void;
   affiliationInput: string;
@@ -45,8 +46,45 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
       commentInput,
       changeSignBoxCommentInput,
       handleSubmitSignForm,
+      alreadySigned,
     } = this.props;
     // const { isBoxMovingHeight } = this.props;
+
+    if (alreadySigned) {
+      const plutoUrl = encodeURIComponent("https://join.pluto.network");
+      const date = new Date();
+
+      return (
+        <div className={styles.signBoxContainer}>
+          <div className={styles.twitterBoxTitle}>THANK YOU FOR SIGNING!</div>
+          <div className={styles.twitterBoxSubTitle}>
+            Share with your friends with hashtag
+            <span className={styles.twitterBoxSubTitleHashtag}> #FutureOfScholComm</span>
+          </div>
+          <div className={styles.fakeTwitterBox}>
+            <div className={styles.userInformation}>
+              <img className={styles.userImg} src="https://d103giazgvc1eu.cloudfront.net/user-photo@2x.jpg" />
+              <span className={styles.usernameBox}>
+                <div className={styles.username}>{nameInput}</div>
+                <div className={styles.affiliation}>{`@${affiliationInput}`}</div>
+              </span>
+            </div>
+            <div className={styles.twitterContent}>
+              Lorem ipsum dolor sit amet, cons #FutureOfScholComm elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.
+            </div>
+            <div className={styles.createdAt}>{moment(date).format("LT - MMM Do YYYY")}</div>
+            <img className={styles.fakeActionButton} src="https://d103giazgvc1eu.cloudfront.net/footer-icons@2x.png" />
+          </div>
+          <a
+            className={styles.twitButton}
+            href={`https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrl}&hashtags=FutureOfScholComm`}
+          >
+            Share with Twitter
+          </a>
+        </div>
+      );
+    }
 
     return (
       <form
