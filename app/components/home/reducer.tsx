@@ -71,6 +71,14 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
       return state.set("sendEmailChecked", !state.sendEmailChecked);
     }
 
+    case ACTION_TYPES.SIGN_BOX_FORM_ERROR: {
+      return state.setIn(["formInputErrorCheck", action.payload.type], true);
+    }
+
+    case ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR: {
+      return state.setIn(["formInputErrorCheck", action.payload.type], false);
+    }
+
     default:
       return state;
   }

@@ -63,16 +63,34 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     dispatch(Actions.changeSignBoxNameInput(name));
   };
 
+  private checkValidSignBoxNameInput = () => {
+    const { dispatch, homeState } = this.props;
+
+    dispatch(Actions.checkValidSignBoxNameInput(homeState.nameInput));
+  };
+
   private changeSignBoxAffiliation = (affiliation: string) => {
     const { dispatch } = this.props;
 
     dispatch(Actions.changeSignBoxAffiliation(affiliation));
   };
 
+  private checkValidSignBoxAffiliation = () => {
+    const { dispatch, homeState } = this.props;
+
+    dispatch(Actions.checkValidSignBoxAffiliation(homeState.affiliationInput));
+  };
+
   private changeSignBoxAffiliationEmail = (affiliationEmail: string) => {
     const { dispatch } = this.props;
 
     dispatch(Actions.changeSignBoxAffiliationEmail(affiliationEmail));
+  };
+
+  private checkValidSignBoxAffiliationEmail = () => {
+    const { dispatch, homeState } = this.props;
+
+    dispatch(Actions.checkValidSignBoxAffiliationEmail(homeState.affiliationEmailInput));
   };
 
   private changeSignBoxCommentInput = (comment: string) => {
@@ -132,6 +150,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       usersCount,
       alreadySigned,
       sendEmailChecked,
+      formInputErrorCheck,
     } = this.props.homeState;
     const { users } = this.props;
 
@@ -155,10 +174,13 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
           <SignBox
             nameInput={nameInput}
             changeSignBoxNameInput={this.changeSignBoxNameInput}
+            checkValidSignBoxNameInput={this.checkValidSignBoxNameInput}
             affiliationInput={affiliationInput}
             changeSignBoxAffiliation={this.changeSignBoxAffiliation}
+            checkValidSignBoxAffiliation={this.checkValidSignBoxAffiliation}
             affiliationEmailInput={affiliationEmailInput}
             changeSignBoxAffiliationEmail={this.changeSignBoxAffiliationEmail}
+            checkValidSignBoxAffiliationEmail={this.checkValidSignBoxAffiliationEmail}
             commentInput={commentInput}
             changeSignBoxCommentInput={this.changeSignBoxCommentInput}
             handleSubmitSignForm={this.handleSubmitSignForm}
@@ -166,6 +188,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             alreadySigned={alreadySigned}
             sendEmailChecked={sendEmailChecked}
             toggleSendEmailCheckBox={this.toggleSendEmailCheckBox}
+            formInputErrorCheck={formInputErrorCheck}
           />
         </div>
       </div>

@@ -3,6 +3,7 @@ import * as moment from "moment";
 import { withStyles } from "../../../../helpers/withStylesHelper";
 import Icon from "../../../../icons";
 import CircularProgress from "material-ui/CircularProgress";
+import { ISignBoxFormInputErrorCheckRecord } from "../../records";
 
 const styles = require("./signBox.scss");
 
@@ -11,15 +12,19 @@ interface ISignBoxComponentProps {
   alreadySigned: boolean;
   nameInput: string;
   changeSignBoxNameInput: (name: string) => void;
+  checkValidSignBoxNameInput: () => void;
   affiliationInput: string;
   changeSignBoxAffiliation: (affiliation: string) => void;
+  checkValidSignBoxAffiliation: () => void;
   affiliationEmailInput: string;
   changeSignBoxAffiliationEmail: (affiliationEmail: string) => void;
+  checkValidSignBoxAffiliationEmail: () => void;
   commentInput: string;
   changeSignBoxCommentInput: (comment: string) => void;
   handleSubmitSignForm: (e: React.FormEvent<HTMLFormElement>) => void;
   sendEmailChecked: boolean;
   toggleSendEmailCheckBox: () => void;
+  formInputErrorCheck: ISignBoxFormInputErrorCheckRecord;
 }
 
 @withStyles<typeof SignBanner>(styles)
@@ -53,16 +58,20 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
     const {
       nameInput,
       changeSignBoxNameInput,
+      checkValidSignBoxNameInput,
       affiliationInput,
       changeSignBoxAffiliation,
+      checkValidSignBoxAffiliation,
       affiliationEmailInput,
       changeSignBoxAffiliationEmail,
+      checkValidSignBoxAffiliationEmail,
       commentInput,
       changeSignBoxCommentInput,
       handleSubmitSignForm,
       alreadySigned,
       sendEmailChecked,
       toggleSendEmailCheckBox,
+      formInputErrorCheck,
     } = this.props;
 
     if (alreadySigned) {
@@ -104,37 +113,56 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
     return (
       <form onSubmit={handleSubmitSignForm} className={styles.signBoxContainer}>
         <div className={styles.title}>Add your name to the list!</div>
-        <div className={styles.inputWrapper}>
+        <div
+          className={
+            formInputErrorCheck.nameInput ? `${styles.inputWrapper} ${styles.errorInputWrapper}` : styles.inputWrapper
+          }
+        >
           <Icon className={styles.iconWrapper} icon="NAME" />
           <input
             type="text"
             onChange={e => {
               changeSignBoxNameInput(e.currentTarget.value);
             }}
+            onBlur={checkValidSignBoxNameInput}
             className={`form-control ${styles.inputBox}`}
             placeholder="Name"
             value={nameInput}
           />
         </div>
-        <div className={styles.inputWrapper}>
+        <div
+          className={
+            formInputErrorCheck.affiliationInput
+              ? `${styles.inputWrapper} ${styles.errorInputWrapper}`
+              : styles.inputWrapper
+          }
+        >
           <Icon className={styles.iconWrapper} icon="AFFILIATION" />
           <input
             type="text"
             onChange={e => {
               changeSignBoxAffiliation(e.currentTarget.value);
             }}
+            onBlur={checkValidSignBoxAffiliation}
             className={`form-control ${styles.inputBox}`}
             placeholder="Affiliation"
             value={affiliationInput}
           />
         </div>
-        <div className={styles.inputWrapper}>
+        <div
+          className={
+            formInputErrorCheck.affiliationEmailInput
+              ? `${styles.inputWrapper} ${styles.errorInputWrapper}`
+              : styles.inputWrapper
+          }
+        >
           <Icon className={styles.iconWrapper} icon="EMAIL" />
           <input
             type="email"
             onChange={e => {
               changeSignBoxAffiliationEmail(e.currentTarget.value);
             }}
+            onBlur={checkValidSignBoxAffiliationEmail}
             className={`form-control ${styles.inputBox}`}
             placeholder="Affiliation E-mail"
             value={affiliationEmailInput}
