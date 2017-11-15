@@ -22,7 +22,11 @@ export default class Declaration extends React.PureComponent<IDeclarationCompone
               <a href={`https://twitter.com/intent/tweet?url=${plutoUrl}&hashtags=FutureOfScholComm`} target="_blank">
                 <Icon className={styles.rightItem} icon="TWITTER" />
               </a>
-              <a href={`https://www.facebook.com/sharer/sharer.php?u=${plutoUrl}`} target="_blank">
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${plutoUrl}`}
+                data-mobile-iframe="true"
+                target="_blank"
+              >
                 <Icon className={styles.rightItem} icon="FACEBOOK" />
               </a>
             </div>

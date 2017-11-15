@@ -10,7 +10,6 @@ import * as Actions from "./actions";
 import SignBox from "./components/signBox";
 import EnvChecker from "../../helpers/envChecker";
 import { IUsersRecord } from "../../reducers/users";
-const MetaTags = require("react-meta-tags").default;
 
 const styles = require("./home.scss");
 
@@ -123,11 +122,14 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
         email: affiliationEmailInput,
         organization: affiliationInput,
         comment: commentInput,
+        sendEmailChecked,
       }),
     ).then(async () => {
       if (sendEmailChecked) {
         await dispatch(Actions.subscribeEmail(affiliationEmailInput));
       }
+    }).catch(err=> {
+      console.error(err);
     });
   };
 
@@ -172,7 +174,8 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     return (
       <div className={styles.homeContainer}>
-        <MetaTags>
+        <Helmet title="Join Pluto Network!">
+          <meta property="og:url" content="https://join.pluto.network" />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="The Future of Scholarly Communication" />
           <meta property="og:description" content="Decentralized Scholarly Communication Platform" />
@@ -180,8 +183,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             property="og:image"
             content="https://pbs.twimg.com/profile_images/879901726739808256/ry_UkEdB_400x400.jpg"
           />
-        </MetaTags>
-        <Helmet title="Join Pluto Network!" />
+        </Helmet>
         <Declaration />
         <div className={styles.signContainer}>
           <SignList

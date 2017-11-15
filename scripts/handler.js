@@ -131,7 +131,9 @@ module.exports.sendSheet = (event, context, callback) => {
         const GoogleSpreadsheet = require("google-spreadsheet");
         const moment = require("moment");
         const doc = new GoogleSpreadsheet(TARGET_SPREAD_SHEET_ID);
-        const { name, affiliation, email, organization, comment } = user;
+        const { name, affiliation, email, organization, comment, sendEmailChecked } = user;
+        console.log(user);
+        console.log(sendEmailChecked);
         var sheet;
 
         doc.useServiceAccountAuth(googleAuth, function(err) {

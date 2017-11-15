@@ -9,6 +9,7 @@ interface IPostSignUserParams {
   email: string;
   organization: string;
   comment: string;
+  sendEmailChecked: boolean;
 }
 
 export function changeSignListSearchQuery(searchQuery: string) {
@@ -135,7 +136,14 @@ export function getUserCount() {
   };
 }
 
-export function postSignUser({ name, affiliation, email, organization, comment }: IPostSignUserParams) {
+export function postSignUser({
+  name,
+  affiliation,
+  email,
+  organization,
+  comment,
+  sendEmailChecked,
+}: IPostSignUserParams) {
   return async (dispatch: Dispatch<any>) => {
     dispatch({
       type: ACTION_TYPES.SIGN_LIST_START_TO_POST_USERS,
@@ -216,6 +224,7 @@ export function postSignUser({ name, affiliation, email, organization, comment }
         email,
         organization,
         comment,
+        sendEmailChecked,
       });
 
       const date = new Date();

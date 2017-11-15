@@ -17,12 +17,12 @@ export default class Footer extends React.PureComponent<IFooterComponentProps, {
             <Link className={styles.rightBoxItem} to="/">
               About us
             </Link>
-            <Link className={styles.rightBoxItem} to="/">
+            <a className={styles.rightBoxItem} href="mailto:team@pluto.network">
               Contact us
-            </Link>
-            <Link className={styles.rightBoxItem} to="/">
+            </a>
+            <a target="_blank" className={styles.rightBoxItem} href="https://medium.com/pluto-network">
               Blog
-            </Link>
+            </a>
           </div>
         </div>
       </footer>
