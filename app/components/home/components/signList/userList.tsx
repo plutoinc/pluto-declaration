@@ -20,7 +20,7 @@ class UserList extends React.PureComponent<IUserListProps, {}> {
     const { users } = this.props;
 
     return users.map((user, index) => {
-      if (user.comment !== undefined) {
+      if (user.comment !== undefined && user.comment !== "") {
         return (
           <div key={`userList_${index}`}>
             <li className={styles.userItemWithComment}>
@@ -28,7 +28,7 @@ class UserList extends React.PureComponent<IUserListProps, {}> {
               <span className={styles.userItemAffiliation}>{user.affiliation}</span>
               <span className={styles.userItemDate}>{moment(parseInt(user.date, 10)).format("M/D/YYYY")}</span>
             </li>
-            <div className={styles.userComment}>{user.comment}</div>
+            <div className={styles.userComment}>"{user.comment}"</div>
           </div>
         );
       } else {

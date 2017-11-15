@@ -76,7 +76,6 @@
   padding: 20px 10.5px;
   border-top: solid 1px #e0e0e0;
   display: flex;
-  height: 88px;
   font-size: 18px;
   font-weight: 300;
   color: #3d3d3d;
@@ -89,9 +88,9 @@
   line-height: 1.5;
   color: #6096ff;
   padding-left: 13px;
+  padding-right: 2px;
   border-left: solid 2px #81acff;
-  margin-top: 20px;
-  margin-bottom: 21px;
+  margin: -2px 0px 21px 12px;
   word-break: break-all;
 }
 

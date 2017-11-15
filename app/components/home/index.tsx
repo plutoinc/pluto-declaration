@@ -30,7 +30,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
   public componentDidMount() {
     if (!EnvChecker.isServer()) {
       // START LOAD TWITTER API
-      (window as any).twttr = (function (d, s, id) {
+      (window as any).twttr = (function(d, s, id) {
         var js: any,
           fjs = d.getElementsByTagName(s)[0],
           t = (window as any).twttr || {};
@@ -41,7 +41,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
         fjs.parentNode.insertBefore(js, fjs);
 
         t._e = [];
-        t.ready = function (f: any) {
+        t.ready = function(f: any) {
           t._e.push(f);
         };
 
@@ -49,7 +49,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       })(document, "script", "twitter-wjs");
       // END LOAD TWITTER API
       // START LOAD FACEBOOK API
-      (window as any).facebook = (function (d, s, id) {
+      (window as any).facebook = (function(d, s, id) {
         var js: any,
           fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
@@ -124,7 +124,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
           organization: affiliationInput,
           comment: commentInput,
           sendEmailChecked,
-        })
+        }),
       );
 
       if (sendEmailChecked) {
@@ -132,7 +132,6 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       }
     } catch (err) {
       console.error(err);
-
     }
   };
 

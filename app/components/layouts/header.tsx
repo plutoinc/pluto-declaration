@@ -13,7 +13,7 @@ class Header extends React.PureComponent<IHeaderComponentProps, {}> {
         <div className={styles.headerContainer}>
           <span className={styles.title}>The future of Scholarly Communication</span>
           <div className={styles.rightBox}>
-            <span className={styles.rightBoxItem}>About us</span>
+            <span className={styles.aboutUs}>About us</span>
             <a target="_blank" className={styles.rightBoxItem} href="https://pluto.network">
               Home page
             </a>
