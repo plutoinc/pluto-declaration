@@ -19,13 +19,28 @@ class UserList extends React.PureComponent<IUserListProps, {}> {
   private mapUsers = () => {
     const { users } = this.props;
 
-    return users.map((user, index) => (
-      <li className={styles.userItem} key={`userList_${index}`}>
-        <span className={styles.userItemName}>{user.name}</span>
-        <span className={styles.userItemAffiliation}>{user.affiliation}</span>
-        <span className={styles.userItemDate}>{moment(parseInt(user.date, 10)).format("M/D/YYYY")}</span>
-      </li>
-    ));
+    return users.map((user, index) => {
+      if (user.comment !== undefined) {
+        return (
+          <div key={`userList_${index}`}>
+            <li className={styles.userItemWithComment}>
+              <span className={styles.userItemName}>{user.name}</span>
+              <span className={styles.userItemAffiliation}>{user.affiliation}</span>
+              <span className={styles.userItemDate}>{moment(parseInt(user.date, 10)).format("M/D/YYYY")}</span>
+            </li>
+            <div className={styles.userComment}>{user.comment}</div>
+          </div>
+        );
+      } else {
+        return (
+          <li className={styles.userItem} key={`userList_${index}`}>
+            <span className={styles.userItemName}>{user.name}</span>
+            <span className={styles.userItemAffiliation}>{user.affiliation}</span>
+            <span className={styles.userItemDate}>{moment(parseInt(user.date, 10)).format("M/D/YYYY")}</span>
+          </li>
+        );
+      }
+    });
   };
 
   public render() {
@@ -35,7 +50,13 @@ class UserList extends React.PureComponent<IUserListProps, {}> {
           loadMore={this.props.fetchData}
           hasMore={!this.props.isEnd}
           threshold={400}
-          loader={<div className="loader">Loading ...</div>}
+          loader={
+            <div className={styles.spinner}>
+              <div className={styles.bounce1} />
+              <div className={styles.bounce2} />
+              <div className={styles.bounce3} />
+            </div>
+          }
         >
           <ul className={styles.userList}>
             <li className={styles.userItemCategory}>

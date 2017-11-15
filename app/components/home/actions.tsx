@@ -9,6 +9,7 @@ interface IPostSignUserParams {
   email: string;
   organization: string;
   comment: string;
+  sendEmailChecked: boolean;
 }
 
 export function changeSignListSearchQuery(searchQuery: string) {
@@ -135,7 +136,14 @@ export function getUserCount() {
   };
 }
 
-export function postSignUser({ name, affiliation, email, organization, comment }: IPostSignUserParams) {
+export function postSignUser({
+  name,
+  affiliation,
+  email,
+  organization,
+  comment,
+  sendEmailChecked,
+}: IPostSignUserParams) {
   return async (dispatch: Dispatch<any>) => {
     dispatch({
       type: ACTION_TYPES.SIGN_LIST_START_TO_POST_USERS,
@@ -216,6 +224,7 @@ export function postSignUser({ name, affiliation, email, organization, comment }
         email,
         organization,
         comment,
+        sendEmailChecked,
       });
 
       const date = new Date();
@@ -228,6 +237,7 @@ export function postSignUser({ name, affiliation, email, organization, comment }
             name,
             affiliation,
             date: createdAt,
+            comment,
           },
         },
       });
@@ -235,6 +245,38 @@ export function postSignUser({ name, affiliation, email, organization, comment }
       alert(err);
       dispatch({
         type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS,
+      });
+    }
+  };
+}
+
+export function subscribeEmail(email: string) {
+  return async (dispatch: Dispatch<any>) => {
+    dispatch({
+      type: ACTION_TYPES.SIGN_BOX_START_TO_SUBSCRIBE_EMAIL,
+    });
+    // e-mail validation by regular expression
+    const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const isValidEmail = reg.test(email) && email !== "" && email.length > 0;
+
+    if (isValidEmail) {
+      try {
+        await axios.post(
+          `https://gesqspxc8i.execute-api.us-east-1.amazonaws.com/prod/subscribeMailingList?email=${email}`,
+        );
+        alert("You are on the subscribe list now");
+        dispatch({
+          type: ACTION_TYPES.SIGN_BOX_SUCCEEDED_TO_SUBSCRIBE_EMAIL,
+        });
+      } catch (err) {
+        alert(`Failed to subscribe Email! ${err}`);
+        dispatch({
+          type: ACTION_TYPES.SIGN_BOX_FAILED_TO_SUBSCRIBE_EMAIL,
+        });
+      }
+    } else {
+      dispatch({
+        type: ACTION_TYPES.SIGN_BOX_FAILED_TO_SUBSCRIBE_EMAIL,
       });
     }
   };

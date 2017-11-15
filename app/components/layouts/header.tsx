@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 import { withStyles } from "../../helpers/withStylesHelper";
 
 const styles = require("./header.scss");
@@ -14,9 +13,7 @@ class Header extends React.PureComponent<IHeaderComponentProps, {}> {
         <div className={styles.headerContainer}>
           <span className={styles.title}>The future of Scholarly Communication</span>
           <div className={styles.rightBox}>
-            <Link className={styles.rightBoxItem} to="/">
-              About us
-            </Link>
+            <span className={styles.rightBoxItem}>About us</span>
             <a target="_blank" className={styles.rightBoxItem} href="https://pluto.network">
               Home page
             </a>

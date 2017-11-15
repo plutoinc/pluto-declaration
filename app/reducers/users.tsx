@@ -6,6 +6,7 @@ import { ACTION_TYPES } from "../actions/actionTypes";
 export interface IUserInformation {
   name: string;
   affiliation: string;
+  comment: string;
   date: string;
 }
 

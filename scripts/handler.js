@@ -23,11 +23,11 @@ module.exports.getUserCount = (event, context, callback) => {
   const TARGET_SPREAD_SHEET_ID = "1iy2f4IClmv_k-S4BQze8b9Uk5nlLtOKm_89uxUmvYRs";
   const doc = new GoogleSpreadsheet(TARGET_SPREAD_SHEET_ID);
 
-  doc.useServiceAccountAuth(googleAuth, function(err) {
+  doc.useServiceAccountAuth(googleAuth, function (err) {
     if (err) {
       handlingError(err);
     } else {
-      doc.getRows(1, function(err, rows) {
+      doc.getRows(1, function (err, rows) {
         if (err) {
           handlingError(err);
         } else {
@@ -69,6 +69,7 @@ module.exports.getUsers = (event, context, callback) => {
           name: row.name,
           affiliation: row.affiliation,
           date: row.date,
+          comment: row.comment,
         };
       });
 
@@ -84,7 +85,7 @@ module.exports.getUsers = (event, context, callback) => {
     }
   }
 
-  doc.useServiceAccountAuth(googleAuth, function(err) {
+  doc.useServiceAccountAuth(googleAuth, function (err) {
     if (err) {
       handlingError(err);
     } else {
@@ -130,21 +131,22 @@ module.exports.sendSheet = (event, context, callback) => {
         const GoogleSpreadsheet = require("google-spreadsheet");
         const moment = require("moment");
         const doc = new GoogleSpreadsheet(TARGET_SPREAD_SHEET_ID);
-        const { name, affiliation, email, organization, comment } = user;
+        const { name, affiliation, email, organization, comment, sendEmailChecked } = user;
         var sheet;
 
-        doc.useServiceAccountAuth(googleAuth, function(err) {
+        doc.useServiceAccountAuth(googleAuth, function (err) {
           if (err) {
             reject(err);
           } else {
-            doc.getInfo(function(err, info) {
+            doc.getInfo(function (err, info) {
               if (err) {
                 console.log(err);
                 reject();
               } else {
                 sheet = info.worksheets[0];
-                sheet.setHeaderRow(["name", "affiliation", "email", "organization", "comment", "date"], err => {
+                sheet.setHeaderRow(["name", "affiliation", "email", "organization", "comment", "date", "sendEmailChecked"], err => {
                   if (err) {
+                    console.error(err);
                     reject(err);
                   } else {
                     const date = new Date();
@@ -156,10 +158,11 @@ module.exports.sendSheet = (event, context, callback) => {
                       email,
                       organization,
                       comment,
+                      sendEmailChecked,
                       date: createdAt,
                     };
 
-                    doc.addRow(1, fields, function(err) {
+                    doc.addRow(1, fields, function (err) {
                       if (err) return reject(err);
                       resolve();
                     });
