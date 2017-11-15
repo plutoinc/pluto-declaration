@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 
 import { withStyles } from "../../helpers/withStylesHelper";
 const styles = require("./footer.scss");
@@ -14,9 +13,9 @@ export default class Footer extends React.PureComponent<IFooterComponentProps, {
         <div className={styles.footerContainer}>
           <span className={styles.title}>© 2017 Pluto Nerwork. All rights reserved</span>
           <div className={styles.rightBox}>
-            <Link className={styles.rightBoxItem} to="/">
-              About us
-            </Link>
+            <a className={styles.rightBoxItem} href="https://pluto.network">
+              Home
+            </a>
             <a className={styles.rightBoxItem} href="mailto:team@pluto.network">
               Contact us
             </a>
