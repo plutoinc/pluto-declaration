@@ -33,11 +33,11 @@
   color: #fff;
 }
 
+.aboutUs {
+  color: $space_gray2;
+}
+
 .rightBoxItem {
   margin-left: 11px;
   margin-right: 11px;
-
-  &:first-of-type {
-    color: $space_gray2;
-  }
 }
