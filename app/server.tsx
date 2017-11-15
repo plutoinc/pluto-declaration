@@ -4,6 +4,7 @@ import * as ReactDOMServer from "react-dom/server";
 import { createMemoryHistory } from "history";
 import { applyMiddleware, createStore } from "redux";
 import { StaticRouter, matchPath } from "react-router-dom";
+import Helmet from "react-helmet";
 // interfaces
 import * as LambdaProxy from "./typings/lambda";
 // redux middlewares
@@ -58,12 +59,15 @@ export async function serverSideRender(requestUrl: string, scriptPath: string) {
     </CssInjector>,
   );
 
+  const helmet = Helmet.renderStatic();
+
   const cssArr = Array.from(css);
   const fullHTML: string = await staticHTMLWrapper(
     renderedHTML,
     scriptPath,
     stringifiedInitialReduxState,
     cssArr.join(""),
+    helmet,
   );
   return fullHTML;
 }

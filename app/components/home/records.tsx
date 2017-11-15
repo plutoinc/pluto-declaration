@@ -52,7 +52,7 @@ const initialHomeState: IHomeState = {
   affiliationInput: "",
   affiliationEmailInput: "",
   commentInput: "",
-  sendEmailChecked: false,
+  sendEmailChecked: true,
   userListIsLoading: false,
   userListIsEnd: false,
   userListPage: 0,
