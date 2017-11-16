@@ -4,8 +4,6 @@ import * as ReactDOMServer from "react-dom/server";
 import { createMemoryHistory } from "history";
 import { applyMiddleware, createStore } from "redux";
 import { StaticRouter, matchPath } from "react-router-dom";
-import Helmet from "react-helmet";
-export const AppHelmet = Helmet;
 // interfaces
 import * as LambdaProxy from "./typings/lambda";
 // redux middlewares
@@ -20,6 +18,7 @@ import { RootRoutes, serverRootRoutes } from "./routes";
 import * as fs from "fs";
 import * as DeployConfig from "../scripts/builds/config";
 import { rootReducer, initialState, IAppState } from "./rootReducer";
+import { AppHelmet } from "./index";
 
 export async function serverSideRender(requestUrl: string, scriptPath: string) {
   let stringifiedInitialReduxState: string;

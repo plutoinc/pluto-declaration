@@ -9,7 +9,7 @@ import * as Actions from "./actions";
 import SignBox from "./components/signBox";
 import EnvChecker from "../../helpers/envChecker";
 import { IUsersRecord } from "../../reducers/users";
-import { AppHelmet } from "../../server";
+import { AppHelmet } from "../../index";
 
 const styles = require("./home.scss");
 
