@@ -27,6 +27,15 @@
           opacity: 1;
         }
       }
+
+      .mobileBtn {
+        .menuOpen {
+          display: none;
+        }
+        .menuClose {
+          display: initial;
+        }
+      }
     }
   }
 }
@@ -62,13 +71,14 @@
 }
 
 .mobileBtn {
-  &.isOpen {
-    .menuOpen {
-      display: hidden;
-    }
-    .menuClose {
-      display: flex;
-    }
+  display: hidden;
+  position: absolute;
+  top: 27.5px;
+  right: 15px;
+
+  svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -107,13 +117,11 @@
       }
 
       .mobileBtn {
-        position: absolute;
-        top: 27.5px;
-        right: 15px;
-
-        svg {
-          width: 20px;
-          height: 20px;
+        .menuOpen {
+          display: initial;
+        }
+        .menuClose {
+          display: none;
         }
       }
 
@@ -126,6 +134,7 @@
       }
 
       .rightBox {
+        margin-top: 72px;
         display: flex;
         visibility: hidden;
         flex-direction: column;
@@ -145,22 +154,13 @@
           opacity: 0;
           height: 40px;
           margin: 0;
-          border-top: 1px solid #ecf1fa;
+          border-top: 1px solid #666d7c;
           transform: translateY(-100%);
           transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
           &:last-child {
-            border-bottom: solid 1px #ecf1fa;
+            border-bottom: solid 1px #666d7c;
           }
-        }
-      }
-
-      .mobileLogoWrapper {
-        display: block;
-        margin: 15px 0 15px 15px;
-
-        svg {
-          height: 45px;
         }
       }
 

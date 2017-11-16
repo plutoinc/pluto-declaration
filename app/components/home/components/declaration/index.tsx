@@ -17,17 +17,18 @@ export default class Declaration extends React.PureComponent<IDeclarationCompone
         <div className={styles.innerContainer}>
           <div className={styles.titleContainer}>
             <div className={styles.title}>The Future of Scholarly Communication</div>
+            <div className={styles.mobileSubTitle}>One step for transparent and rational scholarly communication</div>
             <div className={styles.rightBox}>
               <Icon className={styles.shareIcon} icon="SHARE" />
-              <a href={`https://twitter.com/intent/tweet?url=${plutoUrl}&hashtags=FutureOfScholComm`} target="_blank">
-                <Icon className={styles.rightItem} icon="TWITTER" />
-              </a>
               <a
                 href={`https://www.facebook.com/sharer/sharer.php?u=${plutoUrl}`}
                 data-mobile-iframe="true"
                 target="_blank"
               >
                 <Icon className={styles.rightItem} icon="FACEBOOK" />
+              </a>
+              <a href={`https://twitter.com/intent/tweet?url=${plutoUrl}&hashtags=FutureOfScholComm`} target="_blank">
+                <Icon className={styles.rightItem} icon="TWITTER" />
               </a>
             </div>
           </div>

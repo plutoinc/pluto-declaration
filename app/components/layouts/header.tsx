@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 import { withStyles } from "../../helpers/withStylesHelper";
 import Icon from "../../icons";
 
@@ -35,9 +34,6 @@ class Header extends React.PureComponent<IHeaderComponentProps, IHeaderComponent
         />
         <div className={`${styles.headerContainer} ${this.state.isMenuOpen ? styles.isOpen : ""}`}>
           <span className={styles.title}>The future of Scholarly Communication</span>
-          <Link to="/" className={styles.mobileLogoWrapper}>
-            <Icon icon="MOBILE_LOGO" />
-          </Link>
           <div className={styles.rightBox}>
             <span className={styles.aboutUs}>About us</span>
             <a target="_blank" className={styles.rightBoxItem} href="https://pluto.network">
@@ -57,8 +53,8 @@ class Header extends React.PureComponent<IHeaderComponentProps, IHeaderComponent
             </a>
           </div>
           <div className={styles.mobileBtn} onClick={this.toggleMobileMenu}>
-            <Icon icon="MOBILE_MENU_OPEN" className={styles.openIcon} />
-            <Icon icon="MOBILE_MENU_CLOSE" className={styles.closeIcon} />
+            <Icon icon="MOBILE_MENU_OPEN" className={styles.menuOpen} />
+            <Icon icon="MOBILE_MENU_CLOSE" className={styles.menuClose} />
           </div>
         </div>
       </nav>
