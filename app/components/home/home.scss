@@ -11,3 +11,11 @@
   position: relative;
   vertical-align: top;
 }
+
+@media (max-width: 768px) {
+  .signContainer {
+    flex-direction: column-reverse;
+    margin: 0;
+    width: unset;
+  }
+}
