@@ -41,3 +41,9 @@
   margin-left: 11px;
   margin-right: 11px;
 }
+
+@media (max-width: 768px) {
+  .title {
+    display: none;
+  }
+}
