@@ -96,6 +96,9 @@
     "svg-sprite-loader": "^3.4.1",
     "typed-immutable-record": "0.0.6"
   },
+  "peerDependencies": {
+    "react-helmet": "^5.2.0"
+  },
   "jest": {
     "scriptPreprocessor": "<rootDir>/scripts/jestPreprocessor.js",
     "setupTestFrameworkScriptFile": "<rootDir>/scripts/jestReporter.js",
