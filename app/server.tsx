@@ -5,6 +5,7 @@ import { createMemoryHistory } from "history";
 import { applyMiddleware, createStore } from "redux";
 import { StaticRouter, matchPath } from "react-router-dom";
 import Helmet from "react-helmet";
+export const AppHelmet = Helmet;
 // interfaces
 import * as LambdaProxy from "./typings/lambda";
 // redux middlewares
@@ -59,7 +60,7 @@ export async function serverSideRender(requestUrl: string, scriptPath: string) {
     </CssInjector>,
   );
 
-  const helmet = await Helmet.renderStatic();
+  const helmet = await AppHelmet.renderStatic();
   const cssArr = Array.from(css);
   const fullHTML: string = await staticHTMLWrapper(
     renderedHTML,
