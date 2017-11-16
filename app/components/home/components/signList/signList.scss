@@ -174,3 +174,62 @@
     transform: scale(1);
   }
 }
+
+@media (max-width: 768px) {
+  .signListContainer {
+    width: unset;
+    margin: 57.5px 15px 0 15px;
+
+    .title {
+      font-size: 15.8px;
+
+      .number {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 28px;
+        color: #6096ff;
+      }
+    }
+
+    .userList {
+      .userItemCategory {
+        font-size: 14px;
+
+        .userItemName {
+          width: 100px;
+        }
+
+        .userItemDate {
+          width: 50px;
+        }
+      }
+
+      .userItemWithComment {
+        font-size: 12px;
+        .userItemName {
+          width: 100px;
+        }
+
+        .userItemDate {
+          width: 50px;
+        }
+      }
+
+      .userComment {
+        font-size: 12px;
+        width: unset;
+      }
+
+      .userItem {
+        font-size: 12px;
+        .userItemName {
+          width: 100px;
+        }
+
+        .userItemDate {
+          width: 50px;
+        }
+      }
+    }
+  }
+}
