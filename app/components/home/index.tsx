@@ -11,7 +11,6 @@ import EnvChecker from "../../helpers/envChecker";
 import { IUsersRecord } from "../../reducers/users";
 // single Helmet instance for head tags
 import Helmet from "react-helmet";
-export const AppHelmet = Helmet;
 
 const styles = require("./home.scss");
 
@@ -178,7 +177,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     return (
       <div className={styles.homeContainer}>
-        <AppHelmet title="Join Pluto Network!">
+        <Helmet title="Join Pluto Network!">
           <meta property="og:url" content="https://join.pluto.network" />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="The Future of Scholarly Communication" />
@@ -187,7 +186,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             property="og:image"
             content="https://pbs.twimg.com/profile_images/879901726739808256/ry_UkEdB_400x400.jpg"
           />
-        </AppHelmet>
+        </Helmet>
         <Declaration />
         <div className={styles.signContainer}>
           <SignList
