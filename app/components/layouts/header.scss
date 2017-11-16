@@ -15,7 +15,7 @@
     border-bottom: 1px solid #fff;
 
     &.isOpen {
-      background-color: #3e3d3c;
+      background-color: $black_navy7;
 
       .rightBox {
         visibility: visible;
@@ -155,12 +155,12 @@
           opacity: 0;
           height: 40px;
           margin: 0;
-          border-top: 1px solid #666d7c;
+          border-top: 1px solid $black_navy8;
           transform: translateY(-100%);
           transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
           &:last-child {
-            border-bottom: solid 1px #666d7c;
+            border-bottom: solid 1px $black_navy8;
           }
         }
       }
