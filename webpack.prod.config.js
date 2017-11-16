@@ -62,12 +62,7 @@ module.exports = {
       },
     ],
   },
-  externals: {
-    "react/lib/ExecutionEnvironment": true,
-    "react/lib/ReactContext": true,
-    "react/addons": true,
-    "react-helmet": true,
-  },
+  externals: ["react/lib/ExecutionEnvironment", "react/lib/ReactContext", "react/addons", "react-helme"],
   plugins: [
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production"),
