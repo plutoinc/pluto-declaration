@@ -11,7 +11,7 @@ export function staticHTMLWrapper(
     <!doctype html>
     <html>
       <head>
-        ${helmet.title.toString()}
+      <title>${helmet.title.toString()}</title>
         ${helmet.meta.toString()}
         ${helmet.link.toString()}
         <meta charset="utf-8">
