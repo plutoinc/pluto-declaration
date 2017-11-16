@@ -59,7 +59,7 @@ export async function serverSideRender(requestUrl: string, scriptPath: string) {
     </CssInjector>,
   );
 
-  const helmet = Helmet.renderStatic();
+  const helmet = Helmet.rewind();
 
   const cssArr = Array.from(css);
   const fullHTML: string = await staticHTMLWrapper(
@@ -69,6 +69,7 @@ export async function serverSideRender(requestUrl: string, scriptPath: string) {
     cssArr.join(""),
     helmet,
   );
+
   return fullHTML;
 }
 
