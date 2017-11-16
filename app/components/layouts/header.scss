@@ -71,7 +71,7 @@
 }
 
 .mobileBtn {
-  display: hidden;
+  display: none;
   position: absolute;
   top: 27.5px;
   right: 15px;
@@ -117,6 +117,7 @@
       }
 
       .mobileBtn {
+        display: initial;
         .menuOpen {
           display: initial;
         }
