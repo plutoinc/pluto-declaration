@@ -9,7 +9,9 @@ import * as Actions from "./actions";
 import SignBox from "./components/signBox";
 import EnvChecker from "../../helpers/envChecker";
 import { IUsersRecord } from "../../reducers/users";
-import { AppHelmet } from "../../index";
+// single Helmet instance for head tags
+import Helmet from "react-helmet";
+export const AppHelmet = Helmet;
 
 const styles = require("./home.scss");
 

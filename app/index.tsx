@@ -18,9 +18,6 @@ import { rootReducer, initialState, IAppState } from "./rootReducer";
 // routes
 import { RootRoutes } from "./routes";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-// single Helmet instance for head tags
-import Helmet from "react-helmet";
-export const AppHelmet = Helmet;
 
 let history: History;
 if (EnvChecker.isServer()) {

@@ -18,7 +18,7 @@ import { RootRoutes, serverRootRoutes } from "./routes";
 import * as fs from "fs";
 import * as DeployConfig from "../scripts/builds/config";
 import { rootReducer, initialState, IAppState } from "./rootReducer";
-import { AppHelmet } from "./index";
+import { AppHelmet } from "./components/home";
 
 export async function serverSideRender(requestUrl: string, scriptPath: string) {
   let stringifiedInitialReduxState: string;
