@@ -23,7 +23,7 @@ class UserList extends React.PureComponent<IUserListProps, {}> {
       if (user.comment !== undefined && user.comment !== "") {
         return (
           <div key={`userList_${index}`}>
-            <li className={styles.userItemWithComment}>
+            <li className={styles.userItem}>
               <span className={styles.userItemName}>{user.name}</span>
               <span className={styles.userItemAffiliation}>{user.affiliation}</span>
               <span className={styles.userItemDate}>{moment(parseInt(user.date, 10)).format("M/D/YYYY")}</span>
