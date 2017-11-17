@@ -7,7 +7,7 @@
   height: 521px;
   border-radius: 5px;
   background-color: $space_gray6;
-  border: solid 1px $space_gray7;
+  border: solid 1px $space_gray8;
   display: flex;
   flex-direction: column;
   padding: 29.5px 25px 20px 25px;
@@ -29,7 +29,7 @@
     align-items: center;
 
     //TODO: It's not applied
-    &:first-of-type() {
+    &:first-of-type {
       margin-top: 24px;
     }
 
@@ -83,6 +83,7 @@
   }
 
   .checkBoxContainer {
+    display: flex;
     margin-top: 8px;
 
     .checkBox {
@@ -92,9 +93,11 @@
       border-radius: 3px;
       border: solid 1.5px $space_gray7;
       background-color: $royal_blue1;
-      margin-right: 8px;
       transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      margin-right: 8px;
+      margin-top: 2px;
     }
+
     .unChecked {
       background-color: #fff;
     }
@@ -247,4 +250,32 @@
   width: 106px;
   height: 17px;
   object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .signBoxContainer {
+    margin: 50px 15px 0 15px;
+    width: unset;
+    align-items: center;
+
+    .inputWrapper {
+      width: 100%;
+    }
+
+    .commentInputWrapper {
+      width: 100%;
+    }
+
+    .caution {
+      white-space: unset;
+    }
+
+    .checkBoxContainer > .checkBoxContent {
+      width: 100%;
+    }
+
+    .submitButton {
+      width: 100%;
+    }
+  }
 }

@@ -31,3 +31,22 @@
 .rightBoxItem {
   margin-left: 23px;
 }
+
+@media (max-width: 768px) {
+  .footer {
+    .footerContainer {
+      height: 52px;
+      margin: 92.5px 15px 0 15px;
+
+      .title {
+        font-size: 11px;
+        line-height: 1.45;
+        width: 111.5px;
+      }
+
+      .rightBox {
+        font-size: 11px;
+      }
+    }
+  }
+}
