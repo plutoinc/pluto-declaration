@@ -18,7 +18,6 @@ import { RootRoutes, serverRootRoutes } from "./routes";
 import * as fs from "fs";
 import * as DeployConfig from "../scripts/builds/config";
 import { rootReducer, initialState, IAppState } from "./rootReducer";
-import { AppHelmet } from "./index";
 
 export async function serverSideRender(requestUrl: string, scriptPath: string) {
   let stringifiedInitialReduxState: string;
@@ -59,14 +58,12 @@ export async function serverSideRender(requestUrl: string, scriptPath: string) {
     </CssInjector>,
   );
 
-  const helmet = await AppHelmet.renderStatic();
   const cssArr = Array.from(css);
   const fullHTML: string = await staticHTMLWrapper(
     renderedHTML,
     scriptPath,
     stringifiedInitialReduxState,
     cssArr.join(""),
-    helmet,
   );
 
   return fullHTML;
