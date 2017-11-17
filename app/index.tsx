@@ -77,14 +77,13 @@ if (EnvChecker.isServer() || !EnvChecker.isDev()) {
 
 export const appStore = store;
 
-// initialize GA
-if (!EnvChecker.isDev()) {
-  ReactGA.initialize("UA-109824701-1");
-  ReactGA.set({ page: window.location.pathname + window.location.search });
-}
-
 // Browser Side Rendering to develop React Web-app
 if (!EnvChecker.isServer()) {
+  // initialize GA
+  if (!EnvChecker.isDev()) {
+    ReactGA.initialize("UA-109824701-1");
+    ReactGA.set({ page: window.location.pathname + window.location.search });
+  }
   ReactDom.render(
     <CssInjector>
       <Provider store={store}>
