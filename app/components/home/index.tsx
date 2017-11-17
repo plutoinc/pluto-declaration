@@ -1,5 +1,4 @@
 import * as React from "react";
-import Helmet from "react-helmet";
 import { connect, DispatchProp } from "react-redux";
 import { withStyles } from "../../helpers/withStylesHelper";
 import Declaration from "./components/declaration";
@@ -176,16 +175,6 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     return (
       <div className={styles.homeContainer}>
-        <Helmet title="Join Pluto Network!">
-          <meta property="og:url" content="https://join.pluto.network" />
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content="The Future of Scholarly Communication" />
-          <meta property="og:description" content="Decentralized Scholarly Communication Platform" />
-          <meta
-            property="og:image"
-            content="https://pbs.twimg.com/profile_images/879901726739808256/ry_UkEdB_400x400.jpg"
-          />
-        </Helmet>
         <Declaration />
         <div className={styles.signContainer}>
           <SignList
