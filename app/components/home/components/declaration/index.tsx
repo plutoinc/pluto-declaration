@@ -18,13 +18,14 @@ export default class Declaration extends React.PureComponent<IDeclarationCompone
 
   private shaveTexts() {
     if (!!this.shavedLowerContentElement) {
-      shave(this.shavedLowerContentElement, 88);
+      shave(this.shavedLowerContentElement, 351);
     }
   }
 
   public componentDidMount() {
     this.shaveTexts();
   }
+
   public render() {
     const { isReadMoreBoxToggled, toggleReadMoreBox } = this.props;
     const plutoUrl = encodeURIComponent("https://join.pluto.network");
