@@ -154,6 +154,12 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     dispatch(Actions.toggleSendEmailCheckBox());
   };
 
+  private toggleReadMoreBox = () => {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.toggleReadMoreBox());
+  };
+
   public render() {
     const {
       signListSearchQuery,
@@ -170,12 +176,13 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       alreadySigned,
       sendEmailChecked,
       formInputErrorCheck,
+      isReadMoreBoxToggled,
     } = this.props.homeState;
     const { users } = this.props;
 
     return (
       <div className={styles.homeContainer}>
-        <Declaration />
+        <Declaration isReadMoreBoxToggled={isReadMoreBoxToggled} toggleReadMoreBox={this.toggleReadMoreBox} />
         <div className={styles.signContainer}>
           <SignList
             changeSignListSearchQuery={this.changeSignListSearchQuery}

@@ -316,3 +316,9 @@ export function toggleSendEmailCheckBox() {
     type: ACTION_TYPES.SIGN_BOX_TOGGLE_SEND_EMAIL_CHECK_BOX,
   };
 }
+
+export function toggleReadMoreBox() {
+  return {
+    type: ACTION_TYPES.DECLARATION_TOGGLE_READ_MORE_BOX,
+  };
+}

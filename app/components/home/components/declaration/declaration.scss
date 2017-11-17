@@ -79,15 +79,15 @@
     .declarationBox {
       margin-top: 80px;
       width: 780px;
-      height: 696.5px;
       background-color: #fff;
       box-shadow: 0 30px 47px 0 rgba(102, 109, 124, 0.12);
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding-top: 56px;
+      padding-bottom: 63px;
 
       .title {
-        margin-top: 56px;
         font-family: "PT Serif", "sans-serif";
         font-size: 20px;
         letter-spacing: 6.5px;
@@ -119,11 +119,11 @@
 
       .lowerContent {
         width: 620px;
-        height: 351px;
         font-size: 18px;
         line-height: 1.5;
         color: $black_navy2;
         white-space: pre-line;
+        word-break: break-word;
       }
 
       .buttons {
@@ -191,7 +191,6 @@
 
         .lowerContent {
           width: unset;
-          height: unset;
           margin-top: 31px;
           font-size: 14px;
         }
