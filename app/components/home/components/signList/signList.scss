@@ -59,21 +59,7 @@
 }
 
 .userItem {
-  padding: 20px 10.5px;
-  border-top: solid 1px $space_gray10;
-  display: flex;
-  height: 88px;
-  font-size: 18px;
-  font-weight: 300;
-  color: $black_navy6;
-
-  &:last-of-type {
-    border-bottom: solid 1px $space_gray10;
-  }
-}
-
-.userItemWithComment {
-  padding: 20px 10.5px;
+  padding: 20px 0;
   border-top: solid 1px $space_gray10;
   display: flex;
   font-size: 18px;
@@ -90,8 +76,8 @@
   padding-left: 13px;
   padding-right: 2px;
   border-left: solid 2px $royal_blue2;
-  margin: -2px 0px 21px 12px;
-  word-break: break-all;
+  margin: -2px 0px 21px 7px;
+  word-break: break-word;
 }
 
 .userItemCategory {
@@ -204,18 +190,8 @@
         }
       }
 
-      .userItemWithComment {
-        font-size: 12px;
-        .userItemName {
-          width: 100px;
-        }
-
-        .userItemDate {
-          width: 50px;
-        }
-      }
-
       .userComment {
+        padding-left: 5.5px;
         font-size: 12px;
         width: unset;
       }
