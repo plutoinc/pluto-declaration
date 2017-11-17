@@ -68,7 +68,6 @@ module.exports = {
     "react/lib/ExecutionEnvironment": true,
     "react/lib/ReactContext": true,
     "react/addons": true,
-    "react-helmet": true,
   },
   plugins: [
     new webpack.DefinePlugin({
