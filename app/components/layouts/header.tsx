@@ -1,6 +1,7 @@
 import * as React from "react";
 import { withStyles } from "../../helpers/withStylesHelper";
 import Icon from "../../icons";
+import { trackAndOpenLink } from "../../helpers/handleGA";
 
 const styles = require("./header.scss");
 
@@ -36,19 +37,39 @@ class Header extends React.PureComponent<IHeaderComponentProps, IHeaderComponent
           <span className={styles.title}>The future of Scholarly Communication</span>
           <div className={styles.rightBox}>
             <span className={styles.aboutUs}>About us</span>
-            <a target="_blank" className={styles.rightBoxItem} href="https://pluto.network">
+            <a
+              onClick={() => {
+                trackAndOpenLink("https://pluto.network", "Footer");
+              }}
+              className={styles.rightBoxItem}
+            >
               Home page
             </a>
             <span className={styles.separatorLine} />
-            <a target="_blank" className={styles.rightBoxItem} href="https://www.facebook.com/PlutoNetwork">
+            <a
+              onClick={() => {
+                trackAndOpenLink("https://www.facebook.com/PlutoNetwork", "Footer");
+              }}
+              className={styles.rightBoxItem}
+            >
               Facebook
             </a>
             <span className={styles.separatorLine} />
-            <a target="_blank" className={styles.rightBoxItem} href="https://twitter.com/pluto_network">
+            <a
+              onClick={() => {
+                trackAndOpenLink("https://twitter.com/pluto_network", "Footer");
+              }}
+              className={styles.rightBoxItem}
+            >
               Twitter
             </a>
             <span className={styles.separatorLine} />
-            <a target="_blank" className={styles.rightBoxItem} href="https://medium.com/pluto-network">
+            <a
+              onClick={() => {
+                trackAndOpenLink("https://medium.com/pluto-network", "Footer");
+              }}
+              className={styles.rightBoxItem}
+            >
               Blog
             </a>
           </div>

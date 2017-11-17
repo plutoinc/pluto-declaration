@@ -18,6 +18,7 @@ import { rootReducer, initialState, IAppState } from "./rootReducer";
 // routes
 import { RootRoutes } from "./routes";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import * as ReactGA from "react-ga";
 
 let history: History;
 if (EnvChecker.isServer()) {
@@ -78,6 +79,11 @@ export const appStore = store;
 
 // Browser Side Rendering to develop React Web-app
 if (!EnvChecker.isServer()) {
+  // initialize GA
+  if (!EnvChecker.isDev()) {
+    ReactGA.initialize("UA-109824701-1");
+    ReactGA.set({ page: window.location.pathname + window.location.search });
+  }
   ReactDom.render(
     <CssInjector>
       <Provider store={store}>

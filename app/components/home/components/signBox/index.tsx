@@ -4,6 +4,7 @@ import { withStyles } from "../../../../helpers/withStylesHelper";
 import Icon from "../../../../icons";
 import CircularProgress from "material-ui/CircularProgress";
 import { ISignBoxFormInputErrorCheckRecord } from "../../records";
+import { trackAndOpenLink } from "../../../../helpers/handleGA";
 
 const styles = require("./signBox.scss");
 
@@ -81,7 +82,12 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
       return (
         <div className={styles.signBoxContainer}>
           <div className={styles.twitterBoxTitle}>THANK YOU FOR SIGNING!</div>
-          <div className={styles.twitterBoxSubTitle}>
+          <div
+            onClick={() => {
+              trackAndOpenLink("https://twitter.com/search?q=%23FutureOfScholComm&src=typd", "signBoxTwitterHash");
+            }}
+            className={styles.twitterBoxSubTitle}
+          >
             Share with your friends with hashtag
             <span className={styles.twitterBoxSubTitleHashtag}> #FutureOfScholComm</span>
           </div>
@@ -102,7 +108,12 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
           </div>
           <a
             className={styles.twitButton}
-            href={`https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrl}&hashtags=FutureOfScholComm`}
+            onClick={() => {
+              trackAndOpenLink(
+                `https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrl}&hashtags=FutureOfScholComm`,
+                "signBannerTwitterShare",
+              );
+            }}
           >
             Share with Twitter
           </a>
