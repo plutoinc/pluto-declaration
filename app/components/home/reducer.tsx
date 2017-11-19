@@ -83,6 +83,10 @@ export function reducer(state = HOME_INITIAL_STATE, action: IReduxAction<any>): 
       return state.set("sendEmailChecked", !state.sendEmailChecked);
     }
 
+    case ACTION_TYPES.DECLARATION_TOGGLE_READ_MORE_BOX: {
+      return state.set("isReadMoreBoxToggled", !state.isReadMoreBoxToggled);
+    }
+
     case ACTION_TYPES.SIGN_BOX_FORM_ERROR: {
       return state.setIn(["formInputErrorCheck", action.payload.type], true);
     }

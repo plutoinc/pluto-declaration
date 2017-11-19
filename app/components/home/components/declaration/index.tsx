@@ -5,12 +5,39 @@ import Icon from "../../../../icons";
 import { trackAndOpenLink } from "../../../../helpers/handleGA";
 const styles = require("./declaration.scss");
 
-interface IDeclarationComponentProps {}
+const shave = require("shave").default;
+
+interface IDeclarationComponentProps {
+  isReadMoreBoxToggled: boolean;
+  toggleReadMoreBox: () => void;
+}
 
 @withStyles<typeof Declaration>(styles)
 export default class Declaration extends React.PureComponent<IDeclarationComponentProps, {}> {
+  private shavedLowerContentElement: HTMLDivElement;
+
+  private shaveTexts() {
+    if (!!this.shavedLowerContentElement) {
+      shave(this.shavedLowerContentElement, 351);
+    }
+  }
+
+  public componentDidMount() {
+    this.shaveTexts();
+  }
+
   public render() {
+    const { isReadMoreBoxToggled, toggleReadMoreBox } = this.props;
     const plutoUrl = encodeURIComponent("https://join.pluto.network");
+    const originalLowerContent = `1. They charge exorbitantly high prices for subscriptions to individual journals.
+    2. In the light of these high prices, the only realistic option for many libraries is to agree to buy very large "bundles", which will include many journals that those libraries do not actually want. Elsevier thus makes huge profits by exploiting the fact that some of their journals are essential.
+    3. They support measures such as SOPA, PIPAand the Research Works Act, that aim to restrict the free exchange of information.
+    \nThe key to all these issues is the right of authors to achieve easily-accessible distribution of their work. If you would like to declare publicly that you will not support any Elsevier journal unless they radically change how they operate, then you can do so by filling in your details on this page.
+    testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+    testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+    testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+    testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+    testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest`;
 
     return (
       <div className={styles.declarationContainer}>
@@ -48,14 +75,22 @@ export default class Declaration extends React.PureComponent<IDeclarationCompone
               <span className={styles.upperCase}>A</span>cademics have protested against Elsevier's business practices
               for years with little effect. These are some of their objections:
             </div>
-            <div className={styles.lowerContent}>
-              {`1. They charge exorbitantly high prices for subscriptions to individual journals.
-              2. In the light of these high prices, the only realistic option for many libraries is to agree to buy very large "bundles", which will include many journals that those libraries do not actually want. Elsevier thus makes huge profits by exploiting the fact that some of their journals are essential.
-              3. They support measures such as SOPA, PIPAand the Research Works Act, that aim to restrict the free exchange of information.
-              \nThe key to all these issues is the right of authors to achieve easily-accessible distribution of their work. If you would like to declare publicly that you will not support any Elsevier journal unless they radically change how they operate, then you can do so by filling in your details on this page.`}
+            <div style={!isReadMoreBoxToggled ? { display: "none" } : null} className={styles.lowerContent}>
+              {originalLowerContent}
+            </div>
+            <div
+              ref={ele => {
+                this.shavedLowerContentElement = ele;
+              }}
+              style={isReadMoreBoxToggled ? { display: "none" } : null}
+              className={styles.lowerContent}
+            >
+              {originalLowerContent}
             </div>
             <div className={styles.buttons}>
-              <button className={styles.readMore}>Read More</button>
+              <button onClick={toggleReadMoreBox} className={styles.readMore}>
+                Read More
+              </button>
               <button className={styles.purpose}>Purpose</button>
             </div>
           </div>

@@ -22,6 +22,7 @@ export interface IHomeState {
   userListPage: number;
   userListSort: USER_LIST_SORT_TYPE;
   formInputErrorCheck: ISignBoxFormInputErrorCheckRecord;
+  isReadMoreBoxToggled: boolean;
 }
 
 export interface IHomeStateRecord extends TypedRecord<IHomeStateRecord>, IHomeState {}
@@ -58,6 +59,7 @@ const initialHomeState: IHomeState = {
   userListPage: 0,
   userListSort: USER_LIST_SORT_TYPE.DATE,
   formInputErrorCheck: initialErrorCheck,
+  isReadMoreBoxToggled: false,
 };
 
 export const HomeStateFactory = makeTypedFactory<IHomeState, IHomeStateRecord>(initialHomeState);
