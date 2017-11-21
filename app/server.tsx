@@ -10,7 +10,7 @@ import * as LambdaProxy from "./typings/lambda";
 import * as ReactRouterRedux from "react-router-redux";
 import thunkMiddleware from "redux-thunk";
 // helpers
-import { staticHTMLWrapper } from "./helpers/htmlWrapper";
+import { staticHTMLWrapper, staticHTMLWrapperWithImageMetaTag } from "./helpers/htmlWrapper";
 import CssInjector, { css } from "./helpers/cssInjector";
 import EnvChecker from "./helpers/envChecker";
 import { RootRoutes, serverRootRoutes } from "./routes";
@@ -71,12 +71,13 @@ export async function serverSideRender(requestUrl: string, scriptPath: string) {
 
 // Lambda Handler
 export async function handler(event: LambdaProxy.Event, context: LambdaProxy.Context) {
-  if (EnvChecker.isServer()) {
-    const LAMBDA_SERVICE_NAME = "serverless-unviversal-app";
-    const path = event.path;
+  const path = event.path;
+  const LAMBDA_SERVICE_NAME = "serverless-unviversal-app";
+  let requestPath: string;
+
+  if (path === `/${LAMBDA_SERVICE_NAME}` && EnvChecker.isServer()) {
     const version = fs.readFileSync("./version");
 
-    let requestPath: string;
     if (path === `/${LAMBDA_SERVICE_NAME}`) {
       requestPath = "/";
     } else {
@@ -101,7 +102,34 @@ export async function handler(event: LambdaProxy.Event, context: LambdaProxy.Con
           "Content-Type": "text/html",
           "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify(e.meesage),
+        body: JSON.stringify(e.message),
+      });
+    }
+  } else {
+    console.log("??");
+    // const userImageId = path.replace(`/${LAMBDA_SERVICE_NAME}`, "");
+    const userImageId = "IMG_0719";
+    // load Image
+    try {
+      const userImageAssetUrl = "https://d103giazgvc1eu.cloudfront.net/userImage";
+      const imageUrl = `${userImageAssetUrl}/${userImageId}.JPG`;
+      const body = staticHTMLWrapperWithImageMetaTag(imageUrl);
+      context.succeed({
+        statusCode: 200,
+        headers: {
+          "Content-Type": "text/html",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body,
+      });
+    } catch (e) {
+      context.succeed({
+        statusCode: 500,
+        headers: {
+          "Content-Type": "text/html",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify(e.message),
       });
     }
   }

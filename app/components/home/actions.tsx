@@ -2,6 +2,7 @@ import axios from "axios";
 import * as moment from "moment";
 import { ACTION_TYPES } from "../../actions/actionTypes";
 import { Dispatch } from "react-redux";
+import FileNameMaker from "../../helpers/fileNameMaker";
 
 interface IPostSignUserParams {
   name: string;
@@ -10,6 +11,10 @@ interface IPostSignUserParams {
   organization: string;
   comment: string;
   sendEmailChecked: boolean;
+}
+
+interface IUploadImageParams {
+  imageDataURL: string;
 }
 
 export function changeSignListSearchQuery(searchQuery: string) {
@@ -320,5 +325,33 @@ export function toggleSendEmailCheckBox() {
 export function toggleReadMoreBox() {
   return {
     type: ACTION_TYPES.DECLARATION_TOGGLE_READ_MORE_BOX,
+  };
+}
+
+export function uploadImage({ imageDataURL }: IUploadImageParams) {
+  return async (dispatch: Dispatch<any>) => {
+    const buffer = new Buffer(imageDataURL, "base64");
+    const fileSize = buffer.byteLength;
+    console.log(fileSize, "=== file buffer size");
+
+    // Size validation
+    // if (fileSize > process.env.MAX_SIZE_LIMIT) {
+    //   return context.done(undefined, {
+    //     statusCode: 403,
+    //     body: JSON.stringify("File size is too big"),
+    //   });
+    // }
+    try {
+      await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage", {
+        buffer,
+        fileId: FileNameMaker.getNewFileId(),
+        fileName: FileNameMaker.getNewFileName(),
+      });
+    } catch (err) {
+      alert(err);
+      dispatch({
+        type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS,
+      });
+    }
   };
 }

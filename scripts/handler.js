@@ -201,3 +201,78 @@ module.exports.sendSheet = (event, context, callback) => {
       });
   }
 };
+
+module.exports.uploadImage = (event, context, callback) => {
+  if (event.body) {
+    /*
+      *** Response Fields
+      buffer: Buffer;
+      fileId: string;
+      fileName: string;
+    */
+    let imageInfo;
+    try {
+      imageInfo = JSON.parse(event.body);
+    } catch (err) {
+      imageInfo = event.body;
+    }
+
+    const uploader = params => {
+      return new Promise((resolve, reject) => {
+        const accessKeyId = process.env.ACCESS_KEY_ID;
+        const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+        const AWS = require("aws-sdk");
+        const s3 = new AWS.S3();
+        const { buffer, fileId } = params;
+        try {
+console.log(buffer);
+console.log(fileId);
+          s3.upload(
+            {
+              Body: buffer,
+              Bucket: process.env.S3_BUCKET_NAME,
+              Key: `${fileId}`,
+ContentEncoding: 'base64',
+    ContentType: 'image/jpeg'
+            },
+            (err, data) => {
+              if (err) {
+                console.error(err);
+                reject(err);
+              } else {
+                resolve(data);
+              }
+            }
+          );
+        } catch (err) {
+          reject(err);
+        }
+      });
+    };
+
+    uploader(imageInfo)
+      .then(() => {
+        context.succeed({
+          statusCode: 200,
+          headers: {
+            "Content-Type": "text/html",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true
+          },
+          body: JSON.stringify(imageInfo)
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        callback(null, {
+          statusCode: 500,
+          headers: {
+            "Content-Type": "text/html",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true
+          },
+          body: JSON.stringify(err)
+        });
+      });
+  }
+};
