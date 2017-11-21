@@ -216,24 +216,20 @@ module.exports.uploadImage = (event, context, callback) => {
     } catch (err) {
       imageInfo = event.body;
     }
-
+	
     const uploader = params => {
       return new Promise((resolve, reject) => {
         const accessKeyId = process.env.ACCESS_KEY_ID;
         const secretAccessKey = process.env.SECRET_ACCESS_KEY;
         const AWS = require("aws-sdk");
-        const s3 = new AWS.S3();
+		AWS.config.update({ accessKeyId, secretAccessKey});
+        const s3 = new AWS.S3({params: {Bucket: process.env.S3_BUCKET_NAME}});
         const { buffer, fileId } = params;
         try {
-console.log(buffer);
-console.log(fileId);
           s3.upload(
             {
               Body: buffer,
-              Bucket: process.env.S3_BUCKET_NAME,
-              Key: `${fileId}`,
-ContentEncoding: 'base64',
-    ContentType: 'image/jpeg'
+              Key: `${fileId}.png`,
             },
             (err, data) => {
               if (err) {

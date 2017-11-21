@@ -21,8 +21,8 @@ export function changeSignListSearchQuery(searchQuery: string) {
   return {
     type: ACTION_TYPES.SIGN_LIST_CHANGE_SEARCH_INPUT,
     payload: {
-      searchQuery,
-    },
+      searchQuery
+    }
   };
 }
 
@@ -30,8 +30,8 @@ export function changeSignBoxNameInput(name: string) {
   return {
     type: ACTION_TYPES.SIGN_BOX_CHANGE_NAME_INPUT,
     payload: {
-      name,
-    },
+      name
+    }
   };
 }
 
@@ -42,15 +42,15 @@ export function checkValidSignBoxNameInput(name: string) {
     return {
       type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
       payload: {
-        type: "nameInput",
-      },
+        type: "nameInput"
+      }
     };
   } else {
     return {
       type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
       payload: {
-        type: "nameInput",
-      },
+        type: "nameInput"
+      }
     };
   }
 }
@@ -59,8 +59,8 @@ export function changeSignBoxAffiliation(affiliation: string) {
   return {
     type: ACTION_TYPES.SIGN_BOX_CHANGE_AFFILIATION,
     payload: {
-      affiliation,
-    },
+      affiliation
+    }
   };
 }
 
@@ -71,15 +71,15 @@ export function checkValidSignBoxAffiliation(affiliation: string) {
     return {
       type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
       payload: {
-        type: "affiliationInput",
-      },
+        type: "affiliationInput"
+      }
     };
   } else {
     return {
       type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
       payload: {
-        type: "affiliationInput",
-      },
+        type: "affiliationInput"
+      }
     };
   }
 }
@@ -88,8 +88,8 @@ export function changeSignBoxAffiliationEmail(affiliationEmail: string) {
   return {
     type: ACTION_TYPES.SIGN_BOX_CHANGE_AFFILIATION_EMAIL,
     payload: {
-      affiliationEmail,
-    },
+      affiliationEmail
+    }
   };
 }
 
@@ -102,15 +102,15 @@ export function checkValidSignBoxAffiliationEmail(affiliationEmail: string) {
     return {
       type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
       payload: {
-        type: "affiliationEmailInput",
-      },
+        type: "affiliationEmailInput"
+      }
     };
   } else {
     return {
       type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
       payload: {
-        type: "affiliationEmailInput",
-      },
+        type: "affiliationEmailInput"
+      }
     };
   }
 }
@@ -119,8 +119,8 @@ export function changeSignBoxCommentInput(comment: string) {
   return {
     type: ACTION_TYPES.SIGN_BOX_CHANGE_COMMENT,
     payload: {
-      comment,
-    },
+      comment
+    }
   };
 }
 
@@ -132,8 +132,8 @@ export function getUserCount() {
       dispatch({
         type: ACTION_TYPES.GLOBAL_SET_USER_COUNT,
         payload: {
-          count: usersCount,
-        },
+          count: usersCount
+        }
       });
     } catch (err) {
       alert(err);
@@ -147,11 +147,11 @@ export function postSignUser({
   email,
   organization,
   comment,
-  sendEmailChecked,
+  sendEmailChecked
 }: IPostSignUserParams) {
   return async (dispatch: Dispatch<any>) => {
     dispatch({
-      type: ACTION_TYPES.SIGN_LIST_START_TO_POST_USERS,
+      type: ACTION_TYPES.SIGN_LIST_START_TO_POST_USERS
     });
 
     // Validating
@@ -163,16 +163,16 @@ export function postSignUser({
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
         payload: {
-          type: "nameInput",
-        },
+          type: "nameInput"
+        }
       });
       hasFormError = true;
     } else {
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
         payload: {
-          type: "nameInput",
-        },
+          type: "nameInput"
+        }
       });
     }
     // affiliation check
@@ -182,16 +182,16 @@ export function postSignUser({
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
         payload: {
-          type: "affiliationInput",
-        },
+          type: "affiliationInput"
+        }
       });
       hasFormError = true;
     } else {
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
         payload: {
-          type: "affiliationInput",
-        },
+          type: "affiliationInput"
+        }
       });
     }
     // e-mail empty check && e-mail validation by regular expression
@@ -202,22 +202,22 @@ export function postSignUser({
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
         payload: {
-          type: "affiliationEmailInput",
-        },
+          type: "affiliationEmailInput"
+        }
       });
       hasFormError = true;
     } else {
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
         payload: {
-          type: "affiliationEmailInput",
-        },
+          type: "affiliationEmailInput"
+        }
       });
     }
 
     if (hasFormError) {
       dispatch({
-        type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS,
+        type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS
       });
       return;
     }
@@ -229,7 +229,7 @@ export function postSignUser({
         email,
         organization,
         comment,
-        sendEmailChecked,
+        sendEmailChecked
       });
 
       const date = new Date();
@@ -242,14 +242,14 @@ export function postSignUser({
             name,
             affiliation,
             date: createdAt,
-            comment,
-          },
-        },
+            comment
+          }
+        }
       });
     } catch (err) {
       alert(err);
       dispatch({
-        type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS,
+        type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS
       });
     }
   };
@@ -258,7 +258,7 @@ export function postSignUser({
 export function subscribeEmail(email: string) {
   return async (dispatch: Dispatch<any>) => {
     dispatch({
-      type: ACTION_TYPES.SIGN_BOX_START_TO_SUBSCRIBE_EMAIL,
+      type: ACTION_TYPES.SIGN_BOX_START_TO_SUBSCRIBE_EMAIL
     });
     // e-mail validation by regular expression
     const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -267,21 +267,21 @@ export function subscribeEmail(email: string) {
     if (isValidEmail) {
       try {
         await axios.post(
-          `https://gesqspxc8i.execute-api.us-east-1.amazonaws.com/prod/subscribeMailingList?email=${email}`,
+          `https://gesqspxc8i.execute-api.us-east-1.amazonaws.com/prod/subscribeMailingList?email=${email}`
         );
         alert("You are on the subscribe list now");
         dispatch({
-          type: ACTION_TYPES.SIGN_BOX_SUCCEEDED_TO_SUBSCRIBE_EMAIL,
+          type: ACTION_TYPES.SIGN_BOX_SUCCEEDED_TO_SUBSCRIBE_EMAIL
         });
       } catch (err) {
         alert(`Failed to subscribe Email! ${err}`);
         dispatch({
-          type: ACTION_TYPES.SIGN_BOX_FAILED_TO_SUBSCRIBE_EMAIL,
+          type: ACTION_TYPES.SIGN_BOX_FAILED_TO_SUBSCRIBE_EMAIL
         });
       }
     } else {
       dispatch({
-        type: ACTION_TYPES.SIGN_BOX_FAILED_TO_SUBSCRIBE_EMAIL,
+        type: ACTION_TYPES.SIGN_BOX_FAILED_TO_SUBSCRIBE_EMAIL
       });
     }
   };
@@ -291,11 +291,11 @@ export function fetchUsersData(page: number) {
   return async (dispatch: Dispatch<any>) => {
     try {
       dispatch({
-        type: ACTION_TYPES.SIGN_LIST_START_TO_FETCH_USERS,
+        type: ACTION_TYPES.SIGN_LIST_START_TO_FETCH_USERS
       });
 
       const result = await axios.get(
-        `https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/getUsers?page=${page}`,
+        `https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/getUsers?page=${page}`
       );
 
       const userList = result.data;
@@ -306,8 +306,8 @@ export function fetchUsersData(page: number) {
           type: ACTION_TYPES.GLOBAL_GET_USERS,
           payload: {
             users: userList,
-            page: page + 1,
-          },
+            page: page + 1
+          }
         });
       }
     } catch (err) {
@@ -318,21 +318,21 @@ export function fetchUsersData(page: number) {
 
 export function toggleSendEmailCheckBox() {
   return {
-    type: ACTION_TYPES.SIGN_BOX_TOGGLE_SEND_EMAIL_CHECK_BOX,
+    type: ACTION_TYPES.SIGN_BOX_TOGGLE_SEND_EMAIL_CHECK_BOX
   };
 }
 
 export function toggleReadMoreBox() {
   return {
-    type: ACTION_TYPES.DECLARATION_TOGGLE_READ_MORE_BOX,
+    type: ACTION_TYPES.DECLARATION_TOGGLE_READ_MORE_BOX
   };
 }
 
 export function uploadImage({ imageDataURL }: IUploadImageParams) {
   return async (dispatch: Dispatch<any>) => {
-    const buffer = new Buffer(imageDataURL, "base64");
-    const fileSize = buffer.byteLength;
-    console.log(fileSize, "=== file buffer size");
+    // const buffer = new Buffer(imageDataURL, "base64");
+    // const fileSize = buffer.byteLength;
+    // console.log(fileSize, "=== file buffer size");
 
     // Size validation
     // if (fileSize > process.env.MAX_SIZE_LIMIT) {
@@ -343,14 +343,14 @@ export function uploadImage({ imageDataURL }: IUploadImageParams) {
     // }
     try {
       await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage", {
-        buffer,
+        buffer: imageDataURL,
         fileId: FileNameMaker.getNewFileId(),
-        fileName: FileNameMaker.getNewFileName(),
+        fileName: FileNameMaker.getNewFileName()
       });
     } catch (err) {
       alert(err);
       dispatch({
-        type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS,
+        type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS
       });
     }
   };
