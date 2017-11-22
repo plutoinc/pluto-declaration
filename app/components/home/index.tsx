@@ -33,7 +33,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     this.shareTwitterWithComposedImage();
     if (!EnvChecker.isServer()) {
       // START LOAD TWITTER API
-      (window as any).twttr = (function(d, s, id) {
+      (window as any).twttr = (function (d, s, id) {
         var js: any,
           fjs = d.getElementsByTagName(s)[0],
           t = (window as any).twttr || {};
@@ -44,7 +44,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
         fjs.parentNode.insertBefore(js, fjs);
 
         t._e = [];
-        t.ready = function(f: any) {
+        t.ready = function (f: any) {
           t._e.push(f);
         };
 
@@ -52,7 +52,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       })(document, "script", "twitter-wjs");
       // END LOAD TWITTER API
       // START LOAD FACEBOOK API
-      (window as any).facebook = (function(d, s, id) {
+      (window as any).facebook = (function (d, s, id) {
         var js: any,
           fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
@@ -193,8 +193,8 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
         const background = new Image();
         const backgroundUrl =
           "https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?h=350&auto=compress&cs=tinysrgb";
-        // this.drawingCanvas.width = 30;
-        // this.drawingCanvas.height = 30;
+        this.drawingCanvas.width = 200;
+        this.drawingCanvas.height = 200;
         background.setAttribute("crossOrigin", "anonymous");
         background.src = backgroundUrl;
         background.onload = () => {
@@ -203,7 +203,6 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
           context.fillText(commentInput, 50, 200);
           context.strokeText("Hello world", 0, 100);
           const imageUrl = this.drawingCanvas.toDataURL();
-          console.log(imageUrl);
           resolve(imageUrl);
         };
       } catch (err) {
@@ -233,6 +232,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     return (
       <div className={styles.homeContainer}>
+        <img src="https://s3.amazonaws.com/pluto-declaration-asset/userImage/2017-11-22T06%3A05%3A08.527Z" />
         <canvas
           ref={ele => {
             this.drawingCanvas = ele;

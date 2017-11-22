@@ -41,11 +41,12 @@ export function staticHTMLWrapperWithImageMetaTag(imageUrl: string) {
       <head>
         <!--for Facebook Crawler-->
         <meta charset="utf-8">
-        <meta property="og:url" content="https://join.pluto.network" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="The Future of Scholarly Communication" />
         <meta property="og:description" content="Join Decentralized Scholarly Communication Platform!" />
         <meta property="og:image" content="${imageUrl}" />
+        <meta property="og:image:height" content="200" />
+        <meta property="og:image:width" content="200" />
         <meta charset="utf-8">
         <!--for Twitter Crawler-->
         <meta name="twitter:card" content="summary_large_image">

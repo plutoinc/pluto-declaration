@@ -1,7 +1,8 @@
 const bundle = require("./bundle");
+const AWS = require("aws-sdk");
+const gm = require("gm");
 
 function handlingError(err) {
-  console.error(err);
   callback(null, {
     statusCode: 500,
     headers: {
@@ -140,13 +141,11 @@ module.exports.sendSheet = (event, context, callback) => {
           } else {
             doc.getInfo(function (err, info) {
               if (err) {
-                console.log(err);
                 reject();
               } else {
                 sheet = info.worksheets[0];
                 sheet.setHeaderRow(["name", "affiliation", "email", "organization", "comment", "date", "sendEmailChecked"], err => {
                   if (err) {
-                    console.error(err);
                     reject(err);
                   } else {
                     const date = new Date();
@@ -188,7 +187,6 @@ module.exports.sendSheet = (event, context, callback) => {
         });
       })
       .catch(err => {
-        console.error(err);
         callback(null, {
           statusCode: 500,
           headers: {
@@ -207,52 +205,60 @@ module.exports.uploadImage = (event, context, callback) => {
     /*
       *** Response Fields
       buffer: Buffer;
-      fileId: string;
-      fileName: string;
     */
-    let imageInfo;
+    let imageBuffer;
     try {
-      imageInfo = JSON.parse(event.body);
+      imageBuffer = new Buffer(event.body, "base64");
+      imageBuffer = imageBuffer.replace(/^data:image\/\w+;base64,/, '');
     } catch (err) {
-      imageInfo = event.body;
+      console.error(err);
+      imageBuffer = event.body;
     }
-	
-    const uploader = params => {
+
+    // const imageMagick = gm.subClass({ imageMagick: true });
+    const date = new Date();
+    const fileName = date.toISOString();
+
+    // imageMagick(imageBuffer, 'image.jpg')
+    //   .write(`/tmp/${fileName}`, function (err) {
+    //     if (err) {
+    //       return console.error(err);
+    //     } else {
+    //       console.log('Created an image from a Buffer!');
+    //     }
+    //   });
+
+
+    const uploader = buffer => {
       return new Promise((resolve, reject) => {
+        // set AWS
         const accessKeyId = process.env.ACCESS_KEY_ID;
         const secretAccessKey = process.env.SECRET_ACCESS_KEY;
-        const AWS = require("aws-sdk");
-		AWS.config.update({ accessKeyId, secretAccessKey});
-        const s3 = new AWS.S3({params: {Bucket: process.env.S3_BUCKET_NAME}});
-        const { buffer, fileName } = params;
-		const fs = require('fs');
-		const lambdaTmpFileName = `/tmp/${fileName}.png`;
-		fs.writeFile(lambdaTmpFileName, buffer, 'base64', function(err){console.log(err)});
+        AWS.config.update({ accessKeyId, secretAccessKey });
+        const s3 = new AWS.S3({ params: { Bucket: process.env.S3_BUCKET_NAME } });
+
         try {
           s3.upload(
             {
-              Body: lambdaTmpFileName,
-              Key: `${fileName}.png`,
-ContentEncoding: 'base64',
-ContentType: 'image/png'
+              Body: buffer,
+              Key: `${fileName}`,
+              ACL: "public-read"
             },
             (err, data) => {
               if (err) {
-                console.error(err);
                 reject(err);
               } else {
                 resolve(data);
               }
             }
           );
-		  fs.unlink(lambdaTmpFileName, function(err) {console.log(err)});
         } catch (err) {
           reject(err);
         }
       });
     };
 
-    uploader(imageInfo)
+    uploader(imageBuffer)
       .then(() => {
         context.succeed({
           statusCode: 200,
@@ -261,7 +267,7 @@ ContentType: 'image/png'
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true
           },
-          body: JSON.stringify(lambdaTmpFileName)
+          body: JSON.stringify(imageBuffer)
         });
       })
       .catch(err => {

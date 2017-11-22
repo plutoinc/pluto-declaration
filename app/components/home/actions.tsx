@@ -2,7 +2,7 @@ import axios from "axios";
 import * as moment from "moment";
 import { ACTION_TYPES } from "../../actions/actionTypes";
 import { Dispatch } from "react-redux";
-import FileNameMaker from "../../helpers/fileNameMaker";
+// import FileNameMaker from "../../helpers/fileNameMaker";
 
 interface IPostSignUserParams {
   name: string;
@@ -330,25 +330,10 @@ export function toggleReadMoreBox() {
 
 export function uploadImage({ imageDataURL }: IUploadImageParams) {
   return async (dispatch: Dispatch<any>) => {
-    // const buffer = new Buffer(imageDataURL, "base64");
-    const buffer = new Buffer(imageDataURL.replace(/^data:image\/\w+;base64,/, ""), "base64");
-
-    // const fileSize = buffer.byteLength;
-    // console.log(fileSize, "=== file buffer size");
-
-    // Size validation
-    // if (fileSize > process.env.MAX_SIZE_LIMIT) {
-    //   return context.done(undefined, {
-    //     statusCode: 403,
-    //     body: JSON.stringify("File size is too big"),
-    //   });
-    // }
+    const buffer = imageDataURL.replace(/^data:image\/\w+;base64,/, "");
     try {
-      await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage", {
-        buffer,
-        fileId: FileNameMaker.getNewFileId(),
-        fileName: FileNameMaker.getNewFileName()
-      });
+      await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage", buffer);
+      console.log(buffer);
     } catch (err) {
       alert(err);
       dispatch({
