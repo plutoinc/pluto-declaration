@@ -331,6 +331,8 @@ export function toggleReadMoreBox() {
 export function uploadImage({ imageDataURL }: IUploadImageParams) {
   return async (dispatch: Dispatch<any>) => {
     // const buffer = new Buffer(imageDataURL, "base64");
+    const buffer = new Buffer(imageDataURL.replace(/^data:image\/\w+;base64,/, ""), "base64");
+
     // const fileSize = buffer.byteLength;
     // console.log(fileSize, "=== file buffer size");
 
@@ -343,7 +345,7 @@ export function uploadImage({ imageDataURL }: IUploadImageParams) {
     // }
     try {
       await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage", {
-        buffer: imageDataURL,
+        buffer,
         fileId: FileNameMaker.getNewFileId(),
         fileName: FileNameMaker.getNewFileName()
       });

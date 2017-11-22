@@ -224,12 +224,17 @@ module.exports.uploadImage = (event, context, callback) => {
         const AWS = require("aws-sdk");
 		AWS.config.update({ accessKeyId, secretAccessKey});
         const s3 = new AWS.S3({params: {Bucket: process.env.S3_BUCKET_NAME}});
-        const { buffer, fileId } = params;
+        const { buffer, fileName } = params;
+		const fs = require('fs');
+		const lambdaTmpFileName = `/tmp/${fileName}.png`;
+		fs.writeFile(lambdaTmpFileName, buffer, 'base64', function(err){console.log(err)});
         try {
           s3.upload(
             {
-              Body: buffer,
-              Key: `${fileId}.png`,
+              Body: lambdaTmpFileName,
+              Key: `${fileName}.png`,
+ContentEncoding: 'base64',
+ContentType: 'image/png'
             },
             (err, data) => {
               if (err) {
@@ -240,6 +245,7 @@ module.exports.uploadImage = (event, context, callback) => {
               }
             }
           );
+		  fs.unlink(lambdaTmpFileName, function(err) {console.log(err)});
         } catch (err) {
           reject(err);
         }
@@ -255,7 +261,7 @@ module.exports.uploadImage = (event, context, callback) => {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true
           },
-          body: JSON.stringify(imageInfo)
+          body: JSON.stringify(lambdaTmpFileName)
         });
       })
       .catch(err => {
