@@ -261,7 +261,7 @@ ContentType: 'image/png'
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true
           },
-          body: JSON.stringify(lambdaTmpFileName)
+          body: JSON.stringify(imageInfo)
         });
       })
       .catch(err => {
