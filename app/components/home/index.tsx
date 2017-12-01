@@ -30,7 +30,6 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
   private drawingCanvas: HTMLCanvasElement;
 
   public componentDidMount() {
-    this.shareTwitterWithComposedImage();
     if (!EnvChecker.isServer()) {
       // START LOAD TWITTER API
       (window as any).twttr = (function(d, s, id) {
@@ -166,12 +165,11 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
   private shareTwitterWithComposedImage = async () => {
     const { dispatch, homeState } = this.props;
-    const plutoUrl = encodeURIComponent("https://join.pluto.network");
     const { commentInput } = homeState;
-
+    let fileName;
     try {
       const imageUrl: string = await this.drawTextAtImage(commentInput);
-      await dispatch(
+      fileName = await dispatch(
         Actions.uploadImage({
           imageDataURL: imageUrl
         })
@@ -180,8 +178,10 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       console.error(err);
     }
 
+    const plutoUrlWithImage = encodeURIComponent(`https://join.pluto.network/userImage/${fileName}`);
+
     trackAndOpenLink(
-      `https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrl}&hashtags=FutureOfScholComm`,
+      `https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrlWithImage}&hashtags=FutureOfScholComm`,
       "signBannerTwitterShare"
     );
   };
@@ -193,15 +193,16 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
         const background = new Image();
         const backgroundUrl =
           "https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?h=350&auto=compress&cs=tinysrgb";
-        this.drawingCanvas.width = 200;
-        this.drawingCanvas.height = 200;
+        this.drawingCanvas.width = 600;
+        this.drawingCanvas.height = 314;
         background.setAttribute("crossOrigin", "anonymous");
         background.src = backgroundUrl;
         background.onload = () => {
           context.drawImage(background, 0, 0);
           context.font = "20px Roboto";
+          context.fillStyle = "#6096ff";
           context.fillText(commentInput, 50, 200);
-          context.strokeText("Hello world", 50, 100);
+          context.fillText("test test test test test", 50, 200);
           const imageUrl = this.drawingCanvas.toDataURL();
           resolve(imageUrl);
         };
@@ -210,6 +211,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       }
     });
   };
+
   public render() {
     const {
       signListSearchQuery,
@@ -232,11 +234,11 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     return (
       <div className={styles.homeContainer}>
-        <img src="https://s3.amazonaws.com/pluto-declaration-asset/userImage/2017-12-01T07:43:54.432Z.png" />
         <canvas
           ref={ele => {
             this.drawingCanvas = ele;
           }}
+          style={{ display: "none" }}
         />
         <Declaration isReadMoreBoxToggled={isReadMoreBoxToggled} toggleReadMoreBox={this.toggleReadMoreBox} />
         <div className={styles.signContainer}>

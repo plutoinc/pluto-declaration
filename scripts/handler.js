@@ -240,6 +240,7 @@ module.exports.uploadImage = (event, context, callback) => {
               }
             }
           );
+          return `${fileName}.png`;
         } catch (err) {
           reject(err);
         }
