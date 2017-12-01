@@ -202,7 +202,6 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
           context.font = "20px Roboto";
           context.fillStyle = "#6096ff";
           context.fillText(commentInput, 50, 200);
-          context.fillText("test test test test test", 50, 200);
           const imageUrl = this.drawingCanvas.toDataURL();
           resolve(imageUrl);
         };

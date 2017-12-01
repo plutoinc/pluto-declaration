@@ -207,7 +207,7 @@ module.exports.uploadImage = (event, context, callback) => {
   if (event.body) {
     /*
       *** Response Fields
-      buffer: Buffer;
+      imageDataURL: string;
     */
     let imageBuffer;
     try {
