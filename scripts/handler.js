@@ -209,14 +209,13 @@ module.exports.uploadImage = (event, context, callback) => {
       *** Response Fields
       buffer: Buffer;
     */
-    let imageBuffer;
-    try {
-      imageBuffer = new Buffer(event.body, "base64");
-      imageBuffer = imageBuffer.replace(/^data:image\/\w+;base64,/, "");
-    } catch (err) {
-      console.error(err);
-      imageBuffer = event.body;
-    }
+    let imageBuffer = event.body;
+    // try {
+    //   imageBuffer = JSON.Parse(event.body, "base64");
+    // } catch (err) {
+    //   console.error(err);
+    //   imageBuffer = event.body;
+    // }
 
     // const imageMagick = gm.subClass({ imageMagick: true });
     const date = new Date();
