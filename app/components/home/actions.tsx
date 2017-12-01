@@ -333,7 +333,6 @@ export function uploadImage({ imageDataURL }: IUploadImageParams) {
     const buffer = imageDataURL.replace(/^data:image\/\w+;base64,/, "");
     try {
       await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage", buffer);
-      console.log(buffer);
     } catch (err) {
       alert(err);
       dispatch({

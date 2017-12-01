@@ -1,4 +1,16 @@
-export function staticHTMLWrapper(reactDom: string, scriptPath: string, initialState: string, css: string) {
+export function staticHTMLWrapper(
+  reactDom: string,
+  scriptPath: string,
+  initialState: string,
+  css: string,
+  imageUrl?: string
+) {
+  const defaultImageUrl = "https://pbs.twimg.com/profile_images/879901726739808256/ry_UkEdB_400x400.jpg";
+  let imageContentLink = defaultImageUrl;
+  if (!!imageUrl) {
+    imageContentLink = imageUrl;
+  }
+
   return `
     <!doctype html>
     <html>
@@ -9,13 +21,13 @@ export function staticHTMLWrapper(reactDom: string, scriptPath: string, initialS
         <meta property="og:type" content="website" />
         <meta property="og:title" content="The Future of Scholarly Communication" />
         <meta property="og:description" content="Join Decentralized Scholarly Communication Platform!" />
-        <meta property="og:image" content="https://pbs.twimg.com/profile_images/879901726739808256/ry_UkEdB_400x400.jpg" />
+        <meta property="og:image" content="${imageContentLink}" />
         <meta charset="utf-8">
         <!--for Twitter Crawler-->
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="The Future of Scholarly Communication">
         <meta name="twitter:description" content="Join Decentralized Scholarly Communication Platform!">
-        <meta name="twitter:image" content="https://pbs.twimg.com/profile_images/879901726739808256/ry_UkEdB_400x400.jpg">
+        <meta name="twitter:image" content="${imageContentLink}">
         <meta name="twitter:site" content="@pluto_network">
         <meta name="twitter:creator" content="@pluto_network">
         <title>Join Decentralized Scholarly Communication Platform!</title>
@@ -29,38 +41,6 @@ export function staticHTMLWrapper(reactDom: string, scriptPath: string, initialS
           ${reactDom}
         </div>
         <script src="${scriptPath}"></script>
-      </body>
-    </html>
-  `;
-}
-
-export function staticHTMLWrapperWithImageMetaTag(imageUrl: string) {
-  return `
-    <!doctype html>
-    <html>
-      <head>
-        <!--for Facebook Crawler-->
-        <meta charset="utf-8">
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="The Future of Scholarly Communication" />
-        <meta property="og:description" content="Join Decentralized Scholarly Communication Platform!" />
-        <meta property="og:image" content="${imageUrl}" />
-        <meta property="og:image:height" content="200" />
-        <meta property="og:image:width" content="200" />
-        <meta charset="utf-8">
-        <!--for Twitter Crawler-->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="The Future of Scholarly Communication">
-        <meta name="twitter:description" content="Join Decentralized Scholarly Communication Platform!">
-        <meta name="twitter:image" content="${imageUrl}">
-        <meta name="twitter:site" content="@pluto_network">
-        <meta name="twitter:creator" content="@pluto_network">
-        <title>Join Decentralized Scholarly Communication Platform!</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <link rel="shortcut icon" href="https://dd2gn9pwu61vr.cloudfront.net/favicon.png" />
-      </head>
-      <body>
-        <img src="${imageUrl}"/>
       </body>
     </html>
   `;

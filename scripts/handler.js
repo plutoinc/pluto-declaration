@@ -217,18 +217,8 @@ module.exports.uploadImage = (event, context, callback) => {
     //   imageBuffer = event.body;
     // }
 
-    // const imageMagick = gm.subClass({ imageMagick: true });
     const date = new Date();
     const fileName = date.toISOString();
-
-    // imageMagick(imageBuffer, 'image.jpg')
-    //   .write(`/tmp/${fileName}`, function (err) {
-    //     if (err) {
-    //       return console.error(err);
-    //     } else {
-    //       console.log('Created an image from a Buffer!');
-    //     }
-    //   });
 
     const uploader = buffer => {
       return new Promise((resolve, reject) => {
@@ -240,7 +230,9 @@ module.exports.uploadImage = (event, context, callback) => {
             {
               Body: buffer,
               Key: `${fileName}`,
-              ACL: "public-read"
+              ACL: "public-read",
+              ContentEncoding: "base64",
+              ContentType: "image/png"
             },
             (err, data) => {
               if (err) {
