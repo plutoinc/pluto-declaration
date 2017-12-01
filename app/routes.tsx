@@ -17,15 +17,15 @@ export const serverRootRoutes: IServerRoutesMap[] = [
   {
     path: "/",
     component: HomeComponent,
-    loadData: null,
-  },
+    loadData: null
+  }
 ];
 
 export const RootRoutes = () => (
   <div>
     <Root>
       <Switch>
-        <Route exact path="/" component={HomeComponent} />
+        <Route path="/" component={HomeComponent} />
       </Switch>
     </Root>
   </div>

@@ -210,12 +210,12 @@ module.exports.uploadImage = (event, context, callback) => {
       buffer: Buffer;
     */
     let imageBuffer = event.body;
-    // try {
-    //   imageBuffer = JSON.Parse(event.body, "base64");
-    // } catch (err) {
-    //   console.error(err);
-    //   imageBuffer = event.body;
-    // }
+    try {
+      imageBuffer = JSON.Parse(event.body, "base64");
+    } catch (err) {
+      console.error(err);
+      imageBuffer = event.body;
+    }
 
     const date = new Date();
     const fileName = date.toISOString();

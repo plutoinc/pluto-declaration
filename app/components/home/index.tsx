@@ -21,7 +21,7 @@ interface IHomeComponentProps extends DispatchProp<any> {
 function mapStateToProps(state: IAppState) {
   return {
     homeState: state.home,
-    users: state.users,
+    users: state.users
   };
 }
 
@@ -33,7 +33,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     this.shareTwitterWithComposedImage();
     if (!EnvChecker.isServer()) {
       // START LOAD TWITTER API
-      (window as any).twttr = (function (d, s, id) {
+      (window as any).twttr = (function(d, s, id) {
         var js: any,
           fjs = d.getElementsByTagName(s)[0],
           t = (window as any).twttr || {};
@@ -44,7 +44,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
         fjs.parentNode.insertBefore(js, fjs);
 
         t._e = [];
-        t.ready = function (f: any) {
+        t.ready = function(f: any) {
           t._e.push(f);
         };
 
@@ -52,7 +52,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       })(document, "script", "twitter-wjs");
       // END LOAD TWITTER API
       // START LOAD FACEBOOK API
-      (window as any).facebook = (function (d, s, id) {
+      (window as any).facebook = (function(d, s, id) {
         var js: any,
           fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
@@ -126,8 +126,8 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
           email: affiliationEmailInput,
           organization: affiliationInput,
           comment: commentInput,
-          sendEmailChecked,
-        }),
+          sendEmailChecked
+        })
       );
 
       if (sendEmailChecked) {
@@ -173,8 +173,8 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       const imageUrl: string = await this.drawTextAtImage(commentInput);
       await dispatch(
         Actions.uploadImage({
-          imageDataURL: imageUrl,
-        }),
+          imageDataURL: imageUrl
+        })
       );
     } catch (err) {
       console.error(err);
@@ -182,7 +182,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     trackAndOpenLink(
       `https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrl}&hashtags=FutureOfScholComm`,
-      "signBannerTwitterShare",
+      "signBannerTwitterShare"
     );
   };
 
@@ -226,13 +226,13 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       alreadySigned,
       sendEmailChecked,
       formInputErrorCheck,
-      isReadMoreBoxToggled,
+      isReadMoreBoxToggled
     } = this.props.homeState;
     const { users } = this.props;
 
     return (
       <div className={styles.homeContainer}>
-        <img src="https://s3.amazonaws.com/pluto-declaration-asset/userImage/2017-11-22T06%3A05%3A08.527Z" />
+        <img src="https://s3.amazonaws.com/pluto-declaration-asset/userImage/2017-12-01T07:09:16.271Z" />
         <canvas
           ref={ele => {
             this.drawingCanvas = ele;
