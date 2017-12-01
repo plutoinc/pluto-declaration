@@ -240,7 +240,6 @@ module.exports.uploadImage = (event, context, callback) => {
               }
             }
           );
-          return `${fileName}.png`;
         } catch (err) {
           reject(err);
         }
@@ -256,7 +255,7 @@ module.exports.uploadImage = (event, context, callback) => {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true
           },
-          body: JSON.stringify(imageBuffer)
+          body: `${fileName}.png`
         });
       })
       .catch(err => {
@@ -268,7 +267,7 @@ module.exports.uploadImage = (event, context, callback) => {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true
           },
-          body: JSON.stringify(err)
+          body: `${fileName}.png`
         });
       });
   }

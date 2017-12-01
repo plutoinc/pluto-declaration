@@ -337,7 +337,7 @@ export function uploadImage({ imageDataURL }: IUploadImageParams) {
         imageDataURL
       );
 
-      return fileName;
+      return fileName.data;
     } catch (err) {
       alert(err);
       dispatch({
