@@ -211,7 +211,9 @@ module.exports.uploadImage = (event, context, callback) => {
     */
     let imageBuffer = event.body;
     try {
-      imageBuffer = JSON.Parse(event.body, "base64");
+      imageBuffer = new Buffer(event.body, "base64");
+      console.log("imageBuffer is ", imageBuffer);
+      imageBuffer = imageBuffer.replace(/^data:image\/\w+;base64,/, "");
     } catch (err) {
       console.error(err);
       imageBuffer = event.body;
@@ -229,7 +231,7 @@ module.exports.uploadImage = (event, context, callback) => {
           s3.upload(
             {
               Body: buffer,
-              Key: `${fileName}`,
+              Key: `${fileName}.png`,
               ACL: "public-read",
               ContentEncoding: "base64",
               ContentType: "image/png"

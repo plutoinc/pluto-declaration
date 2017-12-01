@@ -199,9 +199,9 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
         background.src = backgroundUrl;
         background.onload = () => {
           context.drawImage(background, 0, 0);
-          context.font = "20px serif";
+          context.font = "20px Roboto";
           context.fillText(commentInput, 50, 200);
-          context.strokeText("Hello world", 0, 100);
+          context.strokeText("Hello world", 50, 100);
           const imageUrl = this.drawingCanvas.toDataURL();
           resolve(imageUrl);
         };
@@ -232,7 +232,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     return (
       <div className={styles.homeContainer}>
-        <img src="https://s3.amazonaws.com/pluto-declaration-asset/userImage/2017-12-01T07:09:16.271Z" />
+        <img src="https://s3.amazonaws.com/pluto-declaration-asset/userImage/2017-12-01T07:16:46.328Z" />
         <canvas
           ref={ele => {
             this.drawingCanvas = ele;
