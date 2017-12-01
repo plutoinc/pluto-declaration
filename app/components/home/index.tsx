@@ -232,7 +232,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     return (
       <div className={styles.homeContainer}>
-        <img src="https://s3.amazonaws.com/pluto-declaration-asset/userImage/2017-12-01T07:16:46.328Z" />
+        <img src="https://s3.amazonaws.com/pluto-declaration-asset/userImage/2017-12-01T07:43:54.432Z.png" />
         <canvas
           ref={ele => {
             this.drawingCanvas = ele;

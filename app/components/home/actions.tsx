@@ -330,9 +330,9 @@ export function toggleReadMoreBox() {
 
 export function uploadImage({ imageDataURL }: IUploadImageParams) {
   return async (dispatch: Dispatch<any>) => {
-    const buffer = imageDataURL.replace(/^data:image\/\w+;base64,/, "");
+    // const buffer = imageDataURL.replace(/^data:image\/\w+;base64,/, "");
     try {
-      await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage", buffer);
+      await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage", imageDataURL);
     } catch (err) {
       alert(err);
       dispatch({

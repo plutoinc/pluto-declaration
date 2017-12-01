@@ -209,11 +209,9 @@ module.exports.uploadImage = (event, context, callback) => {
       *** Response Fields
       buffer: Buffer;
     */
-    let imageBuffer = event.body;
+    let imageBuffer;
     try {
-      imageBuffer = new Buffer(event.body, "base64");
-      console.log("imageBuffer is ", imageBuffer);
-      imageBuffer = imageBuffer.replace(/^data:image\/\w+;base64,/, "");
+      imageBuffer = new Buffer(event.body.replace(/^data:image\/\w+;base64,/, ""), "base64");
     } catch (err) {
       console.error(err);
       imageBuffer = event.body;
@@ -232,9 +230,7 @@ module.exports.uploadImage = (event, context, callback) => {
             {
               Body: buffer,
               Key: `${fileName}.png`,
-              ACL: "public-read",
-              ContentEncoding: "base64",
-              ContentType: "image/png"
+              ACL: "public-read"
             },
             (err, data) => {
               if (err) {
