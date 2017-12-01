@@ -2,7 +2,6 @@ import axios from "axios";
 import * as moment from "moment";
 import { ACTION_TYPES } from "../../actions/actionTypes";
 import { Dispatch } from "react-redux";
-// import FileNameMaker from "../../helpers/fileNameMaker";
 
 interface IPostSignUserParams {
   name: string;
