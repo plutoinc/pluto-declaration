@@ -6,7 +6,7 @@ export function trackAndOpenLink(url: string, from: string) {
     ReactGA.event({
       category: "link-click",
       action: `click-from-${from}`,
-      label: url
+      label: url,
     });
   }
   window.open(url, "_blank");

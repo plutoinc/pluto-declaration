@@ -17,8 +17,8 @@ export const serverRootRoutes: IServerRoutesMap[] = [
   {
     path: "/",
     component: HomeComponent,
-    loadData: null
-  }
+    loadData: null,
+  },
 ];
 
 export const RootRoutes = () => (

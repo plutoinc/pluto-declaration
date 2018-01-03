@@ -21,7 +21,7 @@ interface IHomeComponentProps extends DispatchProp<any> {
 function mapStateToProps(state: IAppState) {
   return {
     homeState: state.home,
-    users: state.users
+    users: state.users,
   };
 }
 
@@ -125,8 +125,8 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
           email: affiliationEmailInput,
           organization: affiliationInput,
           comment: commentInput,
-          sendEmailChecked
-        })
+          sendEmailChecked,
+        }),
       );
 
       if (sendEmailChecked) {
@@ -171,8 +171,8 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       const imageUrl: string = await this.drawTextAtImage(commentInput);
       fileName = await dispatch(
         Actions.uploadImage({
-          imageDataURL: imageUrl
-        })
+          imageDataURL: imageUrl,
+        }),
       );
     } catch (err) {
       console.error(err);
@@ -182,7 +182,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     trackAndOpenLink(
       `https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrlWithImage}&hashtags=FutureOfScholComm`,
-      "signBannerTwitterShare"
+      "signBannerTwitterShare",
     );
   };
 
@@ -227,7 +227,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       alreadySigned,
       sendEmailChecked,
       formInputErrorCheck,
-      isReadMoreBoxToggled
+      isReadMoreBoxToggled,
     } = this.props.homeState;
     const { users } = this.props;
 
