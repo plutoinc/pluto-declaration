@@ -35,9 +35,8 @@ we will appreciate all of your contributions. thanks.
 
 * **Tylor Shin** [GitHub](https://github.com/TylorShin)
 * **academey** [GitHub](https://github.com/academey)
-* **woowong** [GitHub](https://github.com/woowong)
 
-See also the list of [contributors](https://github.com/pluto-net/web-client/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/pluto-net/pluto-declaration/graphs/contributors) who participated in this project.
 
 ## License
 
@@ -52,7 +51,7 @@ ReactJS has had some license problem, but we think it's solved now.
 PLUTO's frontend team is used to ReactJS a lot.
 But we don't want to any learning burden except blockChain knowledge.
 
-We might need and apply Vue or Angular later(Maybe after Poc).
+We might need and apply Vue or Angular later.
 But React is a pretty good library and we think it's fastest way to develop product at least in our team.
 
 #### Why Typescript?
@@ -69,5 +68,4 @@ It's for the benefits from using typed language.
 
 * **Why not Flow?**
   We also think [Flow](https://github.com/facebook/flow) is much more suitable for React, but PLUTO team is used to TypeScript. And there is not a big problem to use Typescript with React nowadays.
-  Until PoC, we won't change neither Typescript nor React.
-  But if there is a clear merit to use Angular4 and Typescript, we might migrate to Angular4 after PoC.
+  But if there is a clear merit to use Angular4 and Typescript, we might migrate to Angular4 later.
