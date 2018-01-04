@@ -29,12 +29,22 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'npm run deploy:prod'
+                        if (env.BRANCH_NAME == 'master') {
+                            sh 'npm run deploy:prod'
+                        } else {
+                            sh 'npm run deploy:stage'
+                        }
                     } catch (err) {
                         slackSend color: "danger", failOnError: true, message: "Build Failed at BUILD & DEPLOY: ${env.JOB_NAME}"
                         throw err
                     }
-                    slackSend color: 'good', channel: "#ci-build", message: "PLUTO-DECLARATION Build DONE! ${env.JOB_NAME} please check https://join.pluto.network"
+                    def targetUrl;
+                    if (env.BRANCH_NAME == 'master') {
+                        targetUrl = "https://join.pluto.network"
+                    } else {
+                        targetUrl = "https://join-stage.pluto.network"
+                    }
+                    slackSend color: 'good', channel: "#ci-build", message: "PLUTO-DECLARATION Build DONE! ${env.JOB_NAME} please check ${targetUrl}"
                 }
             }
         }
