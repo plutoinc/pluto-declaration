@@ -2,6 +2,7 @@ import axios from "axios";
 import * as moment from "moment";
 import { ACTION_TYPES } from "../../actions/actionTypes";
 import { Dispatch } from "react-redux";
+import EnvChecker from "../../helpers/envChecker";
 
 interface IPostSignUserParams {
   name: string;
@@ -126,7 +127,7 @@ export function changeSignBoxCommentInput(comment: string) {
 export function getUserCount() {
   return async (dispatch: Dispatch<any>) => {
     try {
-      const result = await axios.get("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/getUserCount");
+      const result = await axios.get(`${EnvChecker.getLambdaHost()}/getUserCount`);
       const usersCount = result.data;
       dispatch({
         type: ACTION_TYPES.GLOBAL_SET_USER_COUNT,
@@ -222,7 +223,7 @@ export function postSignUser({
     }
 
     try {
-      await axios.post("https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/sendSheet", {
+      await axios.post(`${EnvChecker.getLambdaHost()}/sendSheet`, {
         name,
         affiliation,
         email,
@@ -293,9 +294,7 @@ export function fetchUsersData(page: number) {
         type: ACTION_TYPES.SIGN_LIST_START_TO_FETCH_USERS,
       });
 
-      const result = await axios.get(
-        `https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/getUsers?page=${page}`,
-      );
+      const result = await axios.get(`${EnvChecker.getLambdaHost()}/getUsers?page=${page}`);
 
       const userList = result.data;
       if (!result.data || result.data.length === 0) {

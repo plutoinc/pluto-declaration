@@ -14,7 +14,7 @@ import { serverSideRender, handler as lambdaHandler } from "./server";
 import EnvChecker from "./helpers/envChecker";
 import CssInjector from "./helpers/cssInjector";
 // root reducer
-import { rootReducer, initialState, IAppState } from "./rootReducer";
+import { rootReducer, initialState, IAppState } from "./reducers";
 // routes
 import { RootRoutes } from "./routes";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";

@@ -4,7 +4,7 @@ import { withStyles } from "../../helpers/withStylesHelper";
 import Declaration from "./components/declaration";
 import SignList from "./components/signList";
 import { IHomeStateRecord } from "./records";
-import { IAppState } from "../../rootReducer";
+import { IAppState } from "../../reducers";
 import * as Actions from "./actions";
 import SignBox from "./components/signBox";
 import EnvChecker from "../../helpers/envChecker";
