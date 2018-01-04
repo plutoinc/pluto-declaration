@@ -17,7 +17,7 @@ import { RootRoutes, serverRootRoutes } from "./routes";
 // deploy
 import * as fs from "fs";
 import * as DeployConfig from "../scripts/builds/config";
-import { rootReducer, initialState, IAppState } from "./rootReducer";
+import { rootReducer, initialState, IAppState } from "./reducers";
 
 export async function serverSideRender(requestUrl: string, scriptPath: string, imageUrl?: string) {
   let stringifiedInitialReduxState: string;
@@ -55,7 +55,7 @@ export async function serverSideRender(requestUrl: string, scriptPath: string, i
           <RootRoutes />
         </Provider>
       </StaticRouter>
-    </CssInjector>
+    </CssInjector>,
   );
 
   const cssArr = Array.from(css);
@@ -64,7 +64,7 @@ export async function serverSideRender(requestUrl: string, scriptPath: string, i
     scriptPath,
     stringifiedInitialReduxState,
     cssArr.join(""),
-    imageUrl
+    imageUrl,
   );
 
   return fullHTML;
@@ -79,9 +79,9 @@ export async function handler(event: LambdaProxy.Event, context: LambdaProxy.Con
     const version = fs.readFileSync("./version");
     let response;
     const requestPath = "/";
-    const bundledJsForBrowserPath = `https://d3iirp31ltkomk.cloudfront.net/${DeployConfig.AWS_S3_FOLDER_PREFIX}/${
-      version
-    }/bundleBrowser.js`;
+    const bundledJsForBrowserPath = `https://d3iirp31ltkomk.cloudfront.net/${
+      DeployConfig.AWS_S3_FOLDER_PREFIX
+    }/${version}/bundleBrowser.js`;
 
     try {
       if (path.includes(`/${LAMBDA_SERVICE_NAME}/userImage`)) {
@@ -97,18 +97,18 @@ export async function handler(event: LambdaProxy.Event, context: LambdaProxy.Con
         statusCode: 200,
         headers: {
           "Content-Type": "text/html",
-          "Access-Control-Allow-Origin": "*"
+          "Access-Control-Allow-Origin": "*",
         },
-        body: response
+        body: response,
       });
     } catch (e) {
       context.succeed({
         statusCode: 500,
         headers: {
           "Content-Type": "text/html",
-          "Access-Control-Allow-Origin": "*"
+          "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify(e.message)
+        body: JSON.stringify(e.message),
       });
     }
   }
