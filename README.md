@@ -1,95 +1,73 @@
-# react-universal-in-serverless
+# PLUTO Declaration Client
 
-This project is the starter kit for the who wants to use ReactJS isomorphic-rendering with AWS Lambda.
+PLUTO Declaration repository.
+This supports to getUserCount, getUsers, sendSheet action by lambda with google-spreadsheet API
+and to uploadImage by uploading composed image to S3.
 
-The [Demo & Docs](https://d3ujodob71n39b.cloudfront.net) is now available!
-[Korean](https://github.com/TylorShin/react-universal-in-serverless/blob/master/README.ko.md)
+## Getting Started
 
-# Updating is Work In Progress
-## You can checkout upgrade branch at [here](https://github.com/TylorShin/react-universal-in-serverless/tree/upgrade-packages) or just visit upgrade-packages branch
-
-### List of upgrade part
-- React v16.0
-- React-Router v4
-- Other dependencies
-
-
- **Packages**
-- **TypeScript** - Basic language
-- **ReactJS** - Frontend library
-- **Redux** - App state manager
-- **Serverless** - managing AWS Lambda, API Gateway, and the others within cloud-formation
-
-
-# Before Start
-* This isn't free to start. Because it uses AWS's several services(Lambda, API Gateway, S3, CloudFront, CloudFormation, (Route53))*
-
-1. Set AWS Credential
-You should set AWS IAM Role and account setting.
-visit below guide and precede AWS settings before run deploying script
-[Serverless AWS account setting guide](https://serverless.com/framework/docs/providers/aws/guide/credentials/)
-
-2. Make S3 Bucket to upload your bundled S3
 ```
-Make S3 Bucket
-(If you can connect this with CDN like the Cloudfront, the script loading speed will be better. But in this case you should change some code in deploy logic and normal logic too.)
-```
-
-```Set S3 Bucket information in <root_directory>/scripts/builds/config.ts```
-
-
-# How to install
-```
-git clone https://github.com/TylorShin/react-universal-in-serverless.git
-cd react-universal-in-serverless
-npm install
-```
-
-### How to use
-**Running dev server**
-```
+git clone https://github.com/pluto-net/pluto-declaration.git
+cd pluto-declaration && npm install
 npm run dev
 ```
 
-### Build production script
+## Running the tests
 
-*at staging server*
-```
-npm run deploy:stage
-```
-
-*at production server*
-```
-npm run deploy:prod
-```
-
-### Logs in Terminal (please read serverless official docs)
-```
-npm i -g serverless
-serverless logs -f [function name] -s [stage name]
-```
+Work In Progress
 
 ```
-ex) serverless logs -f ssr -s stage
+npm test
 ```
 
-If you want to watch logs in watch mode(continuously),
-just run with -t option
+## Built With
 
-```
-serverless logs -f [function name] -s [stage name] -t
-```
+* [ReactJS](https://reactjs.org/) - View Layer Library
+* [Redux](http://redux.js.org/) - State Manager
+* [TypeScript](http://www.typescriptlang.org/) - Main Language that substitutes Javascrpit
 
-# deploy process
-1. Make and Apply new git tag for SCM and destination path.
-2. Make bundled JS files for server-side and browser-side.
-3. Upload bundled JS files to S3 and Remove browser side bundled JS.
-4. Copy package.json that only for serverless to dist folder.
-5. Install all packages in dist folder and zip them with bundled JS.
-6. Deploy Lambda and relevant packages by using serverless
+## Contributing
 
+If you want to contribute something, just make Pull Request or Issue for us.
+we will appreciate all of your contributions. thanks.
 
-# Todos
-- **Adding TEST**
-- **Minimizing node_modules size**
-- **Handling independent CSS with precompiler like sass**
+## Authors
+
+* **Tylor Shin** [GitHub](https://github.com/TylorShin)
+* **academey** [GitHub](https://github.com/academey)
+* **woowong** [GitHub](https://github.com/woowong)
+
+See also the list of [contributors](https://github.com/pluto-net/web-client/graphs/contributors) who participated in this project.
+
+## License
+
+Work In Progress.
+However, basically this project is licensed under the GPL.
+
+## Acknowledgments
+
+#### Why ReactJS?
+
+ReactJS has had some license problem, but we think it's solved now.
+PLUTO's frontend team is used to ReactJS a lot.
+But we don't want to any learning burden except blockChain knowledge.
+
+We might need and apply Vue or Angular later(Maybe after Poc).
+But React is a pretty good library and we think it's fastest way to develop product at least in our team.
+
+#### Why Typescript?
+
+It's for the benefits from using typed language.
+
+* **Easy to refactoring**
+  BlockChain is the bleeding edge area. It means there will be a lot of changes.
+  So, DAPPS and other BlockChain applications should be refactored easily and flexibly.
+
+* **Nice to group work**
+  In plain Javascript, when you trying to use the function or helpers that made by other team mate, it's very common situation the one is ambiguous.
+  We tried to avoid this problem by using typed language.
+
+* **Why not Flow?**
+  We also think [Flow](https://github.com/facebook/flow) is much more suitable for React, but PLUTO team is used to TypeScript. And there is not a big problem to use Typescript with React nowadays.
+  Until PoC, we won't change neither Typescript nor React.
+  But if there is a clear merit to use Angular4 and Typescript, we might migrate to Angular4 after PoC.
