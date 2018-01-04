@@ -12,6 +12,10 @@ interface IPostSignUserParams {
   sendEmailChecked: boolean;
 }
 
+interface IUploadImageParams {
+  imageDataURL: string;
+}
+
 export function changeSignListSearchQuery(searchQuery: string) {
   return {
     type: ACTION_TYPES.SIGN_LIST_CHANGE_SEARCH_INPUT,
@@ -320,5 +324,23 @@ export function toggleSendEmailCheckBox() {
 export function toggleReadMoreBox() {
   return {
     type: ACTION_TYPES.DECLARATION_TOGGLE_READ_MORE_BOX,
+  };
+}
+
+export function uploadImage({ imageDataURL }: IUploadImageParams) {
+  return async (dispatch: Dispatch<any>) => {
+    try {
+      const fileName = await axios.post(
+        "https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage",
+        imageDataURL,
+      );
+
+      return fileName.data;
+    } catch (err) {
+      alert(err);
+      dispatch({
+        type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS,
+      });
+    }
   };
 }

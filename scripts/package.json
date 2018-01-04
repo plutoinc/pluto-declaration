@@ -9,17 +9,21 @@
   "author": "Tylor Shin",
   "license": "ISC",
   "dependencies": {
-    "@types/axios": "^0.9.32",
     "@types/aws-sdk": "^0.0.38",
+    "@types/axios": "^0.9.32",
     "@types/fs-extra": "^0.0.33",
     "@types/node": "^6.0.62",
-    "axios": "^0.15.2",
     "aws-sdk": "^2.6.10",
+    "axios": "^0.15.2",
     "fs-extra": "^0.30.0",
-    "s3": "^4.4.0",
-    "ts-node": "^1.6.0",
+    "gm": "^1.23.0",
     "google-spreadsheet": "^2.0.4",
     "moment": "^2.19.2",
+    "s3": "^4.4.0",
+    "ts-node": "^1.6.0",
     "typescript": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/gm": "^1.17.33"
   }
 }

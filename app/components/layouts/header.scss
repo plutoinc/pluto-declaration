@@ -18,6 +18,7 @@
       background-color: $black_navy7;
 
       .rightBox {
+        display: flex;
         visibility: visible;
         opacity: 1;
         transition-delay: 0s;
@@ -137,7 +138,7 @@
 
       .rightBox {
         margin-top: 72px;
-        display: flex;
+        display: none;
         visibility: hidden;
         flex-direction: column;
         opacity: 0;

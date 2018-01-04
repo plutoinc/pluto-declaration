@@ -26,6 +26,7 @@ interface ISignBoxComponentProps {
   sendEmailChecked: boolean;
   toggleSendEmailCheckBox: () => void;
   formInputErrorCheck: ISignBoxFormInputErrorCheckRecord;
+  shareTwitterWithComposedImage: () => void;
 }
 
 @withStyles<typeof SignBanner>(styles)
@@ -73,10 +74,10 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
       sendEmailChecked,
       toggleSendEmailCheckBox,
       formInputErrorCheck,
+      shareTwitterWithComposedImage,
     } = this.props;
 
     if (alreadySigned) {
-      const plutoUrl = encodeURIComponent("https://join.pluto.network");
       const date = new Date();
 
       return (
@@ -106,15 +107,7 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
             <div className={styles.createdAt}>{moment(date).format("LT - MMM Do YYYY")}</div>
             <img className={styles.fakeActionButton} src="https://d103giazgvc1eu.cloudfront.net/footer-icons@2x.png" />
           </div>
-          <a
-            className={styles.twitButton}
-            onClick={() => {
-              trackAndOpenLink(
-                `https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrl}&hashtags=FutureOfScholComm`,
-                "signBannerTwitterShare",
-              );
-            }}
-          >
+          <a className={styles.twitButton} onClick={shareTwitterWithComposedImage}>
             Share with Twitter
           </a>
         </div>

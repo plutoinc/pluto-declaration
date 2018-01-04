@@ -43,6 +43,13 @@ functions:
           method: get
           path: "getUserCount"
           cors: true
+  uploadImage:
+    handler: handler.uploadImage
+    events:
+      - http:
+          method: post
+          path: "uploadImage"
+          cors: true
 
 resources:
   Resources: ${file(cloudformation.json)}

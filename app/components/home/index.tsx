@@ -9,6 +9,7 @@ import * as Actions from "./actions";
 import SignBox from "./components/signBox";
 import EnvChecker from "../../helpers/envChecker";
 import { IUsersRecord } from "../../reducers/users";
+import { trackAndOpenLink } from "../../helpers/handleGA";
 
 const styles = require("./home.scss");
 
@@ -26,6 +27,8 @@ function mapStateToProps(state: IAppState) {
 
 @withStyles<typeof HomeComponent>(styles)
 class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
+  private drawingCanvas: HTMLCanvasElement;
+
   public componentDidMount() {
     if (!EnvChecker.isServer()) {
       // START LOAD TWITTER API
@@ -160,6 +163,54 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     dispatch(Actions.toggleReadMoreBox());
   };
 
+  private shareTwitterWithComposedImage = async () => {
+    const { dispatch, homeState } = this.props;
+    const { commentInput } = homeState;
+    let fileName;
+    try {
+      const imageUrl: string = await this.drawTextAtImage(commentInput);
+      fileName = await dispatch(
+        Actions.uploadImage({
+          imageDataURL: imageUrl,
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+    }
+
+    const plutoUrlWithImage = encodeURIComponent(`https://join.pluto.network/userImage/${fileName}`);
+
+    trackAndOpenLink(
+      `https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrlWithImage}&hashtags=FutureOfScholComm`,
+      "signBannerTwitterShare",
+    );
+  };
+
+  private drawTextAtImage = (commentInput: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      try {
+        const context = this.drawingCanvas.getContext("2d");
+        const background = new Image();
+        const backgroundUrl =
+          "https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?h=350&auto=compress&cs=tinysrgb";
+        this.drawingCanvas.width = 600;
+        this.drawingCanvas.height = 314;
+        background.setAttribute("crossOrigin", "anonymous");
+        background.src = backgroundUrl;
+        background.onload = () => {
+          context.drawImage(background, 0, 0);
+          context.font = "20px Roboto";
+          context.fillStyle = "#6096ff";
+          context.fillText(commentInput, 50, 200);
+          const imageUrl = this.drawingCanvas.toDataURL();
+          resolve(imageUrl);
+        };
+      } catch (err) {
+        reject(err);
+      }
+    });
+  };
+
   public render() {
     const {
       signListSearchQuery,
@@ -182,6 +233,12 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     return (
       <div className={styles.homeContainer}>
+        <canvas
+          ref={ele => {
+            this.drawingCanvas = ele;
+          }}
+          style={{ display: "none" }}
+        />
         <Declaration isReadMoreBoxToggled={isReadMoreBoxToggled} toggleReadMoreBox={this.toggleReadMoreBox} />
         <div className={styles.signContainer}>
           <SignList
@@ -214,6 +271,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             sendEmailChecked={sendEmailChecked}
             toggleSendEmailCheckBox={this.toggleSendEmailCheckBox}
             formInputErrorCheck={formInputErrorCheck}
+            shareTwitterWithComposedImage={this.shareTwitterWithComposedImage}
           />
         </div>
       </div>

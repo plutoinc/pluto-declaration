@@ -25,7 +25,7 @@ export const RootRoutes = () => (
   <div>
     <Root>
       <Switch>
-        <Route exact path="/" component={HomeComponent} />
+        <Route path="/" component={HomeComponent} />
       </Switch>
     </Root>
   </div>
