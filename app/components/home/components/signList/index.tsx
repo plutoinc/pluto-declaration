@@ -20,52 +20,18 @@ interface ISignListComponentProps {
 
 @withStyles<typeof SignList>(styles)
 export default class SignList extends React.PureComponent<ISignListComponentProps, {}> {
-  // private getPlaceHolder = () => {
-  //   const { signListSearchQuery } = this.props;
-
-  //   if (signListSearchQuery === "") {
-  //     return (
-  //       <div className={styles.placeHolder}>
-  //         Search by <span className={styles.bold}>Name</span> or <span className={styles.bold}>Affiliation</span>
-  //       </div>
-  //     );
-  //   }
-  // };
-
   public componentDidMount() {
     this.props.fetchUserCount();
   }
 
   public render() {
-    const {
-      // signListSearchQuery,
-      // changeSignListSearchQuery,
-      users,
-      page,
-      isLoading,
-      isEnd,
-      sort,
-      fetchData,
-      usersCount,
-    } = this.props;
+    const { users, page, isLoading, isEnd, sort, fetchData, usersCount } = this.props;
 
     return (
       <div className={styles.signListContainer}>
         <div className={styles.title}>
           <span className={styles.number}>{usersCount}</span> People have signed
         </div>
-        {/* <div className={styles.searchBar}>
-          {this.getPlaceHolder()}
-          <input
-            onChange={e => {
-              changeSignListSearchQuery(e.currentTarget.value);
-            }}
-            className={`form-control ${styles.inputBox}`}
-            value={signListSearchQuery}
-          />
-          Search!!
-          <Icon className={styles.searchIconWrapper} icon="SEARCH" />
-        </div> */}
         <UserList
           users={users.users}
           page={page}

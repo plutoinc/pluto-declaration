@@ -15,41 +15,6 @@
       color: $royal_blue1;
     }
   }
-
-  .searchBar {
-    margin-top: 60px;
-    width: 613px;
-    border-bottom: solid 2px $black_navy2;
-    display: flex;
-
-    .placeHolder {
-      font-size: 24px;
-      color: $space_gray4;
-      position: absolute;
-      font-weight: 300;
-      z-index: -1;
-
-      .bold {
-        font-weight: normal;
-      }
-    }
-
-    .inputBox {
-      border: 0;
-      height: 24px;
-      font-size: 24px;
-      color: $black_navy2;
-      flex: 1;
-      margin-bottom: 19px;
-      z-index: 2;
-      background: transparent;
-    }
-
-    .searchIconWrapper > svg {
-      width: 23px;
-      height: 23px;
-    }
-  }
 }
 
 .userList {
