@@ -219,10 +219,12 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     const plutoUrlWithImage = encodeURIComponent(`${EnvChecker.getHost()}/userImage/${fileName}`);
 
-    trackAndOpenLink(
-      `https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrlWithImage}&hashtags=FutureOfScholComm`,
-      "signBannerTwitterShare",
-    );
+    if (!EnvChecker.isServer()) {
+      window.open(
+        `https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrlWithImage}&hashtags=FutureOfScholComm`,
+      );
+      trackAndOpenLink("signBannerTwitterShare");
+    }
   };
 
   private drawTextAtImage = (commentInput: string): Promise<string> => {

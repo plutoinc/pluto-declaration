@@ -38,8 +38,10 @@ class Header extends React.PureComponent<IHeaderComponentProps, IHeaderComponent
           <div className={styles.rightBox}>
             <span className={styles.aboutUs}>About us</span>
             <a
+              href="https://pluto.network"
+              target="_blank"
               onClick={() => {
-                trackAndOpenLink("https://pluto.network", "Footer");
+                trackAndOpenLink("headerHomePage");
               }}
               className={styles.rightBoxItem}
             >
@@ -47,8 +49,10 @@ class Header extends React.PureComponent<IHeaderComponentProps, IHeaderComponent
             </a>
             <span className={styles.separatorLine} />
             <a
+              href="https://www.facebook.com/PlutoNetwork"
+              target="_blank"
               onClick={() => {
-                trackAndOpenLink("https://www.facebook.com/PlutoNetwork", "Footer");
+                trackAndOpenLink("headerFacebook");
               }}
               className={styles.rightBoxItem}
             >
@@ -56,8 +60,10 @@ class Header extends React.PureComponent<IHeaderComponentProps, IHeaderComponent
             </a>
             <span className={styles.separatorLine} />
             <a
+              href="https://twitter.com/pluto_network"
+              target="_blank"
               onClick={() => {
-                trackAndOpenLink("https://twitter.com/pluto_network", "Footer");
+                trackAndOpenLink("headerTwitter");
               }}
               className={styles.rightBoxItem}
             >
@@ -65,8 +71,10 @@ class Header extends React.PureComponent<IHeaderComponentProps, IHeaderComponent
             </a>
             <span className={styles.separatorLine} />
             <a
+              href="https://medium.com/pluto-network"
+              target="_blank"
               onClick={() => {
-                trackAndOpenLink("https://medium.com/pluto-network", "Footer");
+                trackAndOpenLink("headerBlog");
               }}
               className={styles.rightBoxItem}
             >

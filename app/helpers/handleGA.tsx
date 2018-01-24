@@ -1,13 +1,18 @@
 import * as ReactGA from "react-ga";
-import EnvChecker from "./envChecker";
 
-export function trackAndOpenLink(url: string, from: string) {
-  if (!EnvChecker.isServer() && !EnvChecker.isDev()) {
-    ReactGA.event({
-      category: "link-click",
-      action: `click-from-${from}`,
-      label: url,
-    });
-  }
-  window.open(url, "_blank");
+export function trackAndOpenLink(from: string) {
+  ReactGA.outboundLink(
+    {
+      label: from,
+    },
+    () => {},
+  );
+}
+
+export function trackAction(action: string, path: string) {
+  ReactGA.event({
+    category: "User Action",
+    action: `${action}`,
+    label: path,
+  });
 }

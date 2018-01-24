@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { withStyles } from "../../../../helpers/withStylesHelper";
 import Icon from "../../../../icons";
-import { trackAndOpenLink } from "../../../../helpers/handleGA";
+import { trackAndOpenLink, trackAction } from "../../../../helpers/handleGA";
 import EnvChecker from "../../../../helpers/envChecker";
 const styles = require("./declaration.scss");
 
@@ -49,22 +49,20 @@ export default class Declaration extends React.PureComponent<IDeclarationCompone
             <div className={styles.rightBox}>
               <Icon className={styles.shareIcon} icon="SHARE" />
               <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${EnvChecker.getHost()}`}
+                target="_blank"
                 onClick={() => {
-                  trackAndOpenLink(
-                    `https://www.facebook.com/sharer/sharer.php?u=${EnvChecker.getHost()}`,
-                    "declarationRightBox",
-                  );
+                  trackAndOpenLink("declarationFacebookShare");
                 }}
                 data-mobile-iframe="true"
               >
                 <Icon className={styles.rightItem} icon="FACEBOOK" />
               </a>
               <a
+                href={`https://twitter.com/intent/tweet?url=${EnvChecker.getHost()}&hashtags=FutureOfScholComm`}
+                target="_blank"
                 onClick={() => {
-                  trackAndOpenLink(
-                    `https://twitter.com/intent/tweet?url=${EnvChecker.getHost()}&hashtags=FutureOfScholComm`,
-                    "declarationRightBox",
-                  );
+                  trackAndOpenLink("declarationTwitterShare");
                 }}
               >
                 <Icon className={styles.rightItem} icon="TWITTER" />
@@ -91,7 +89,13 @@ export default class Declaration extends React.PureComponent<IDeclarationCompone
               {originalLowerContent}
             </div>
             <div className={styles.buttons}>
-              <button onClick={toggleReadMoreBox} className={styles.readMore}>
+              <button
+                onClick={() => {
+                  toggleReadMoreBox();
+                  trackAction("readMore", "declarationReadMore");
+                }}
+                className={styles.readMore}
+              >
                 Read More
               </button>
               <button className={styles.purpose}>Purpose</button>

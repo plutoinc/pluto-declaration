@@ -2,6 +2,9 @@ const IP_REGEX = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
 
 const STAGE_SERVER_HOST_NAME = "join-stage.pluto.network";
 
+const STAGE_LAMBDA_HOST = "https://pd95c40pz6.execute-api.us-east-1.amazonaws.com/stage";
+const PROD_LAMBDA_HOST = "https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production";
+
 export default class EnvChecker {
   public static isDev(): boolean {
     if (!EnvChecker.isServer()) {
@@ -36,9 +39,9 @@ export default class EnvChecker {
 
   public static getLambdaHost(): string {
     if (EnvChecker.isDev() || EnvChecker.isStage()) {
-      return "https://pd95c40pz6.execute-api.us-east-1.amazonaws.com/stage";
+      return STAGE_LAMBDA_HOST;
     } else {
-      return "https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production";
+      return PROD_LAMBDA_HOST;
     }
   }
 }

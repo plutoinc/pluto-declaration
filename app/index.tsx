@@ -78,11 +78,18 @@ export const appStore = store;
 
 // Browser Side Rendering to develop React Web-app
 if (!EnvChecker.isServer()) {
-  // initialize GA
-  if (!EnvChecker.isDev()) {
-    ReactGA.initialize("UA-109824701-1");
-    ReactGA.set({ page: window.location.pathname + window.location.search });
+  let reactGATraceCode;
+  if (EnvChecker.isDev() || EnvChecker.isStage()) {
+    reactGATraceCode = "UA-109824701-2";
+    ReactGA.initialize(reactGATraceCode, {
+      debug: true,
+    });
+  } else {
+    reactGATraceCode = "UA-109824701-1";
+    ReactGA.initialize(reactGATraceCode);
   }
+  ReactGA.set({ page: window.location.pathname + window.location.search });
+
   ReactDom.render(
     <CssInjector>
       <Provider store={store}>

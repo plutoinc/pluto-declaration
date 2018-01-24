@@ -4,7 +4,7 @@ import { withStyles } from "../../../../helpers/withStylesHelper";
 import Icon from "../../../../icons";
 import CircularProgress from "material-ui/CircularProgress";
 import { ISignBoxFormInputErrorCheckRecord } from "../../records";
-import { trackAndOpenLink } from "../../../../helpers/handleGA";
+import { trackAndOpenLink, trackAction } from "../../../../helpers/handleGA";
 import { PLUTO_DECLARATION_ASSET_S3 } from "../../../../server";
 
 const styles = require("./signBox.scss");
@@ -53,21 +53,111 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
       shareTwitterWithComposedImage,
     } = this.props;
 
-    if (alreadySigned) {
+    if (!alreadySigned) {
+      return (
+        <form
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            handleSubmitSignForm();
+            trackAction("submitSignForm", "signBanner");
+          }}
+          className={styles.signBoxContainer}
+        >
+          <div className={styles.title}>Add your name to the list!</div>
+          <div
+            className={
+              formInputErrorCheck.nameInput ? `${styles.inputWrapper} ${styles.errorInputWrapper}` : styles.inputWrapper
+            }
+          >
+            <Icon className={styles.iconWrapper} icon="NAME" />
+            <input
+              type="text"
+              onChange={e => {
+                changeSignBoxNameInput(e.currentTarget.value);
+              }}
+              onBlur={checkValidSignBoxNameInput}
+              className={`form-control ${styles.inputBox}`}
+              placeholder="Name"
+              value={nameInput}
+            />
+          </div>
+          <div
+            className={
+              formInputErrorCheck.affiliationInput
+                ? `${styles.inputWrapper} ${styles.errorInputWrapper}`
+                : styles.inputWrapper
+            }
+          >
+            <Icon className={styles.iconWrapper} icon="AFFILIATION" />
+            <input
+              type="text"
+              onChange={e => {
+                changeSignBoxAffiliation(e.currentTarget.value);
+              }}
+              onBlur={checkValidSignBoxAffiliation}
+              className={`form-control ${styles.inputBox}`}
+              placeholder="Affiliation"
+              value={affiliationInput}
+            />
+          </div>
+          <div
+            className={
+              formInputErrorCheck.affiliationEmailInput
+                ? `${styles.inputWrapper} ${styles.errorInputWrapper}`
+                : styles.inputWrapper
+            }
+          >
+            <Icon className={styles.iconWrapper} icon="EMAIL" />
+            <input
+              type="email"
+              onChange={e => {
+                changeSignBoxAffiliationEmail(e.currentTarget.value);
+              }}
+              onBlur={checkValidSignBoxAffiliationEmail}
+              className={`form-control ${styles.inputBox}`}
+              placeholder="Affiliation E-mail"
+              value={affiliationEmailInput}
+            />
+          </div>
+          <div className={styles.caution}>{`* Used to verify identity. It will not be shared or
+          displayed.`}</div>
+          <div className={styles.commentInputWrapper}>
+            <textarea
+              onChange={e => {
+                changeSignBoxCommentInput(e.currentTarget.value);
+              }}
+              className={`form-control ${styles.inputBox}`}
+              placeholder="Additional comment (Option)"
+              value={commentInput}
+            />
+          </div>
+          <div className={styles.checkBoxContainer}>
+            <div
+              onClick={toggleSendEmailCheckBox}
+              className={sendEmailChecked ? styles.checkBox : `${styles.checkBox} ${styles.unChecked}`}
+            />
+            <span className={styles.checkBoxContent}>Send me email updates about the project (Option)</span>
+          </div>
+          {this.getSubmitButton()}
+        </form>
+      );
+    } else {
       const date = new Date();
 
       return (
         <div className={styles.signBoxContainer}>
           <div className={styles.twitterBoxTitle}>THANK YOU FOR SIGNING!</div>
-          <div
+          <a
+            href="https://twitter.com/search?q=%23FutureOfScholComm&src=typd"
+            target="_blank"
             onClick={() => {
-              trackAndOpenLink("https://twitter.com/search?q=%23FutureOfScholComm&src=typd", "signBoxTwitterHash");
+              trackAndOpenLink("signBoxTwitterShare");
             }}
             className={styles.twitterBoxSubTitle}
           >
             Share with your friends with hashtag
             <span className={styles.twitterBoxSubTitleHashtag}> #FutureOfScholComm</span>
-          </div>
+          </a>
           <div className={styles.fakeTwitterBox}>
             <div className={styles.userInformation}>
               <img className={styles.userImg} src={`${PLUTO_DECLARATION_ASSET_S3}/user-photo@2x.jpg`} />
@@ -89,93 +179,6 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
         </div>
       );
     }
-
-    return (
-      <form
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-          e.preventDefault();
-          handleSubmitSignForm();
-        }}
-        className={styles.signBoxContainer}
-      >
-        <div className={styles.title}>Add your name to the list!</div>
-        <div
-          className={
-            formInputErrorCheck.nameInput ? `${styles.inputWrapper} ${styles.errorInputWrapper}` : styles.inputWrapper
-          }
-        >
-          <Icon className={styles.iconWrapper} icon="NAME" />
-          <input
-            type="text"
-            onChange={e => {
-              changeSignBoxNameInput(e.currentTarget.value);
-            }}
-            onBlur={checkValidSignBoxNameInput}
-            className={`form-control ${styles.inputBox}`}
-            placeholder="Name"
-            value={nameInput}
-          />
-        </div>
-        <div
-          className={
-            formInputErrorCheck.affiliationInput
-              ? `${styles.inputWrapper} ${styles.errorInputWrapper}`
-              : styles.inputWrapper
-          }
-        >
-          <Icon className={styles.iconWrapper} icon="AFFILIATION" />
-          <input
-            type="text"
-            onChange={e => {
-              changeSignBoxAffiliation(e.currentTarget.value);
-            }}
-            onBlur={checkValidSignBoxAffiliation}
-            className={`form-control ${styles.inputBox}`}
-            placeholder="Affiliation"
-            value={affiliationInput}
-          />
-        </div>
-        <div
-          className={
-            formInputErrorCheck.affiliationEmailInput
-              ? `${styles.inputWrapper} ${styles.errorInputWrapper}`
-              : styles.inputWrapper
-          }
-        >
-          <Icon className={styles.iconWrapper} icon="EMAIL" />
-          <input
-            type="email"
-            onChange={e => {
-              changeSignBoxAffiliationEmail(e.currentTarget.value);
-            }}
-            onBlur={checkValidSignBoxAffiliationEmail}
-            className={`form-control ${styles.inputBox}`}
-            placeholder="Affiliation E-mail"
-            value={affiliationEmailInput}
-          />
-        </div>
-        <div className={styles.caution}>{`* Used to verify identity. It will not be shared or
-        displayed.`}</div>
-        <div className={styles.commentInputWrapper}>
-          <textarea
-            onChange={e => {
-              changeSignBoxCommentInput(e.currentTarget.value);
-            }}
-            className={`form-control ${styles.inputBox}`}
-            placeholder="Additional comment (Option)"
-            value={commentInput}
-          />
-        </div>
-        <div className={styles.checkBoxContainer}>
-          <div
-            onClick={toggleSendEmailCheckBox}
-            className={sendEmailChecked ? styles.checkBox : `${styles.checkBox} ${styles.unChecked}`}
-          />
-          <span className={styles.checkBoxContent}>Send me email updates about the project (Option)</span>
-        </div>
-        {this.getSubmitButton()}
-      </form>
-    );
   }
 
   private getSubmitButton = () => {
