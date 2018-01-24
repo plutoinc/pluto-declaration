@@ -26,6 +26,14 @@ export default class EnvChecker {
     return false;
   }
 
+  public static getHost(): string {
+    if (EnvChecker.isDev() || EnvChecker.isStage()) {
+      return "https://join-stage.pluto.network";
+    } else {
+      return "https://join.pluto.network";
+    }
+  }
+
   public static getLambdaHost(): string {
     if (EnvChecker.isDev() || EnvChecker.isStage()) {
       return "https://pd95c40pz6.execute-api.us-east-1.amazonaws.com/stage";

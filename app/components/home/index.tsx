@@ -10,6 +10,7 @@ import SignBox from "./components/signBox";
 import EnvChecker from "../../helpers/envChecker";
 import { IUsersRecord } from "../../reducers/users";
 import { trackAndOpenLink } from "../../helpers/handleGA";
+import { loadTwitterApi, loadFacebookApi } from "../../helpers/loadSocialApi";
 
 const styles = require("./home.scss");
 
@@ -31,37 +32,76 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
   public componentDidMount() {
     if (!EnvChecker.isServer()) {
-      // START LOAD TWITTER API
-      (window as any).twttr = (function(d, s, id) {
-        var js: any,
-          fjs = d.getElementsByTagName(s)[0],
-          t = (window as any).twttr || {};
-        if (d.getElementById(id)) return t;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://platform.twitter.com/widgets.js";
-        fjs.parentNode.insertBefore(js, fjs);
-
-        t._e = [];
-        t.ready = function(f: any) {
-          t._e.push(f);
-        };
-
-        return t;
-      })(document, "script", "twitter-wjs");
-      // END LOAD TWITTER API
-      // START LOAD FACEBOOK API
-      (window as any).facebook = (function(d, s, id) {
-        var js: any,
-          fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
-        fjs.parentNode.insertBefore(js, fjs);
-      })(document, "script", "facebook-jssdk");
-      // END LOAD FACEBOOK API
+      loadTwitterApi();
+      loadFacebookApi();
     }
+  }
+
+  public render() {
+    const {
+      signListSearchQuery,
+      nameInput,
+      affiliationInput,
+      affiliationEmailInput,
+      commentInput,
+      userListIsLoading,
+      userListIsEnd,
+      userListPage,
+      userListSort,
+      isLoading,
+      usersCount,
+      alreadySigned,
+      sendEmailChecked,
+      formInputErrorCheck,
+      isReadMoreBoxToggled,
+    } = this.props.homeState;
+    const { users } = this.props;
+
+    return (
+      <div className={styles.homeContainer}>
+        <canvas
+          ref={ele => {
+            this.drawingCanvas = ele;
+          }}
+          style={{ display: "none" }}
+        />
+        <Declaration isReadMoreBoxToggled={isReadMoreBoxToggled} toggleReadMoreBox={this.toggleReadMoreBox} />
+        <div className={styles.signContainer}>
+          <SignList
+            changeSignListSearchQuery={this.changeSignListSearchQuery}
+            signListSearchQuery={signListSearchQuery}
+            users={users}
+            page={userListPage}
+            isLoading={userListIsLoading}
+            isEnd={userListIsEnd}
+            sort={userListSort}
+            fetchData={this.fetchData}
+            usersCount={usersCount}
+            fetchUserCount={this.fetchUserCount}
+          />
+          <SignBox
+            nameInput={nameInput}
+            changeSignBoxNameInput={this.changeSignBoxNameInput}
+            checkValidSignBoxNameInput={this.checkValidSignBoxNameInput}
+            affiliationInput={affiliationInput}
+            changeSignBoxAffiliation={this.changeSignBoxAffiliation}
+            checkValidSignBoxAffiliation={this.checkValidSignBoxAffiliation}
+            affiliationEmailInput={affiliationEmailInput}
+            changeSignBoxAffiliationEmail={this.changeSignBoxAffiliationEmail}
+            checkValidSignBoxAffiliationEmail={this.checkValidSignBoxAffiliationEmail}
+            commentInput={commentInput}
+            changeSignBoxCommentInput={this.changeSignBoxCommentInput}
+            handleSubmitSignForm={this.handleSubmitSignForm}
+            isLoading={isLoading}
+            alreadySigned={alreadySigned}
+            sendEmailChecked={sendEmailChecked}
+            toggleSendEmailCheckBox={this.toggleSendEmailCheckBox}
+            formInputErrorCheck={formInputErrorCheck}
+            shareTwitterWithComposedImage={this.shareTwitterWithComposedImage}
+          />
+        </div>
+      </div>
+    );
   }
 
   private changeSignListSearchQuery = (searchQuery: string) => {
@@ -178,7 +218,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       console.error(err);
     }
 
-    const plutoUrlWithImage = encodeURIComponent(`https://join.pluto.network/userImage/${fileName}`);
+    const plutoUrlWithImage = encodeURIComponent(`${EnvChecker.getHost()}/userImage/${fileName}`);
 
     trackAndOpenLink(
       `https://twitter.com/intent/tweet?text=${commentInput}&url=${plutoUrlWithImage}&hashtags=FutureOfScholComm`,
@@ -210,73 +250,6 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
       }
     });
   };
-
-  public render() {
-    const {
-      signListSearchQuery,
-      nameInput,
-      affiliationInput,
-      affiliationEmailInput,
-      commentInput,
-      userListIsLoading,
-      userListIsEnd,
-      userListPage,
-      userListSort,
-      isLoading,
-      usersCount,
-      alreadySigned,
-      sendEmailChecked,
-      formInputErrorCheck,
-      isReadMoreBoxToggled,
-    } = this.props.homeState;
-    const { users } = this.props;
-
-    return (
-      <div className={styles.homeContainer}>
-        <canvas
-          ref={ele => {
-            this.drawingCanvas = ele;
-          }}
-          style={{ display: "none" }}
-        />
-        <Declaration isReadMoreBoxToggled={isReadMoreBoxToggled} toggleReadMoreBox={this.toggleReadMoreBox} />
-        <div className={styles.signContainer}>
-          <SignList
-            changeSignListSearchQuery={this.changeSignListSearchQuery}
-            signListSearchQuery={signListSearchQuery}
-            users={users}
-            page={userListPage}
-            isLoading={userListIsLoading}
-            isEnd={userListIsEnd}
-            sort={userListSort}
-            fetchData={this.fetchData}
-            usersCount={usersCount}
-            fetchUserCount={this.fetchUserCount}
-          />
-          <SignBox
-            nameInput={nameInput}
-            changeSignBoxNameInput={this.changeSignBoxNameInput}
-            checkValidSignBoxNameInput={this.checkValidSignBoxNameInput}
-            affiliationInput={affiliationInput}
-            changeSignBoxAffiliation={this.changeSignBoxAffiliation}
-            checkValidSignBoxAffiliation={this.checkValidSignBoxAffiliation}
-            affiliationEmailInput={affiliationEmailInput}
-            changeSignBoxAffiliationEmail={this.changeSignBoxAffiliationEmail}
-            checkValidSignBoxAffiliationEmail={this.checkValidSignBoxAffiliationEmail}
-            commentInput={commentInput}
-            changeSignBoxCommentInput={this.changeSignBoxCommentInput}
-            handleSubmitSignForm={this.handleSubmitSignForm}
-            isLoading={isLoading}
-            alreadySigned={alreadySigned}
-            sendEmailChecked={sendEmailChecked}
-            toggleSendEmailCheckBox={this.toggleSendEmailCheckBox}
-            formInputErrorCheck={formInputErrorCheck}
-            shareTwitterWithComposedImage={this.shareTwitterWithComposedImage}
-          />
-        </div>
-      </div>
-    );
-  }
 }
 
 export default connect(mapStateToProps)(HomeComponent);
