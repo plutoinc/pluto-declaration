@@ -263,12 +263,10 @@ export function subscribeEmail(email: string) {
     // e-mail validation by regular expression
     const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const isValidEmail = reg.test(email) && email !== "" && email.length > 0;
-
+    const mailingMicroServiceHost = "https://gesqspxc8i.execute-api.us-east-1.amazonaws.com";
     if (isValidEmail) {
       try {
-        await axios.post(
-          `https://gesqspxc8i.execute-api.us-east-1.amazonaws.com/prod/subscribeMailingList?email=${email}`,
-        );
+        await axios.post(`${mailingMicroServiceHost}/prod/subscribeMailingList?email=${email}`);
         alert("You are on the subscribe list now");
         dispatch({
           type: ACTION_TYPES.SIGN_BOX_SUCCEEDED_TO_SUBSCRIBE_EMAIL,
@@ -329,10 +327,7 @@ export function toggleReadMoreBox() {
 export function uploadImage({ imageDataURL }: IUploadImageParams) {
   return async (dispatch: Dispatch<any>) => {
     try {
-      const fileName = await axios.post(
-        "https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage",
-        imageDataURL,
-      );
+      const fileName = await axios.post(`${EnvChecker.getLambdaHost()}/uploadImage`, imageDataURL);
 
       return fileName.data;
     } catch (err) {

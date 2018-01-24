@@ -59,12 +59,6 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
 
     return (
       <div className={styles.homeContainer}>
-        <canvas
-          ref={ele => {
-            this.drawingCanvas = ele;
-          }}
-          style={{ display: "none" }}
-        />
         <Declaration isReadMoreBoxToggled={isReadMoreBoxToggled} toggleReadMoreBox={this.toggleReadMoreBox} />
         <div className={styles.signContainer}>
           <SignList
@@ -100,6 +94,12 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
             shareTwitterWithComposedImage={this.shareTwitterWithComposedImage}
           />
         </div>
+        <canvas
+          ref={ele => {
+            this.drawingCanvas = ele;
+          }}
+          style={{ display: "none" }}
+        />
       </div>
     );
   }
@@ -152,8 +152,7 @@ class HomeComponent extends React.PureComponent<IHomeComponentProps, {}> {
     dispatch(Actions.changeSignBoxCommentInput(comment));
   };
 
-  private handleSubmitSignForm = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  private handleSubmitSignForm = async () => {
     const { dispatch } = this.props;
     const { nameInput, affiliationInput, affiliationEmailInput, commentInput, sendEmailChecked } = this.props.homeState;
 

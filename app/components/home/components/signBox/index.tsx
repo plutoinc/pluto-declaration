@@ -5,6 +5,7 @@ import Icon from "../../../../icons";
 import CircularProgress from "material-ui/CircularProgress";
 import { ISignBoxFormInputErrorCheckRecord } from "../../records";
 import { trackAndOpenLink } from "../../../../helpers/handleGA";
+import { PLUTO_DECLARATION_ASSET_S3 } from "../../../../server";
 
 const styles = require("./signBox.scss");
 
@@ -22,7 +23,7 @@ interface ISignBoxComponentProps {
   checkValidSignBoxAffiliationEmail: () => void;
   commentInput: string;
   changeSignBoxCommentInput: (comment: string) => void;
-  handleSubmitSignForm: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleSubmitSignForm: () => void;
   sendEmailChecked: boolean;
   toggleSendEmailCheckBox: () => void;
   formInputErrorCheck: ISignBoxFormInputErrorCheckRecord;
@@ -31,31 +32,6 @@ interface ISignBoxComponentProps {
 
 @withStyles<typeof SignBanner>(styles)
 export default class SignBanner extends React.PureComponent<ISignBoxComponentProps, {}> {
-  private getSubmitButton = () => {
-    const { isLoading } = this.props;
-
-    if (isLoading) {
-      return (
-        <div className={`${styles.submitButton} ${styles.loadingSubmitButton}`}>
-          <CircularProgress
-            style={{ display: "flex", position: "absolute", left: "21px", top: "17px" }}
-            innerStyle={{ display: "flex" }}
-            size={13.5}
-            thickness={2}
-            color="#656d7c"
-          />
-          Sign
-        </div>
-      );
-    } else {
-      return (
-        <button type="submit" className={styles.submitButton}>
-          Sign
-        </button>
-      );
-    }
-  };
-
   public render() {
     const {
       nameInput,
@@ -94,7 +70,7 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
           </div>
           <div className={styles.fakeTwitterBox}>
             <div className={styles.userInformation}>
-              <img className={styles.userImg} src="https://d103giazgvc1eu.cloudfront.net/user-photo@2x.jpg" />
+              <img className={styles.userImg} src={`${PLUTO_DECLARATION_ASSET_S3}/user-photo@2x.jpg`} />
               <span className={styles.usernameBox}>
                 <div className={styles.username}>{nameInput}</div>
                 <div className={styles.affiliation}>{`@${affiliationInput}`}</div>
@@ -105,7 +81,7 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
               dolore magna aliqua.
             </div>
             <div className={styles.createdAt}>{moment(date).format("LT - MMM Do YYYY")}</div>
-            <img className={styles.fakeActionButton} src="https://d103giazgvc1eu.cloudfront.net/footer-icons@2x.png" />
+            <img className={styles.fakeActionButton} src={`${PLUTO_DECLARATION_ASSET_S3}/footer-icons@2x.png`} />
           </div>
           <a className={styles.twitButton} onClick={shareTwitterWithComposedImage}>
             Share with Twitter
@@ -115,7 +91,13 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
     }
 
     return (
-      <form onSubmit={handleSubmitSignForm} className={styles.signBoxContainer}>
+      <form
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+          handleSubmitSignForm();
+        }}
+        className={styles.signBoxContainer}
+      >
         <div className={styles.title}>Add your name to the list!</div>
         <div
           className={
@@ -195,4 +177,29 @@ export default class SignBanner extends React.PureComponent<ISignBoxComponentPro
       </form>
     );
   }
+
+  private getSubmitButton = () => {
+    const { isLoading } = this.props;
+
+    if (isLoading) {
+      return (
+        <div className={`${styles.submitButton} ${styles.loadingSubmitButton}`}>
+          <CircularProgress
+            style={{ display: "flex", position: "absolute", left: "21px", top: "17px" }}
+            innerStyle={{ display: "flex" }}
+            size={13.5}
+            thickness={2}
+            color="#656d7c"
+          />
+          Sign
+        </div>
+      );
+    } else {
+      return (
+        <button type="submit" className={styles.submitButton}>
+          Sign
+        </button>
+      );
+    }
+  };
 }

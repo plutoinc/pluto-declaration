@@ -3,6 +3,7 @@ import * as React from "react";
 import { withStyles } from "../../../../helpers/withStylesHelper";
 import Icon from "../../../../icons";
 import { trackAndOpenLink } from "../../../../helpers/handleGA";
+import EnvChecker from "../../../../helpers/envChecker";
 const styles = require("./declaration.scss");
 
 const shave = require("shave").default;
@@ -28,7 +29,6 @@ export default class Declaration extends React.PureComponent<IDeclarationCompone
 
   public render() {
     const { isReadMoreBoxToggled, toggleReadMoreBox } = this.props;
-    const plutoUrl = encodeURIComponent("https://join.pluto.network");
     const originalLowerContent = `1. They charge exorbitantly high prices for subscriptions to individual journals.
     2. In the light of these high prices, the only realistic option for many libraries is to agree to buy very large "bundles", which will include many journals that those libraries do not actually want. Elsevier thus makes huge profits by exploiting the fact that some of their journals are essential.
     3. They support measures such as SOPA, PIPAand the Research Works Act, that aim to restrict the free exchange of information.
@@ -50,7 +50,10 @@ export default class Declaration extends React.PureComponent<IDeclarationCompone
               <Icon className={styles.shareIcon} icon="SHARE" />
               <a
                 onClick={() => {
-                  trackAndOpenLink(`https://www.facebook.com/sharer/sharer.php?u=${plutoUrl}`, "declarationRightBox");
+                  trackAndOpenLink(
+                    `https://www.facebook.com/sharer/sharer.php?u=${EnvChecker.getHost()}`,
+                    "declarationRightBox",
+                  );
                 }}
                 data-mobile-iframe="true"
               >
@@ -59,7 +62,7 @@ export default class Declaration extends React.PureComponent<IDeclarationCompone
               <a
                 onClick={() => {
                   trackAndOpenLink(
-                    `https://twitter.com/intent/tweet?url=${plutoUrl}&hashtags=FutureOfScholComm`,
+                    `https://twitter.com/intent/tweet?url=${EnvChecker.getHost()}&hashtags=FutureOfScholComm`,
                     "declarationRightBox",
                   );
                 }}
