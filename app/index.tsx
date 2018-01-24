@@ -7,9 +7,10 @@ import { Provider } from "react-redux";
 import * as ReactRouterRedux from "react-router-redux";
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import * as ReactGA from "react-ga";
 // server
 import { serverSideRender, handler as lambdaHandler } from "./server";
-// redux middlewares
 // helpers
 import EnvChecker from "./helpers/envChecker";
 import CssInjector from "./helpers/cssInjector";
@@ -17,8 +18,6 @@ import CssInjector from "./helpers/cssInjector";
 import { rootReducer, initialState, IAppState } from "./reducers";
 // routes
 import { RootRoutes } from "./routes";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import * as ReactGA from "react-ga";
 
 let history: History;
 if (EnvChecker.isServer()) {
@@ -79,11 +78,18 @@ export const appStore = store;
 
 // Browser Side Rendering to develop React Web-app
 if (!EnvChecker.isServer()) {
-  // initialize GA
-  if (!EnvChecker.isDev()) {
-    ReactGA.initialize("UA-109824701-1");
-    ReactGA.set({ page: window.location.pathname + window.location.search });
+  let reactGATraceCode;
+  if (EnvChecker.isDev() || EnvChecker.isStage()) {
+    reactGATraceCode = "UA-109824701-2";
+    ReactGA.initialize(reactGATraceCode, {
+      debug: true,
+    });
+  } else {
+    reactGATraceCode = "UA-109824701-1";
+    ReactGA.initialize(reactGATraceCode);
   }
+  ReactGA.set({ page: window.location.pathname + window.location.search });
+
   ReactDom.render(
     <CssInjector>
       <Provider store={store}>

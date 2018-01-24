@@ -19,6 +19,9 @@ import * as fs from "fs";
 import * as DeployConfig from "../scripts/builds/config";
 import { rootReducer, initialState, IAppState } from "./reducers";
 
+export const PLUTO_DECLARATION_S3 = "https://d3iirp31ltkomk.cloudfront.net";
+export const PLUTO_DECLARATION_ASSET_S3 = "https://d103giazgvc1eu.cloudfront.net";
+
 export async function serverSideRender(requestUrl: string, scriptPath: string, imageUrl?: string) {
   let stringifiedInitialReduxState: string;
 
@@ -79,14 +82,14 @@ export async function handler(event: LambdaProxy.Event, context: LambdaProxy.Con
     const version = fs.readFileSync("./version");
     let response;
     const requestPath = "/";
-    const bundledJsForBrowserPath = `https://d3iirp31ltkomk.cloudfront.net/${
+    const bundledJsForBrowserPath = `${PLUTO_DECLARATION_S3}/${
       DeployConfig.AWS_S3_FOLDER_PREFIX
     }/${version}/bundleBrowser.js`;
 
     try {
       if (path.includes(`/${LAMBDA_SERVICE_NAME}/userImage`)) {
         const userImageId = path.replace(`/${LAMBDA_SERVICE_NAME}/userImage/`, "");
-        const userImageAssetUrl = "https://d103giazgvc1eu.cloudfront.net/userImage";
+        const userImageAssetUrl = `${PLUTO_DECLARATION_ASSET_S3}/userImage`;
         const imageUrl = `${userImageAssetUrl}/${userImageId}`;
         response = await serverSideRender(requestPath, bundledJsForBrowserPath, imageUrl);
       } else {

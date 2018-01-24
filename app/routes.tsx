@@ -1,13 +1,11 @@
 import * as React from "react";
 import { Store } from "redux";
 import { Route, Switch } from "react-router-dom";
-// containers
-import HomeComponent from "./components/home";
 import { IAppState } from "./reducers";
 import "normalize.css";
-import Header from "./components/layouts/header";
-import { Footer } from "./components/layouts/index";
+import { Header, Footer } from "./components/layouts";
 import { withStyles } from "./helpers/withStylesHelper";
+import HomeComponent from "./components/home";
 
 const styles = require("./root.scss");
 interface IServerRoutesMap {

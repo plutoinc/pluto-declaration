@@ -1,4 +1,5 @@
 import * as React from "react";
+import { PLUTO_DECLARATION_ASSET_S3 } from "../server";
 const styles = require("./icons.scss");
 
 interface IIconProps extends React.SVGAttributes<SVGElement> {
@@ -27,9 +28,7 @@ class Icon extends React.PureComponent<IIconProps, {}> {
     if (!imgSrc) {
       return <i className={className}>{imgSrc}</i>;
     } else if (typeof imgSrc === "string") {
-      return (
-        <img className={className} src={`https://d103giazgvc1eu.cloudfront.net/${imgSrc}`} alt={this.props.icon} />
-      );
+      return <img className={className} src={`${PLUTO_DECLARATION_ASSET_S3}/${imgSrc}`} alt={this.props.icon} />;
     } else {
       const icon = `
       <svg viewBox="${imgSrc.viewBox}">

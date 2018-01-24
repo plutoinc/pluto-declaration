@@ -3,6 +3,7 @@ import * as moment from "moment";
 import { ACTION_TYPES } from "../../actions/actionTypes";
 import { Dispatch } from "react-redux";
 import EnvChecker from "../../helpers/envChecker";
+import validateEmail from "../../helpers/validateEmail";
 
 interface IPostSignUserParams {
   name: string;
@@ -94,11 +95,9 @@ export function changeSignBoxAffiliationEmail(affiliationEmail: string) {
 }
 
 export function checkValidSignBoxAffiliationEmail(affiliationEmail: string) {
-  // e-mail empty check && e-mail validation by regular expression
-  const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const isValidEmail = reg.test(affiliationEmail) && affiliationEmail !== "" && affiliationEmail.length > 0;
+  const isInValidEmail = !validateEmail(affiliationEmail);
 
-  if (!isValidEmail) {
+  if (isInValidEmail) {
     return {
       type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
       payload: {
@@ -154,11 +153,7 @@ export function postSignUser({
       type: ACTION_TYPES.SIGN_LIST_START_TO_POST_USERS,
     });
 
-    // Validating
-    let hasFormError: boolean = false;
-    // name check
     const isNameTooShort = name.length < 1;
-
     if (isNameTooShort) {
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
@@ -166,7 +161,6 @@ export function postSignUser({
           type: "nameInput",
         },
       });
-      hasFormError = true;
     } else {
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
@@ -175,9 +169,8 @@ export function postSignUser({
         },
       });
     }
-    // affiliation check
-    const isAffiliationTooShort = affiliation.length < 1;
 
+    const isAffiliationTooShort = affiliation.length < 1;
     if (isAffiliationTooShort) {
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
@@ -185,7 +178,6 @@ export function postSignUser({
           type: "affiliationInput",
         },
       });
-      hasFormError = true;
     } else {
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
@@ -194,18 +186,16 @@ export function postSignUser({
         },
       });
     }
-    // e-mail empty check && e-mail validation by regular expression
-    const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const isValidEmail = reg.test(email) && email !== "" && email.length > 0;
 
-    if (!isValidEmail) {
+    const isInValidEmail: boolean = !validateEmail(email);
+
+    if (isInValidEmail) {
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_FORM_ERROR,
         payload: {
           type: "affiliationEmailInput",
         },
       });
-      hasFormError = true;
     } else {
       dispatch({
         type: ACTION_TYPES.SIGN_BOX_REMOVE_FORM_ERROR,
@@ -215,6 +205,7 @@ export function postSignUser({
       });
     }
 
+    const hasFormError = isNameTooShort || isAffiliationTooShort || isInValidEmail;
     if (hasFormError) {
       dispatch({
         type: ACTION_TYPES.SIGN_LIST_FAILED_TO_POST_USERS,
@@ -260,15 +251,12 @@ export function subscribeEmail(email: string) {
     dispatch({
       type: ACTION_TYPES.SIGN_BOX_START_TO_SUBSCRIBE_EMAIL,
     });
-    // e-mail validation by regular expression
-    const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const isValidEmail = reg.test(email) && email !== "" && email.length > 0;
+    const mailingMicroServiceHost = "https://gesqspxc8i.execute-api.us-east-1.amazonaws.com";
+    const isValidEmail: boolean = validateEmail(email);
 
     if (isValidEmail) {
       try {
-        await axios.post(
-          `https://gesqspxc8i.execute-api.us-east-1.amazonaws.com/prod/subscribeMailingList?email=${email}`,
-        );
+        await axios.post(`${mailingMicroServiceHost}/prod/subscribeMailingList?email=${email}`);
         alert("You are on the subscribe list now");
         dispatch({
           type: ACTION_TYPES.SIGN_BOX_SUCCEEDED_TO_SUBSCRIBE_EMAIL,
@@ -293,10 +281,9 @@ export function fetchUsersData(page: number) {
       dispatch({
         type: ACTION_TYPES.SIGN_LIST_START_TO_FETCH_USERS,
       });
-
       const result = await axios.get(`${EnvChecker.getLambdaHost()}/getUsers?page=${page}`);
-
       const userList = result.data;
+
       if (!result.data || result.data.length === 0) {
         dispatch({ type: ACTION_TYPES.SIGN_LIST_END_TO_FETCH_USERS });
       } else {
@@ -329,10 +316,7 @@ export function toggleReadMoreBox() {
 export function uploadImage({ imageDataURL }: IUploadImageParams) {
   return async (dispatch: Dispatch<any>) => {
     try {
-      const fileName = await axios.post(
-        "https://uunwh2xzgg.execute-api.us-east-1.amazonaws.com/production/uploadImage",
-        imageDataURL,
-      );
+      const fileName = await axios.post(`${EnvChecker.getLambdaHost()}/uploadImage`, imageDataURL);
 
       return fileName.data;
     } catch (err) {

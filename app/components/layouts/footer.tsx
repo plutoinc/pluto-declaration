@@ -15,24 +15,30 @@ export default class Footer extends React.PureComponent<IFooterComponentProps, {
           <span className={styles.title}>© 2017 Pluto Nerwork. All rights reserved</span>
           <div className={styles.rightBox}>
             <a
+              href="https://pluto.network"
+              target="_blank"
               onClick={() => {
-                trackAndOpenLink("https://pluto.network", "footer");
+                trackAndOpenLink("footerHomePage");
               }}
               className={styles.rightBoxItem}
             >
               Home page
             </a>
             <a
+              href="mailto:team@pluto.network"
+              target="_blank"
               onClick={() => {
-                trackAndOpenLink("mailto:team@pluto.network", "footer");
+                trackAndOpenLink("footerContactUs");
               }}
               className={styles.rightBoxItem}
             >
               Contact us
             </a>
             <a
+              href="https://medium.com/pluto-network"
+              target="_blank"
               onClick={() => {
-                trackAndOpenLink("https://medium.com/pluto-network", "footer");
+                trackAndOpenLink("footerBlog");
               }}
               className={styles.rightBoxItem}
             >
